@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>AnshuRajhans 🌶️🌾</title>
+  <!-- PWA primary meta -->
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AnshuRajhans">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23f5f5f7'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%23333'%3E🌶️%3C/text%3E%3C/svg%3E">
+  <!-- Inline Manifest (data URI) -->
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22AnshuRajhans%20%F0%9F%8C%B6%F0%9F%8C%BE%22%2C%22short_name%22%3A%22AnshuList%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23ffffff%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23f5f5f7'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%23333'%3E🌶️%3C/text%3E%3C/svg%3E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/svg+xml%22%7D%5D%7D">
+  <!-- Google Font + Icons + SweetAlert2 + Animate.css (lightweight) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    /* -------------------- RESET & GLOBAL -------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    body {
+      background-color: #f2f2f6; /* base for ultra white mode (slight gray for contrast) */
+      color: #1c1c1e;
+      line-height: 1.4;
+      transition: background-color 0.3s ease, color 0.2s ease;
+      min-height: 100vh;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+    /* ----- SUPER WHITE MODE (light) ----- */
+    body.light {
+      background-color: #ffffff;
+      color: #181818;
+    }
+    body.light .card,
+    body.light .drawer,
+    body.light .category-tab,
+    body.light .input-group {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(224, 224, 230, 0.6);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.03);
+    }
+    /* ----- AMOLED DARK MODE ----- */
+    body.dark {
+      background-color: #000000;
+      color: #f0f0f0;
+    }
+    body.dark .card,
+    body.dark .drawer,
+    body.dark .category-tab,
+    body.dark .input-group {
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(60, 60, 70, 0.5);
+      box-shadow: 0 8px 24px rgba(0,255,0,0.03);
+    }
+    body.dark .category-tab.active {
+      background: rgba(30,30,34,0.9);
+      border-bottom: 2px solid #5e5ce6;
+    }
+    body.dark .finish-btn {
+      background: #1c1c1e;
+      border: 1px solid #2c2c2e;
+      color: #5e5ce6;
+    }
+    /* -------------------- LAYOUT -------------------- */
+    #app {
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 16px 20px 30px;
+      position: relative;
+    }
+    /* ----- HEADER ----- */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .hamburger {
+      font-size: 28px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 30px;
+      background: transparent;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s;
+    }
+    .hamburger:hover { background: rgba(128,128,128,0.1); }
+    .hamburger i { transition: transform 0.3s ease; }
+    .hamburger.open i { transform: rotate(90deg); }
+    .app-title {
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      background: linear-gradient(145deg, #2b2b2f, #111);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.3s;
+    }
+    body.dark .app-title {
+      background: linear-gradient(145deg, #eaeaea, #aaa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 26px;
+      width: 44px;
+      height: 44px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: inherit;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .theme-toggle:active { transform: scale(0.9); }
+    /* ----- DRAWER (slide) ----- */
+    .drawer-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.2);
+      backdrop-filter: blur(4px);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s ease;
+    }
+    .drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .drawer {
+      position: fixed;
+      top: 0; left: -300px;
+      width: 270px;
+      height: 100%;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      z-index: 999;
+      padding: 32px 20px;
+      box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+      transition: left 0.3s cubic-bezier(0.2, 0.9, 0.1, 1);
+      border-top-right-radius: 28px;
+      border-bottom-right-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .drawer.active { left: 0; }
+    .drawer-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 20px;
+      font-weight: 450;
+      padding: 14px 18px;
+      border-radius: 20px;
+      background: transparent;
+      border: none;
+      color: inherit;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .drawer-item:hover { background: rgba(128,128,128,0.1); }
+    .drawer-item i { width: 28px; font-size: 24px; }
+    /* ----- CATEGORY TABS ----- */
+    .tabs {
+      display: flex;
+      gap: 12px;
+      margin: 24px 0 20px;
+    }
+    .category-tab {
+      flex: 1;
+      text-align: center;
+      padding: 14px 8px;
+      border-radius: 30px;
+      font-weight: 550;
+      font-size: 18px;
+      background: rgba(240,240,245,0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(210,210,220,0.4);
+      cursor: pointer;
+      transition: all 0.2s;
+      color: inherit;
+    }
+    .category-tab.active {
+      background: #ffffff;
+      border-bottom: 2px solid #007aff;
+      box-shadow: 0 4px 14px rgba(0,122,255,0.15);
+    }
+    body.dark .category-tab.active { background: #1c1c1e; border-bottom-color: #5e5ce6; }
+    /* ----- INPUT GROUP ----- */
+    .input-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 6px 6px 20px;
+      border-radius: 48px;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(16px);
+      margin: 16px 0 32px;
+      border: 1px solid rgba(200,200,215,0.4);
+    }
+    .input-group input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 16px 0;
+      font-size: 18px;
+      outline: none;
+      color: inherit;
+    }
+    .input-group input::placeholder { color: #8e8e93; }
+    .add-btn {
+      background: #007aff;
+      border: none;
+      width: 56px;
+      height: 56px;
+      border-radius: 40px;
+      color: white;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 6px 14px rgba(0,122,255,0.25);
+    }
+    .add-btn:active { transform: scale(0.92); }
+    /* ----- LISTS (cards) ----- */
+    .category-section {
+      margin-bottom: 36px;
+    }
+    .category-head {
+      font-size: 22px;
+      font-weight: 540;
+      margin-bottom: 12px;
+      padding-left: 8px;
+      letter-spacing: -0.3px;
+    }
+    .item-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(12px);
+      padding: 16px 20px;
+      border-radius: 24px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(220,220,230,0.5);
+      transition: all 0.2s;
+      animation: fadeInUp 0.25s ease;
+    }
+    body.dark .item-card {
+      background: rgba(20,20,22,0.6);
+      border-color: #2c2c2e;
+    }
+    .item-card .item-name {
+      flex: 1;
+      font-size: 18px;
+      font-weight: 460;
+    }
+    .item-card .item-name.purchased {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+    .item-card input[type="checkbox"] {
+      width: 26px;
+      height: 26px;
+      border-radius: 30px;
+      border: 2px solid #c6c6c8;
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+    .item-card input[type="checkbox"]:checked {
+      background: #007aff;
+      border-color: #007aff;
+      transform: scale(1.05);
+    }
+    .item-card input[type="checkbox"]:checked::after {
+      content: "\f00c";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 14px;
+      color: white;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    /* ----- FINISH BUTTON (floating) ----- */
+    .finish-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffffff;
+      border: 1px solid #e0e0e5;
+      padding: 18px 40px;
+      border-radius: 60px;
+      font-size: 22px;
+      font-weight: 560;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      backdrop-filter: blur(20px);
+      color: #007aff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s;
+      z-index: 900;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .finish-btn.visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      animation: glowPulse 2s infinite;
+    }
+    @keyframes glowPulse { 0% { box-shadow: 0 8px 20px rgba(0,122,255,0.2); } 50% { box-shadow: 0 12px 36px rgba(0,122,255,0.5); } 100% { box-shadow: 0 8px 20px rgba(0,122,255,0.2); } }
+    /* ----- PAGES (home/history/settings) ----- */
+    .page { display: none; animation: fade 0.25s ease; }
+    .page.active { display: block; }
+    @keyframes fade { from { opacity: 0.2; } to { opacity: 1; } }
+    /* history cards */
+    .history-item {
+      background: rgba(250,250,252,0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(200,200,215,0.4);
+    }
+    body.dark .history-item { background: rgba(25,25,28,0.7); }
+    .history-info { font-size: 16px; }
+    .history-info strong { font-size: 18px; }
+    .history-actions button {
+      background: none;
+      border: none;
+      font-size: 22px;
+      margin: 0 6px;
+      color: inherit;
+      cursor: pointer;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      opacity: 0.7;
+      font-size: 18px;
+    }
+    /* settings */
+    .settings-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: rgba(240,240,245,0.4);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      margin-bottom: 16px;
+    }
+    .btn {
+      padding: 12px 22px;
+      border-radius: 40px;
+      border: 1px solid rgba(128,128,128,0.3);
+      background: transparent;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn.danger { background: #ff3b30; color: white; border: none; }
+    /* utility */
+    .small-note { font-size: 14px; opacity: 0.7; margin-top: 8px; }
+  </style>
+</head>
+<body class="light">
+  <div id="app">
+    <!-- header with hamburger, title, theme toggle -->
+    <div class="header">
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+      <span class="app-title">AnshuRajhans 🌶️🌾</span>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
+    </div>
+
+    <!-- drawer overlay + drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="drawer">
+      <button class="drawer-item" data-page="home"><i class="fas fa-home"></i> Home</button>
+      <button class="drawer-item" data-page="history"><i class="fas fa-clock"></i> History</button>
+      <button class="drawer-item" data-page="settings"><i class="fas fa-cog"></i> Settings</button>
+    </div>
+
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page active">
+      <!-- category tabs -->
+      <div class="tabs">
+        <div class="category-tab active" data-category="vegetable">Vegetable 🌱</div>
+        <div class="category-tab" data-category="general">General 📦</div>
+      </div>
+      <!-- input row -->
+      <div class="input-group">
+        <input type="text" id="itemInput" placeholder="Add item... e.g. Tomato" autocomplete="off">
+        <button class="add-btn" id="addItemBtn"><i class="fas fa-plus"></i></button>
+      </div>
+      <!-- dynamic lists -->
+      <div id="vegetableSection" class="category-section">
+        <div class="category-head">🥬 Vegetable</div>
+        <div id="vegetableList" class="list-container"></div>
+      </div>
+      <div id="generalSection" class="category-section">
+        <div class="category-head">🧺 General</div>
+        <div id="generalList" class="list-container"></div>
+      </div>
+      <!-- finish shopping -->
+      <button class="finish-btn" id="finishBtn"><i class="fas fa-check-circle"></i> Finish Shopping</button>
+    </div>
+
+    <!-- HISTORY PAGE -->
+    <div id="historyPage" class="page">
+      <h2 style="margin: 20px 0 20px; font-weight: 520;">Previous lists</h2>
+      <div id="historyList"></div>
+      <div id="historyEmpty" class="empty-state" style="display: none;">✨ No history yet. Finish a list!</div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div id="settingsPage" class="page">
+      <h2 style="margin: 20px 0 20px;">Settings</h2>
+      <div class="settings-item">
+        <span><i class="fas fa-moon"></i> Dark mode</span>
+        <button class="btn" id="settingsThemeToggle">Toggle</button>
+      </div>
+      <div class="settings-item">
+        <span><i class="fas fa-trash"></i> Clear history</span>
+        <button class="btn danger" id="clearHistoryBtn">Delete all</button>
+      </div>
+      <div class="settings-item">
+        <span><i class="fas fa-redo-alt"></i> Reset app</span>
+        <button class="btn danger" id="resetAppBtn">Reset</button>
+      </div>
+      <div class="settings-item" style="flex-direction: column; align-items: flex-start; gap: 12px;">
+        <span><i class="fas fa-info-circle"></i> Version 1.0.0</span>
+        <span><i class="fas fa-database"></i> Storage: <span id="storageUsage">0 KB</span></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ----- STATE & STORAGE KEYS -----
+      const STORAGE_CURRENT = 'anshu_current';
+      const STORAGE_HISTORY = 'anshu_history';
+      const STORAGE_THEME = 'anshu_theme';
+
+      // default empty structure
+      let currentList = { vegetable: [], general: [] };
+      let historyLists = [];
+      let activeCategory = 'vegetable'; // vegetable or general
+      let currentPage = 'home';
+
+      // ----- THEME MANAGEMENT -----
+      function loadTheme() {
+        const saved = localStorage.getItem(STORAGE_THEME) || 'light';
+        document.body.className = saved;
+        const icon = document.querySelector('#themeToggle i');
+        if (icon) {
+          icon.className = saved === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+        // update theme-color meta
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', saved === 'dark' ? '#000000' : '#ffffff');
+      }
+      function toggleTheme() {
+        const isDark = document.body.classList.contains('dark');
+        const newTheme = isDark ? 'light' : 'dark';
+        document.body.className = newTheme;
+        localStorage.setItem(STORAGE_THEME, newTheme);
+        const icon = document.querySelector('#themeToggle i');
+        icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', newTheme === 'dark' ? '#000000' : '#ffffff');
+      }
+
+      // ----- LOAD/SAVE LOCALSTORAGE -----
+      function loadFromStorage() {
+        const savedCurrent = localStorage.getItem(STORAGE_CURRENT);
+        if (savedCurrent) {
+          try { currentList = JSON.parse(savedCurrent); } catch { currentList = { vegetable: [], general: [] }; }
+        } else {
+          currentList = { vegetable: [], general: [] };
+        }
+        const savedHistory = localStorage.getItem(STORAGE_HISTORY);
+        if (savedHistory) {
+          try { historyLists = JSON.parse(savedHistory); } catch { historyLists = []; }
+        } else { historyLists = []; }
+      }
+      function saveCurrent() {
+        localStorage.setItem(STORAGE_CURRENT, JSON.stringify(currentList));
+        updateFinishButtonVisibility();
+      }
+      function saveHistory() {
+        localStorage.setItem(STORAGE_HISTORY, JSON.stringify(historyLists));
+      }
+
+      // ----- RENDER HOME (vegetable & general) -----
+      function renderHome() {
+        const vegContainer = document.getElementById('vegetableList');
+        const genContainer = document.getElementById('generalList');
+        if (!vegContainer || !genContainer) return;
+
+        vegContainer.innerHTML = '';
+        genContainer.innerHTML = '';
+
+        // Vegetable items
+        currentList.vegetable.forEach((item, index) => {
+          const card = createItemCard(item, 'vegetable', index);
+          vegContainer.appendChild(card);
+        });
+        // General items
+        currentList.general.forEach((item, index) => {
+          const card = createItemCard(item, 'general', index);
+          genContainer.appendChild(card);
+        });
+
+        updateFinishButtonVisibility();
+      }
+
+      function createItemCard(item, category, idx) {
+        const div = document.createElement('div');
+        div.className = 'item-card animate__animated animate__fadeInUp';
+        div.style.animationDuration = '0.2s';
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = item.purchased || false;
+        cb.setAttribute('aria-label', 'Mark purchased');
+        cb.addEventListener('change', (e) => {
+          item.purchased = e.target.checked;
+          saveCurrent();
+          renderHome(); // re-render to show strikethrough and checkbox state
+        });
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = `item-name ${item.purchased ? 'purchased' : ''}`;
+        nameSpan.textContent = item.name;
+
+        div.appendChild(cb);
+        div.appendChild(nameSpan);
+        return div;
+      }
+
+      // ----- helper: check all purchased -----
+      function allItemsPurchased() {
+        const vegAll = currentList.vegetable.every(i => i.purchased);
+        const genAll = currentList.general.every(i => i.purchased);
+        return (currentList.vegetable.length + currentList.general.length) > 0 && vegAll && genAll;
+      }
+
+      function updateFinishButtonVisibility() {
+        const finishBtn = document.getElementById('finishBtn');
+        if (allItemsPurchased()) {
+          finishBtn.classList.add('visible');
+        } else {
+          finishBtn.classList.remove('visible');
+        }
+      }
+
+      // ----- ADD ITEM -----
+      function addItem() {
+        const input = document.getElementById('itemInput');
+        const name = input.value.trim();
+        if (!name) {
+          Swal.fire({ title: 'Empty?', text: 'Please enter an item', icon: 'info', background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff', color: 'inherit' });
+          return;
+        }
+        const newItem = { id: Date.now() + Math.random(), name, purchased: false };
+        if (activeCategory === 'vegetable') {
+          currentList.vegetable.push(newItem);
+        } else {
+          currentList.general.push(newItem);
+        }
+        saveCurrent();
+        renderHome();
+        input.value = '';
+        input.focus();
+      }
+
+      // ----- FINISH SHOPPING -----
+      function finishShopping() {
+        if (!allItemsPurchased()) return;
+        // create history entry
+        const now = new Date();
+        const historyEntry = {
+          id: Date.now(),
+          date: now.toLocaleDateString(),
+          time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          vegetableItems: currentList.vegetable.map(i => ({ ...i })), // clone
+          generalItems: currentList.general.map(i => ({ ...i }))
+        };
+        historyLists.unshift(historyEntry);
+        saveHistory();
+        // clear current list
+        currentList = { vegetable: [], general: [] };
+        saveCurrent();
+        renderHome();
+
+        Swal.fire({
+          title: 'Done! 🛒',
+          text: 'List saved to history',
+          icon: 'success',
+          timer: 1800,
+          showConfirmButton: false,
+          background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff',
+          color: 'inherit'
+        });
+      }
+
+      // ----- RENDER HISTORY -----
+      function renderHistory() {
+        const container = document.getElementById('historyList');
+        const emptyDiv = document.getElementById('historyEmpty');
+        if (!container) return;
+        container.innerHTML = '';
+        if (historyLists.length === 0) {
+          emptyDiv.style.display = 'block';
+          return;
+        }
+        emptyDiv.style.display = 'none';
+        historyLists.forEach((entry, idx) => {
+          const card = document.createElement('div');
+          card.className = 'history-item';
+          const info = document.createElement('div');
+          info.className = 'history-info';
+          info.innerHTML = `<strong>${entry.date} ${entry.time}</strong><br>${entry.vegetableItems.length+entry.generalItems.length} items`;
+          const actions = document.createElement('div');
+          actions.className = 'history-actions';
+          const reloadBtn = document.createElement('button');
+          reloadBtn.innerHTML = '<i class="fas fa-redo-alt"></i>';
+          reloadBtn.setAttribute('aria-label', 'Reload list');
+          reloadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentList = {
+              vegetable: entry.vegetableItems.map(i => ({ ...i, purchased: false })),
+              general: entry.generalItems.map(i => ({ ...i, purchased: false }))
+            };
+            saveCurrent();
+            switchPage('home');
+            renderHome();
+          });
+          const delBtn = document.createElement('button');
+          delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+          delBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            Swal.fire({
+              title: 'Delete history?',
+              text: 'This cannot be undone',
+              icon: 'warning',
+              showCancelButton: true,
+              background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff',
+              color: 'inherit'
+            }).then(res => {
+              if (res.isConfirmed) {
+                historyLists.splice(idx, 1);
+                saveHistory();
+                renderHistory();
+              }
+            });
+          });
+          actions.appendChild(reloadBtn);
+          actions.appendChild(delBtn);
+          card.appendChild(info);
+          card.appendChild(actions);
+          container.appendChild(card);
+        });
+      }
+
+      // ----- SETTINGS RENDER & ACTIONS -----
+      function renderSettings() {
+        updateStorageUsage();
+      }
+      function updateStorageUsage() {
+        let total = 0;
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          const val = localStorage.getItem(key);
+          total += (key.length + (val ? val.length : 0)) * 2; // approx UTF-16
+        }
+        const kb = (total / 1024).toFixed(1);
+        document.getElementById('storageUsage').innerText = `${kb} KB`;
+      }
+
+      // clear history
+      function clearHistoryWithConfirm() {
+        Swal.fire({
+          title: 'Clear all history?',
+          text: 'This action is permanent',
+          icon: 'warning',
+          showCancelButton: true,
+          background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff'
+        }).then(r => {
+          if (r.isConfirmed) {
+            historyLists = [];
+            saveHistory();
+            renderHistory();
+            if (currentPage === 'history') renderHistory();
+            Swal.fire('Cleared', '', 'success');
+          }
+        });
+      }
+
+      // reset app
+      function resetApp() {
+        Swal.fire({
+          title: 'Reset everything?',
+          text: 'Current list and history will vanish',
+          icon: 'warning',
+          showCancelButton: true,
+          background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff'
+        }).then(r => {
+          if (r.isConfirmed) {
+            localStorage.clear();
+            loadFromStorage(); // reload defaults (empty)
+            saveCurrent(); saveHistory();
+            loadTheme(); // restore theme from storage (but we cleared, so default light)
+            document.body.className = 'light';
+            localStorage.setItem(STORAGE_THEME, 'light');
+            switchPage('home');
+            renderHome(); renderHistory(); renderSettings();
+          }
+        });
+      }
+
+      // ----- PAGE SWITCHING -----
+      function switchPage(page) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(`${page}Page`).classList.add('active');
+        currentPage = page;
+        if (page === 'home') renderHome();
+        if (page === 'history') renderHistory();
+        if (page === 'settings') renderSettings();
+        closeDrawer();
+      }
+
+      // drawer functions
+      const drawer = document.getElementById('drawer');
+      const overlay = document.getElementById('drawerOverlay');
+      const hamburger = document.getElementById('hamburgerBtn');
+      function openDrawer() {
+        drawer.classList.add('active');
+        overlay.classList.add('active');
+        hamburger.classList.add('open');
+      }
+      function closeDrawer() {
+        drawer.classList.remove('active');
+        overlay.classList.remove('active');
+        hamburger.classList.remove('open');
+      }
+
+      // ----- EVENT LISTENERS -----
+      document.addEventListener('DOMContentLoaded', () => {
+        loadFromStorage();
+        loadTheme();
+        renderHome();
+        renderHistory();
+
+        // hamburger
+        hamburger.addEventListener('click', openDrawer);
+        overlay.addEventListener('click', closeDrawer);
+
+        // drawer navigation
+        document.querySelectorAll('.drawer-item').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const page = btn.dataset.page;
+            switchPage(page);
+          });
+        });
+
+        // tabs
+        document.querySelectorAll('.category-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            activeCategory = tab.dataset.category;
+          });
+        });
+
+        // add item
+        document.getElementById('addItemBtn').addEventListener('click', addItem);
+        document.getElementById('itemInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') addItem(); });
+
+        // finish
+        document.getElementById('finishBtn').addEventListener('click', finishShopping);
+
+        // theme toggle (header & settings)
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        document.getElementById('settingsThemeToggle').addEventListener('click', toggleTheme);
+
+        // clear history
+        document.getElementById('clearHistoryBtn').addEventListener('click', clearHistoryWithConfirm);
+
+        // reset app
+        document.getElementById('resetAppBtn').addEventListener('click', resetApp);
+      });
+    })();
+
+    // SERVICE WORKER REGISTRATION (PWA offline capability)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // we register a service-worker.js file that should be placed at root.
+        // For demo, inline is impossible, but we provide registration.
+        navigator.serviceWorker.register('service-worker.js').catch(err => console.warn('SW registration failed:', err));
+      });
+    }
+  </script>
+  <!-- minimal service worker placeholder (create service-worker.js with cache and fetch) -->
+  <!-- For production, add service-worker.js with static cache. Since single file, content not embedded but registration points to it. -->
+</body>
+</html>
