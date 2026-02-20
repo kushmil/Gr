@@ -251,7 +251,7 @@
       box-shadow: 0 6px 14px rgba(0,122,255,0.25);
     }
     .add-btn:active { transform: scale(0.92); }
-    /* ----- LISTS (cards) ----- */
+    /* ----- LISTS (cards) with edit/delete ----- */
     .category-section {
       margin-bottom: 36px;
     }
@@ -265,10 +265,10 @@
     .item-card {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       background: rgba(255,255,255,0.6);
       backdrop-filter: blur(12px);
-      padding: 16px 20px;
+      padding: 12px 16px;
       border-radius: 24px;
       margin-bottom: 10px;
       border: 1px solid rgba(220,220,230,0.5);
@@ -283,6 +283,7 @@
       flex: 1;
       font-size: 18px;
       font-weight: 460;
+      margin-left: 4px;
     }
     .item-card .item-name.purchased {
       text-decoration: line-through;
@@ -301,6 +302,7 @@
       justify-content: center;
       transition: all 0.15s;
       cursor: pointer;
+      flex-shrink: 0;
     }
     .item-card input[type="checkbox"]:checked {
       background: #007aff;
@@ -314,6 +316,31 @@
       font-size: 14px;
       color: white;
     }
+    .item-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .item-actions button {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      color: #8e8e93;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 20px;
+      transition: all 0.2s;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    body.dark .item-actions button { color: #aaa; }
+    .item-actions button:hover { background: rgba(128,128,128,0.15); }
+    .item-actions button.edit-btn:hover { color: #007aff; }
+    .item-actions button.delete-btn:hover { color: #ff3b30; }
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(8px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -472,7 +499,7 @@
         <button class="btn danger" id="resetAppBtn">Reset</button>
       </div>
       <div class="settings-item" style="flex-direction: column; align-items: flex-start; gap: 12px;">
-        <span><i class="fas fa-info-circle"></i> Version 1.0.0</span>
+        <span><i class="fas fa-info-circle"></i> Version 1.1.0</span>
         <span><i class="fas fa-database"></i> Storage: <span id="storageUsage">0 KB</span></span>
       </div>
     </div>
@@ -533,7 +560,7 @@
         localStorage.setItem(STORAGE_HISTORY, JSON.stringify(historyLists));
       }
 
-      // ----- RENDER HOME (vegetable & general) -----
+      // ----- RENDER HOME (vegetable & general) with edit/delete -----
       function renderHome() {
         const vegContainer = document.getElementById('vegetableList');
         const genContainer = document.getElementById('generalList');
@@ -560,6 +587,8 @@
         const div = document.createElement('div');
         div.className = 'item-card animate__animated animate__fadeInUp';
         div.style.animationDuration = '0.2s';
+        
+        // checkbox
         const cb = document.createElement('input');
         cb.type = 'checkbox';
         cb.checked = item.purchased || false;
@@ -567,15 +596,78 @@
         cb.addEventListener('change', (e) => {
           item.purchased = e.target.checked;
           saveCurrent();
-          renderHome(); // re-render to show strikethrough and checkbox state
+          renderHome(); // re-render to show strikethrough
         });
 
+        // item name
         const nameSpan = document.createElement('span');
         nameSpan.className = `item-name ${item.purchased ? 'purchased' : ''}`;
         nameSpan.textContent = item.name;
 
+        // action buttons
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'item-actions';
+
+        // edit button
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-btn';
+        editBtn.innerHTML = '<i class="fas fa-pen"></i>';
+        editBtn.setAttribute('aria-label', 'Edit item');
+        editBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          Swal.fire({
+            title: 'Edit item',
+            input: 'text',
+            inputValue: item.name,
+            showCancelButton: true,
+            background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff',
+            color: 'inherit',
+            inputValidator: (value) => {
+              if (!value) return 'Please enter a name';
+            }
+          }).then(result => {
+            if (result.isConfirmed && result.value.trim()) {
+              item.name = result.value.trim();
+              saveCurrent();
+              renderHome();
+            }
+          });
+        });
+
+        // delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+        deleteBtn.setAttribute('aria-label', 'Delete item');
+        deleteBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          Swal.fire({
+            title: 'Delete item?',
+            text: `Remove "${item.name}"?`,
+            icon: 'warning',
+            showCancelButton: true,
+            background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff',
+            color: 'inherit'
+          }).then(res => {
+            if (res.isConfirmed) {
+              // remove from array
+              if (category === 'vegetable') {
+                currentList.vegetable = currentList.vegetable.filter((_, i) => i !== idx);
+              } else {
+                currentList.general = currentList.general.filter((_, i) => i !== idx);
+              }
+              saveCurrent();
+              renderHome();
+            }
+          });
+        });
+
+        actionsDiv.appendChild(editBtn);
+        actionsDiv.appendChild(deleteBtn);
+
         div.appendChild(cb);
         div.appendChild(nameSpan);
+        div.appendChild(actionsDiv);
         return div;
       }
 
