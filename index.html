@@ -1,940 +1,1149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
-  <title>AnshuRajhans 🌶️🌾</title>
-  <!-- PWA primary meta -->
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="AnshuRajhans">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23f5f5f7'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%23333'%3E🌶️%3C/text%3E%3C/svg%3E">
-  <!-- Inline Manifest (data URI) -->
-  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22AnshuRajhans%20%F0%9F%8C%B6%F0%9F%8C%BE%22%2C%22short_name%22%3A%22AnshuList%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23ffffff%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23f5f5f7'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%23333'%3E🌶️%3C/text%3E%3C/svg%3E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/svg+xml%22%7D%5D%7D">
-  <!-- Google Font + Icons + SweetAlert2 + Animate.css (lightweight) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    /* -------------------- RESET & GLOBAL -------------------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    body {
-      background-color: #f2f2f6; /* base for ultra white mode (slight gray for contrast) */
-      color: #1c1c1e;
-      line-height: 1.4;
-      transition: background-color 0.3s ease, color 0.2s ease;
-      min-height: 100vh;
-      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-    }
-    /* ----- SUPER WHITE MODE (light) ----- */
-    body.light {
-      background-color: #ffffff;
-      color: #181818;
-    }
-    body.light .card,
-    body.light .drawer,
-    body.light .category-tab,
-    body.light .input-group {
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(224, 224, 230, 0.6);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.03);
-    }
-    /* ----- AMOLED DARK MODE ----- */
-    body.dark {
-      background-color: #000000;
-      color: #f0f0f0;
-    }
-    body.dark .card,
-    body.dark .drawer,
-    body.dark .category-tab,
-    body.dark .input-group {
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(60, 60, 70, 0.5);
-      box-shadow: 0 8px 24px rgba(0,255,0,0.03);
-    }
-    body.dark .category-tab.active {
-      background: rgba(30,30,34,0.9);
-      border-bottom: 2px solid #5e5ce6;
-    }
-    body.dark .finish-btn {
-      background: #1c1c1e;
-      border: 1px solid #2c2c2e;
-      color: #5e5ce6;
-    }
-    /* -------------------- LAYOUT -------------------- */
-    #app {
-      max-width: 580px;
-      margin: 0 auto;
-      padding: 16px 20px 30px;
-      position: relative;
-    }
-    /* ----- HEADER ----- */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-      position: relative;
-    }
-    .hamburger {
-      font-size: 28px;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 30px;
-      background: transparent;
-      border: none;
-      color: inherit;
-      cursor: pointer;
-      transition: transform 0.2s ease, background 0.2s;
-    }
-    .hamburger:hover { background: rgba(128,128,128,0.1); }
-    .hamburger i { transition: transform 0.3s ease; }
-    .hamburger.open i { transform: rotate(90deg); }
-    .app-title {
-      font-size: 26px;
-      font-weight: 500;
-      letter-spacing: -0.5px;
-      background: linear-gradient(145deg, #2b2b2f, #111);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      transition: all 0.3s;
-    }
-    body.dark .app-title {
-      background: linear-gradient(145deg, #eaeaea, #aaa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .theme-toggle {
-      background: none;
-      border: none;
-      font-size: 26px;
-      width: 44px;
-      height: 44px;
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: inherit;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .theme-toggle:active { transform: scale(0.9); }
-    /* ----- DRAWER (slide) ----- */
-    .drawer-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.2);
-      backdrop-filter: blur(4px);
-      z-index: 998;
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s ease;
-    }
-    .drawer-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .drawer {
-      position: fixed;
-      top: 0; left: -300px;
-      width: 270px;
-      height: 100%;
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-      z-index: 999;
-      padding: 32px 20px;
-      box-shadow: 10px 0 30px rgba(0,0,0,0.1);
-      transition: left 0.3s cubic-bezier(0.2, 0.9, 0.1, 1);
-      border-top-right-radius: 28px;
-      border-bottom-right-radius: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-    .drawer.active { left: 0; }
-    .drawer-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 20px;
-      font-weight: 450;
-      padding: 14px 18px;
-      border-radius: 20px;
-      background: transparent;
-      border: none;
-      color: inherit;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .drawer-item:hover { background: rgba(128,128,128,0.1); }
-    .drawer-item i { width: 28px; font-size: 24px; }
-    /* ----- CATEGORY TABS ----- */
-    .tabs {
-      display: flex;
-      gap: 12px;
-      margin: 24px 0 20px;
-    }
-    .category-tab {
-      flex: 1;
-      text-align: center;
-      padding: 14px 8px;
-      border-radius: 30px;
-      font-weight: 550;
-      font-size: 18px;
-      background: rgba(240,240,245,0.6);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(210,210,220,0.4);
-      cursor: pointer;
-      transition: all 0.2s;
-      color: inherit;
-    }
-    .category-tab.active {
-      background: #ffffff;
-      border-bottom: 2px solid #007aff;
-      box-shadow: 0 4px 14px rgba(0,122,255,0.15);
-    }
-    body.dark .category-tab.active { background: #1c1c1e; border-bottom-color: #5e5ce6; }
-    /* ----- INPUT GROUP ----- */
-    .input-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 6px 6px 20px;
-      border-radius: 48px;
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(16px);
-      margin: 16px 0 32px;
-      border: 1px solid rgba(200,200,215,0.4);
-    }
-    .input-group input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      padding: 16px 0;
-      font-size: 18px;
-      outline: none;
-      color: inherit;
-    }
-    .input-group input::placeholder { color: #8e8e93; }
-    .add-btn {
-      background: #007aff;
-      border: none;
-      width: 56px;
-      height: 56px;
-      border-radius: 40px;
-      color: white;
-      font-size: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 6px 14px rgba(0,122,255,0.25);
-    }
-    .add-btn:active { transform: scale(0.92); }
-    /* ----- LISTS (cards) with edit/delete ----- */
-    .category-section {
-      margin-bottom: 36px;
-    }
-    .category-head {
-      font-size: 22px;
-      font-weight: 540;
-      margin-bottom: 12px;
-      padding-left: 8px;
-      letter-spacing: -0.3px;
-    }
-    .item-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(12px);
-      padding: 12px 16px;
-      border-radius: 24px;
-      margin-bottom: 10px;
-      border: 1px solid rgba(220,220,230,0.5);
-      transition: all 0.2s;
-      animation: fadeInUp 0.25s ease;
-    }
-    body.dark .item-card {
-      background: rgba(20,20,22,0.6);
-      border-color: #2c2c2e;
-    }
-    .item-card .item-name {
-      flex: 1;
-      font-size: 18px;
-      font-weight: 460;
-      margin-left: 4px;
-    }
-    .item-card .item-name.purchased {
-      text-decoration: line-through;
-      opacity: 0.5;
-    }
-    .item-card input[type="checkbox"] {
-      width: 26px;
-      height: 26px;
-      border-radius: 30px;
-      border: 2px solid #c6c6c8;
-      appearance: none;
-      -webkit-appearance: none;
-      background: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .item-card input[type="checkbox"]:checked {
-      background: #007aff;
-      border-color: #007aff;
-      transform: scale(1.05);
-    }
-    .item-card input[type="checkbox"]:checked::after {
-      content: "\f00c";
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      font-size: 14px;
-      color: white;
-    }
-    .item-actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    .item-actions button {
-      background: transparent;
-      border: none;
-      font-size: 18px;
-      color: #8e8e93;
-      cursor: pointer;
-      padding: 6px;
-      border-radius: 20px;
-      transition: all 0.2s;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    body.dark .item-actions button { color: #aaa; }
-    .item-actions button:hover { background: rgba(128,128,128,0.15); }
-    .item-actions button.edit-btn:hover { color: #007aff; }
-    .item-actions button.delete-btn:hover { color: #ff3b30; }
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(8px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    /* ----- FINISH BUTTON (floating) ----- */
-    .finish-btn {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #ffffff;
-      border: 1px solid #e0e0e5;
-      padding: 18px 40px;
-      border-radius: 60px;
-      font-size: 22px;
-      font-weight: 560;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-      backdrop-filter: blur(20px);
-      color: #007aff;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.3s;
-      z-index: 900;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    .finish-btn.visible {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      animation: glowPulse 2s infinite;
-    }
-    @keyframes glowPulse { 0% { box-shadow: 0 8px 20px rgba(0,122,255,0.2); } 50% { box-shadow: 0 12px 36px rgba(0,122,255,0.5); } 100% { box-shadow: 0 8px 20px rgba(0,122,255,0.2); } }
-    /* ----- PAGES (home/history/settings) ----- */
-    .page { display: none; animation: fade 0.25s ease; }
-    .page.active { display: block; }
-    @keyframes fade { from { opacity: 0.2; } to { opacity: 1; } }
-    /* history cards */
-    .history-item {
-      background: rgba(250,250,252,0.6);
-      backdrop-filter: blur(10px);
-      border-radius: 28px;
-      padding: 18px 22px;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid rgba(200,200,215,0.4);
-    }
-    body.dark .history-item { background: rgba(25,25,28,0.7); }
-    .history-info { font-size: 16px; }
-    .history-info strong { font-size: 18px; }
-    .history-actions button {
-      background: none;
-      border: none;
-      font-size: 22px;
-      margin: 0 6px;
-      color: inherit;
-      cursor: pointer;
-    }
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      opacity: 0.7;
-      font-size: 18px;
-    }
-    /* settings */
-    .settings-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      background: rgba(240,240,245,0.4);
-      backdrop-filter: blur(10px);
-      border-radius: 30px;
-      margin-bottom: 16px;
-    }
-    .btn {
-      padding: 12px 22px;
-      border-radius: 40px;
-      border: 1px solid rgba(128,128,128,0.3);
-      background: transparent;
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .btn.danger { background: #ff3b30; color: white; border: none; }
-    /* utility */
-    .small-note { font-size: 14px; opacity: 0.7; margin-top: 8px; }
-  </style>
-</head>
-<body class="light">
-  <div id="app">
-    <!-- header with hamburger, title, theme toggle -->
-    <div class="header">
-      <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
-      <span class="app-title">AnshuRajhans 🌶️🌾</span>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
-    </div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>AnshuList | Premium Bento Grocery</title>
 
-    <!-- drawer overlay + drawer -->
-    <div class="drawer-overlay" id="drawerOverlay"></div>
-    <div class="drawer" id="drawer">
-      <button class="drawer-item" data-page="home"><i class="fas fa-home"></i> Home</button>
-      <button class="drawer-item" data-page="history"><i class="fas fa-clock"></i> History</button>
-      <button class="drawer-item" data-page="settings"><i class="fas fa-cog"></i> Settings</button>
-    </div>
+    <!-- PWA primary meta -->
+    <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AnshuList">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23007AFF'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%23fff'%3E🛒%3C/text%3E%3C/svg%3E">
+    
+    <!-- Inline Manifest -->
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22AnshuList%20Grocery%22%2C%22short_name%22%3A%22AnshuList%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F2F2F7%22%2C%22theme_color%22%3A%22%23007AFF%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23007AFF'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%23fff'%3E🛒%3C/text%3E%3C/svg%3E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/svg+xml%22%7D%5D%7D">
 
-    <!-- HOME PAGE -->
-    <div id="homePage" class="page active">
-      <!-- category tabs -->
-      <div class="tabs">
-        <div class="category-tab active" data-category="vegetable">Vegetable 🌱</div>
-        <div class="category-tab" data-category="general">General 📦</div>
-      </div>
-      <!-- input row -->
-      <div class="input-group">
-        <input type="text" id="itemInput" placeholder="Add item... e.g. Tomato" autocomplete="off">
-        <button class="add-btn" id="addItemBtn"><i class="fas fa-plus"></i></button>
-      </div>
-      <!-- dynamic lists -->
-      <div id="vegetableSection" class="category-section">
-        <div class="category-head">🥬 Vegetable</div>
-        <div id="vegetableList" class="list-container"></div>
-      </div>
-      <div id="generalSection" class="category-section">
-        <div class="category-head">🧺 General</div>
-        <div id="generalList" class="list-container"></div>
-      </div>
-      <!-- finish shopping -->
-      <button class="finish-btn" id="finishBtn"><i class="fas fa-check-circle"></i> Finish Shopping</button>
-    </div>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Kavoon&family=Inter:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,900;1,900&family=Lora:ital,wght@0,400;0,600&family=Merriweather:wght@400;700&family=Montserrat:wght@400;500;600&family=Nunito:wght@400;600;700&family=Oswald:wght@400;500&family=Poppins:wght@400;500;600&family=Raleway:wght@400;500;600&family=Roboto:wght@400;500;700&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- HISTORY PAGE -->
-    <div id="historyPage" class="page">
-      <h2 style="margin: 20px 0 20px; font-weight: 520;">Previous lists</h2>
-      <div id="historyList"></div>
-      <div id="historyEmpty" class="empty-state" style="display: none;">✨ No history yet. Finish a list!</div>
-    </div>
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- SETTINGS PAGE -->
-    <div id="settingsPage" class="page">
-      <h2 style="margin: 20px 0 20px;">Settings</h2>
-      <div class="settings-item">
-        <span><i class="fas fa-moon"></i> Dark mode</span>
-        <button class="btn" id="settingsThemeToggle">Toggle</button>
-      </div>
-      <div class="settings-item">
-        <span><i class="fas fa-trash"></i> Clear history</span>
-        <button class="btn danger" id="clearHistoryBtn">Delete all</button>
-      </div>
-      <div class="settings-item">
-        <span><i class="fas fa-redo-alt"></i> Reset app</span>
-        <button class="btn danger" id="resetAppBtn">Reset</button>
-      </div>
-      <div class="settings-item" style="flex-direction: column; align-items: flex-start; gap: 12px;">
-        <span><i class="fas fa-info-circle"></i> Version 1.1.0</span>
-        <span><i class="fas fa-database"></i> Storage: <span id="storageUsage">0 KB</span></span>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    (function() {
-      // ----- STATE & STORAGE KEYS -----
-      const STORAGE_CURRENT = 'anshu_current';
-      const STORAGE_HISTORY = 'anshu_history';
-      const STORAGE_THEME = 'anshu_theme';
-
-      // default empty structure
-      let currentList = { vegetable: [], general: [] };
-      let historyLists = [];
-      let activeCategory = 'vegetable'; // vegetable or general
-      let currentPage = 'home';
-
-      // ----- THEME MANAGEMENT -----
-      function loadTheme() {
-        const saved = localStorage.getItem(STORAGE_THEME) || 'light';
-        document.body.className = saved;
-        const icon = document.querySelector('#themeToggle i');
-        if (icon) {
-          icon.className = saved === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    <!-- Tailwind Config for Theme System -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['var(--user-font)', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        brand: ['Kavoon', 'serif'],
+                        massive: ['Anton', 'sans-serif'],
+                        serifAccent: ['Playfair Display', 'serif']
+                    },
+                    colors: {
+                        ios: {
+                            bgLight: 'var(--user-bg)', cardLight: 'var(--user-surface)', textLight: 'var(--user-text)', subLight: '#8E8E93', blueLight: '#007AFF', separatorLight: '#C6C6C8',
+                            bgDark: 'var(--user-bg)', cardDark: 'var(--user-surface)', textDark: 'var(--user-text)', subDark: '#8E8E93', blueDark: '#0A84FF', separatorDark: '#38383A',
+                            green: '#34C759', orange: '#FF9500', red: '#FF3B30', purple: '#AF52DE', cyan: '#32ADE6'
+                        }
+                    }
+                }
+            }
         }
-        // update theme-color meta
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', saved === 'dark' ? '#000000' : '#ffffff');
-      }
-      function toggleTheme() {
-        const isDark = document.body.classList.contains('dark');
-        const newTheme = isDark ? 'light' : 'dark';
-        document.body.className = newTheme;
-        localStorage.setItem(STORAGE_THEME, newTheme);
-        const icon = document.querySelector('#themeToggle i');
-        icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', newTheme === 'dark' ? '#000000' : '#ffffff');
-      }
+    </script>
 
-      // ----- LOAD/SAVE LOCALSTORAGE -----
-      function loadFromStorage() {
-        const savedCurrent = localStorage.getItem(STORAGE_CURRENT);
-        if (savedCurrent) {
-          try { currentList = JSON.parse(savedCurrent); } catch { currentList = { vegetable: [], general: [] }; }
-        } else {
-          currentList = { vegetable: [], general: [] };
+    <style>
+        /* ================= CSS VARIABLES (Live Updates) ================= */
+        :root {
+            --user-font: 'Inter', sans-serif;
+            --user-bg: #F2F2F7;
+            --user-surface: #FFFFFF;
+            --user-text: #000000;
+            --user-font-size: 17px;
+            --user-radius: 20px;
         }
-        const savedHistory = localStorage.getItem(STORAGE_HISTORY);
-        if (savedHistory) {
-          try { historyLists = JSON.parse(savedHistory); } catch { historyLists = []; }
-        } else { historyLists = []; }
-      }
-      function saveCurrent() {
-        localStorage.setItem(STORAGE_CURRENT, JSON.stringify(currentList));
-        updateFinishButtonVisibility();
-      }
-      function saveHistory() {
-        localStorage.setItem(STORAGE_HISTORY, JSON.stringify(historyLists));
-      }
 
-      // ----- RENDER HOME (vegetable & general) with edit/delete -----
-      function renderHome() {
-        const vegContainer = document.getElementById('vegetableList');
-        const genContainer = document.getElementById('generalList');
-        if (!vegContainer || !genContainer) return;
+        /* Splash Screen */
+        #splash {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--user-bg); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
+            transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1), visibility 0s linear 0.6s;
+        }
+        .splash-title {
+            font-family: 'Anton', sans-serif; font-size: clamp(3.2rem, 10vw, 6.5rem);
+            letter-spacing: -0.02em; line-height: 1;
+            background: linear-gradient(135deg, var(--user-text), #007AFF);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            animation: pulseGlow 1.8s infinite alternate;
+        }
+        .dark .splash-title {
+            background: linear-gradient(135deg, #FFFFFF, #0A84FF);
+            -webkit-background-clip: text; background-clip: text;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.7; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
 
-        vegContainer.innerHTML = '';
-        genContainer.innerHTML = '';
+        /* Base iOS Reset */
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        body {
+            background-color: var(--user-bg); color: var(--user-text); margin: 0;
+            overflow-x: hidden; font-size: var(--user-font-size);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            -webkit-font-smoothing: antialiased; min-height: 100vh;
+        }
 
-        // Vegetable items
-        currentList.vegetable.forEach((item, index) => {
-          const card = createItemCard(item, 'vegetable', index);
-          vegContainer.appendChild(card);
-        });
-        // General items
-        currentList.general.forEach((item, index) => {
-          const card = createItemCard(item, 'general', index);
-          genContainer.appendChild(card);
-        });
+        /* SPA View Management */
+        .spa-view { display: none; opacity: 0; transform: scale(0.98); }
+        .spa-view.active { display: block; opacity: 1; transform: scale(1); }
 
-        updateFinishButtonVisibility();
-      }
+        /* Glassmorphism Header */
+        .ios-nav {
+            background: rgba(242, 242, 247, 0.7);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-bottom: 0.5px solid rgba(198, 198, 200, 0.5);
+        }
+        .dark .ios-nav { 
+            background: rgba(28, 28, 30, 0.7); 
+            border-bottom: 0.5px solid rgba(56, 56, 58, 0.5); 
+        }
 
-      function createItemCard(item, category, idx) {
-        const div = document.createElement('div');
-        div.className = 'item-card animate__animated animate__fadeInUp';
-        div.style.animationDuration = '0.2s';
+        /* Header Traffic Lights */
+        .traffic-lights {
+            display: flex; gap: 8px; background: rgba(120, 120, 128, 0.1);
+            padding: 8px 14px; border-radius: 40px; cursor: pointer;
+            transition: background 0.2s;
+        }
+        .traffic-lights:active { transform: scale(0.95); }
+        .traffic-lights span { width: 10px; height: 10px; border-radius: 50%; }
+        .tl-red { background: #ff5f56; }
+        .tl-yellow { background: #ffbd2e; }
+        .tl-green { background: #27c93f; }
+
+        /* Floating Navigation Panel */
+        .floating-nav {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border-radius: 99px; display: flex; align-items: center; justify-content: space-between;
+            padding: 8px 12px; gap: 12px; z-index: 50; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+        }
+        .floating-nav.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .dark .floating-nav { background: rgba(28, 28, 30, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
+
+        .tab-link { 
+            color: #8E8E93; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: transparent;
+            position: relative;
+        }
+        .tab-link:active { transform: scale(0.85); }
+        .tab-link.active-tab { color: #FFFFFF; background: #007AFF; box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4); transform: translateY(-4px); }
+        .dark .tab-link.active-tab { background: #0A84FF; box-shadow: 0 8px 20px rgba(10, 132, 255, 0.4); }
+
+        .tab-link.active-tab::after {
+            content: ''; position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%;
+            background: currentColor; animation: navDotPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes navDotPop {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* UI Components */
+        .ios-card { background-color: var(--user-surface); border-radius: var(--user-radius); transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+        .ios-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
+        .dark .ios-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
         
-        // checkbox
-        const cb = document.createElement('input');
-        cb.type = 'checkbox';
-        cb.checked = item.purchased || false;
-        cb.setAttribute('aria-label', 'Mark purchased');
-        cb.addEventListener('change', (e) => {
-          item.purchased = e.target.checked;
-          saveCurrent();
-          renderHome(); // re-render to show strikethrough
-        });
-
-        // item name
-        const nameSpan = document.createElement('span');
-        nameSpan.className = `item-name ${item.purchased ? 'purchased' : ''}`;
-        nameSpan.textContent = item.name;
-
-        // action buttons
-        const actionsDiv = document.createElement('div');
-        actionsDiv.className = 'item-actions';
-
-        // edit button
-        const editBtn = document.createElement('button');
-        editBtn.className = 'edit-btn';
-        editBtn.innerHTML = '<i class="fas fa-pen"></i>';
-        editBtn.setAttribute('aria-label', 'Edit item');
-        editBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          Swal.fire({
-            title: 'Edit item',
-            input: 'text',
-            inputValue: item.name,
-            showCancelButton: true,
-            background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff',
-            color: 'inherit',
-            inputValidator: (value) => {
-              if (!value) return 'Please enter a name';
-            }
-          }).then(result => {
-            if (result.isConfirmed && result.value.trim()) {
-              item.name = result.value.trim();
-              saveCurrent();
-              renderHome();
-            }
-          });
-        });
-
-        // delete button
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-        deleteBtn.setAttribute('aria-label', 'Delete item');
-        deleteBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          Swal.fire({
-            title: 'Delete item?',
-            text: `Remove "${item.name}"?`,
-            icon: 'warning',
-            showCancelButton: true,
-            background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff',
-            color: 'inherit'
-          }).then(res => {
-            if (res.isConfirmed) {
-              // remove from array
-              if (category === 'vegetable') {
-                currentList.vegetable = currentList.vegetable.filter((_, i) => i !== idx);
-              } else {
-                currentList.general = currentList.general.filter((_, i) => i !== idx);
-              }
-              saveCurrent();
-              renderHome();
-            }
-          });
-        });
-
-        actionsDiv.appendChild(editBtn);
-        actionsDiv.appendChild(deleteBtn);
-
-        div.appendChild(cb);
-        div.appendChild(nameSpan);
-        div.appendChild(actionsDiv);
-        return div;
-      }
-
-      // ----- helper: check all purchased -----
-      function allItemsPurchased() {
-        const vegAll = currentList.vegetable.every(i => i.purchased);
-        const genAll = currentList.general.every(i => i.purchased);
-        return (currentList.vegetable.length + currentList.general.length) > 0 && vegAll && genAll;
-      }
-
-      function updateFinishButtonVisibility() {
-        const finishBtn = document.getElementById('finishBtn');
-        if (allItemsPurchased()) {
-          finishBtn.classList.add('visible');
-        } else {
-          finishBtn.classList.remove('visible');
+        /* Bento Hero Grid Row */
+        .hero-bento {
+            display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.5rem;
+            align-items: center; border-bottom: 2px solid #007AFF; padding-bottom: 1.5rem; margin-bottom: 2rem;
         }
-      }
-
-      // ----- ADD ITEM -----
-      function addItem() {
-        const input = document.getElementById('itemInput');
-        const name = input.value.trim();
-        if (!name) {
-          Swal.fire({ title: 'Empty?', text: 'Please enter an item', icon: 'info', background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff', color: 'inherit' });
-          return;
+        .dark .hero-bento { border-bottom-color: #0A84FF; }
+        .hero-massive {
+            font-family: 'Anton', sans-serif; font-size: clamp(2.8rem, 8vw, 5.5rem);
+            line-height: 0.85; letter-spacing: -0.02em; text-transform: uppercase; color: var(--user-text);
         }
-        const newItem = { id: Date.now() + Math.random(), name, purchased: false };
-        if (activeCategory === 'vegetable') {
-          currentList.vegetable.push(newItem);
-        } else {
-          currentList.general.push(newItem);
-        }
-        saveCurrent();
-        renderHome();
-        input.value = '';
-        input.focus();
-      }
+        .hero-massive span { color: #007AFF; display: inline-block; }
+        .dark .hero-massive span { color: #0A84FF; }
 
-      // ----- FINISH SHOPPING -----
-      function finishShopping() {
-        if (!allItemsPurchased()) return;
-        // create history entry
-        const now = new Date();
-        const historyEntry = {
-          id: Date.now(),
-          date: now.toLocaleDateString(),
-          time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          vegetableItems: currentList.vegetable.map(i => ({ ...i })), // clone
-          generalItems: currentList.general.map(i => ({ ...i }))
+        .fah-btn {
+            background-color: var(--user-text); color: var(--user-bg);
+            border: 2px solid #007AFF; padding: 0.75rem 1.5rem; font-weight: 800; font-size: 0.95rem;
+            text-transform: uppercase; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+            transition: all 0.25s ease; box-shadow: 4px 4px 0px rgba(0, 122, 255, 0.3); border-radius: 40px;
+        }
+        .fah-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px rgba(0, 122, 255, 0.5); }
+        .fah-btn:active { transform: translate(1px, 1px); box-shadow: 0px 0px 0px transparent; }
+
+        .btn-3d {
+            background: linear-gradient(135deg, #007AFF, #0056b3); color: #FFFFFF; border-radius: calc(var(--user-radius) * 0.8);
+            font-weight: 600; padding: 16px 24px; display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.3); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); width: 100%; border: none; cursor: pointer;
+        }
+        .btn-3d:active { transform: scale(0.96); box-shadow: 0 4px 10px rgba(0, 122, 255, 0.2); }
+        .dark .btn-3d { background: linear-gradient(135deg, #0A84FF, #004085); box-shadow: 0 8px 20px rgba(10, 132, 255, 0.3); }
+
+        .ios-input {
+            width: 100%; padding: 16px; border-radius: calc(var(--user-radius) * 0.8); background-color: var(--user-surface); border: 1.5px solid transparent;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03); color: var(--user-text); outline: none; transition: all 0.3s ease;
+        }
+        .ios-input:focus { border-color: #007AFF; box-shadow: 0 0 0 4px rgba(0,122,255,0.15); transform: translateY(-2px); }
+        .dark .ios-input:focus { border-color: #0A84FF; box-shadow: 0 0 0 4px rgba(10,132,255,0.15); }
+
+        /* Checkbox Styling */
+        .custom-checkbox {
+            appearance: none; -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
+            border: 2px solid #C6C6C8; display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease; cursor: pointer; flex-shrink: 0; background: transparent;
+        }
+        .dark .custom-checkbox { border-color: #38383A; }
+        .custom-checkbox:checked { background-color: #34C759; border-color: #34C759; transform: scale(1.05); }
+        .custom-checkbox:checked::after {
+            content: ''; width: 6px; height: 11px; border: solid white; border-width: 0 2px 2px 0;
+            transform: rotate(45deg); margin-bottom: 2px;
+        }
+
+        .item-text { transition: all 0.3s ease; }
+        .item-text.purchased { text-decoration: line-through; opacity: 0.5; }
+
+        /* Settings UI CSS */
+        .setting-group-title { font-size: 12px; text-transform: uppercase; font-weight: 700; color: #8E8E93; margin: 0 0 8px 16px; letter-spacing: 0.05em; }
+        .setting-card { background: var(--user-surface); border-radius: var(--user-radius); margin-bottom: 28px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.03); border: 1px solid rgba(198,198,200,0.3); transition: all 0.3s; }
+        .dark .setting-card { border-color: rgba(56,56,58,0.3); }
+
+        .setting-item { display: flex; align-items: center; padding-left: 16px; cursor: pointer; background: var(--user-surface); transition: background 0.2s; }
+        .setting-item:active { background: rgba(0,0,0,0.03); }
+        .dark .setting-item:active { background: rgba(255,255,255,0.05); }
+
+        .setting-icon-box { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .setting-content { flex: 1; margin-left: 14px; padding: 14px 16px 14px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid rgba(198,198,200,0.5); }
+        .dark .setting-content { border-bottom-color: rgba(56,56,58,0.5); }
+        .expand-pill:last-child .setting-content, .setting-item:last-child .setting-content { border-bottom: none; }
+        
+        .setting-title { font-weight: 600; color: var(--user-text); }
+        .setting-value { font-size: 0.9em; color: #8E8E93; display: flex; align-items: center; gap: 4px; }
+        
+        /* Gradients */
+        .grad-gray { background: linear-gradient(135deg, #8E8E93, #48484A); }
+        .grad-blue { background: linear-gradient(135deg, #007AFF, #0056b3); }
+        .grad-green { background: linear-gradient(135deg, #34C759, #28A745); }
+        .grad-orange { background: linear-gradient(135deg, #FF9500, #FF3B30); }
+        .grad-purple { background: linear-gradient(135deg, #AF52DE, #5E5CE6); }
+        .grad-red { background: linear-gradient(135deg, #FF3B30, #D70015); }
+        .grad-cyan { background: linear-gradient(135deg, #32ADE6, #007AFF); }
+
+        /* Expanding Pill Logic */
+        .pill-content { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s; }
+        .expand-pill.open .pill-content { max-height: 500px; opacity: 1; border-top: 0.5px solid rgba(198,198,200,0.2); }
+        .dark .expand-pill.open .pill-content { border-top-color: rgba(56,56,58,0.2); }
+        .expand-pill.open .transform-icon { transform: rotate(180deg); }
+        .pill-inner { padding: 12px 16px 16px 16px; }
+
+        /* Custom OS Toggle */
+        .custom-toggle { width: 50px; height: 30px; border-radius: 15px; background: #E5E5EA; position: relative; transition: background 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+        .dark .custom-toggle { background: #38383A; }
+        .custom-toggle.active { background: #34C759; }
+        .toggle-knob { width: 26px; height: 26px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .custom-toggle.active .toggle-knob { transform: translateX(20px); }
+
+        /* Option Lists & Color Swatches */
+        .option-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .option-item { padding: 10px 12px; border: 1px solid rgba(198,198,200,0.5); border-radius: calc(var(--user-radius) * 0.6); text-align: center; cursor: pointer; transition: all 0.2s; font-weight: 500; color: var(--user-text); }
+        .dark .option-item { border-color: rgba(56,56,58,0.5); }
+        .option-item.selected { background-color: #007AFF; color: white !important; border-color: #007AFF; }
+        
+        .color-palette { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .color-swatch { width: 44px; height: 44px; border-radius: 50%; border: 2px solid rgba(198,198,200,0.5); cursor: pointer; transition: transform 0.2s; }
+        .dark .color-swatch { border-color: rgba(56,56,58,0.5); }
+        .color-swatch.selected { transform: scale(1.15); border-color: #007AFF; }
+
+        /* Segment Control */
+        .segment-control { display: flex; background: rgba(118, 118, 128, 0.12); border-radius: calc(var(--user-radius) * 0.8); padding: 4px; position: relative; margin-bottom: 20px;}
+        .dark .segment-control { background: rgba(118, 118, 128, 0.24); }
+        
+        .segment-btn { flex: 1; text-align: center; padding: 8px; font-weight: 600; font-size: 0.9em; border-radius: calc(var(--user-radius) * 0.6); z-index: 1; position: relative; color: var(--user-text); opacity: 0.6; transition: all 0.3s; }
+        .segment-btn.active { opacity: 1; color: #007AFF; text-shadow: 0 0 12px rgba(0, 122, 255, 0.3); }
+        .dark .segment-btn.active { color: #0A84FF; text-shadow: 0 0 12px rgba(10, 132, 255, 0.4); }
+        
+        .segment-slider { position: absolute; top: 4px; bottom: 4px; width: calc(50% - 4px); background: var(--user-surface); border-radius: calc(var(--user-radius) * 0.6); box-shadow: 0 4px 16px rgba(0, 122, 255, 0.25), 0 2px 4px rgba(0,0,0,0.06); border: 1px solid rgba(0, 122, 255, 0.15); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .dark .segment-slider { box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3), 0 2px 4px rgba(0,0,0,0.2); border: 1px solid rgba(10, 132, 255, 0.25); }
+        
+        /* Finish Floating Button */
+        #finishShoppingWrap {
+            position: fixed; bottom: 90px; left: 0; right: 0; padding: 0 16px; z-index: 40;
+            display: none; opacity: 0; transform: translateY(20px); pointer-events: none;
+            max-width: 42rem; margin: 0 auto;
+        }
+        #finishShoppingWrap.visible { display: block; pointer-events: auto; }
+        .btn-finish-glow { animation: finishGlow 2s infinite; }
+        @keyframes finishGlow { 0% { box-shadow: 0 8px 20px rgba(52,199,89,0.3); } 50% { box-shadow: 0 12px 30px rgba(52,199,89,0.6); } 100% { box-shadow: 0 8px 20px rgba(52,199,89,0.3); } }
+
+        /* ===== BENTO STATS GRID ===== */
+        .bento-stats {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.5rem; margin-bottom: 2rem;
+        }
+        .bento-card {
+            background: var(--user-surface); border: 1px solid rgba(120, 120, 128, 0.1);
+            border-radius: var(--user-radius); padding: 1.25rem; display: flex; flex-direction: column;
+            justify-content: space-between; min-height: 120px; transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .bento-card:hover { transform: translateY(-4px); border-color: #007AFF; box-shadow: 0 12px 24px rgba(0,0,0,0.05); }
+        .dark .bento-card:hover { border-color: #0A84FF; box-shadow: 0 12px 24px rgba(0,0,0,0.4); }
+        .bento-wide { grid-column: span 2; }
+        
+        @media (max-width: 640px) {
+            .bento-stats { grid-template-columns: 1fr; }
+            .bento-wide { grid-column: span 1; }
+            .hero-bento { grid-template-columns: 1fr; text-align: center; }
+        }
+    </style>
+</head>
+<body class="bg-ios-bgLight dark:bg-ios-bgDark">
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash">
+        <div class="text-center">
+            <div class="splash-title">ANSHULIST</div>
+            <div class="text-[0.9rem] uppercase font-bold tracking-[4px] mt-4 opacity-70">grocery & general · bento vault</div>
+        </div>
+    </div>
+
+    <!-- DYNAMIC TOP NAV -->
+    <header class="ios-nav sticky top-0 z-40 w-full">
+        <div class="max-w-2xl mx-auto px-4 py-3 flex justify-between items-center h-[65px]">
+            <div class="w-1/3 flex justify-start items-center">
+                <div class="traffic-lights" onclick="toggleQuickMenu()">
+                    <span class="tl-red"></span><span class="tl-yellow"></span><span class="tl-green"></span>
+                </div>
+            </div>
+            <div class="w-1/3 flex justify-center items-center whitespace-nowrap">
+                <span id="nav-title" class="font-brand text-xl text-ios-textLight dark:text-ios-textDark tracking-tight transition-opacity">AnshuList</span>
+            </div>
+            <div class="w-1/3 flex justify-end items-center">
+                <button id="theme-toggle" class="p-2.5 rounded-full bg-ios-separatorLight/30 dark:bg-ios-separatorDark/50 text-ios-textLight dark:text-ios-textDark transition-all active:scale-75 outline-none hover:bg-ios-separatorLight/50">
+                    <i data-lucide="sun" id="theme-icon-sun" class="w-5 h-5 hidden dark:block"></i>
+                    <i data-lucide="moon" id="theme-icon-moon" class="w-5 h-5 block dark:hidden"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN ROUTER CONTAINER -->
+    <main id="app-router" class="max-w-2xl mx-auto w-full px-4 pt-6 pb-36 min-h-screen">
+
+        <!-- ==================== VIEW: HOME (LIST) ==================== -->
+        <div id="view-home" class="spa-view active" data-title="AnshuList">
+            
+            <!-- Hero Layout -->
+            <div class="hero-bento ui-elem opacity-0">
+                <div class="hero-massive">
+                    ANSHU<span>LIST</span>
+                </div>
+                <div class="text-right">
+                    <div class="font-serifAccent italic text-[1.1rem] opacity-60 mb-2">bento layout · stats</div>
+                    <button class="fah-btn" onclick="triggerInsta()"><i class="fab fa-instagram"></i> @anshu</button>
+                </div>
+            </div>
+
+            <!-- Input Form -->
+            <section class="mb-6 ui-elem opacity-0 relative">
+                <div class="flex items-center gap-2">
+                    <div class="relative flex-1">
+                        <i data-lucide="plus" class="absolute left-4 top-4 text-ios-subLight dark:text-ios-subDark w-6 h-6"></i>
+                        <input type="text" id="itemInput" class="ios-input pl-14 font-medium" placeholder="e.g. Fresh Tomatoes" autocomplete="off" />
+                    </div>
+                    <button id="addItemBtn" class="bg-ios-blueLight dark:bg-ios-blueDark text-white h-[56px] w-[56px] rounded-full flex items-center justify-center shrink-0 active:scale-90 transition-all shadow-md">
+                        <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Category Selector -->
+            <section class="mb-8 ui-elem opacity-0">
+                <div class="segment-control" id="categoryTabs">
+                    <div class="segment-slider" id="segmentSlider"></div>
+                    <button class="segment-btn active" data-target="vegetable">Grocery / Veg 🌱</button>
+                    <button class="segment-btn" data-target="general">General 📦</button>
+                </div>
+            </section>
+
+            <!-- Lists Containers -->
+            <div id="listsContainer" class="ui-elem opacity-0 min-h-[200px]">
+                
+                <!-- Vegetable List -->
+                <div id="vegetableSection">
+                    <h3 class="text-[0.8em] uppercase font-bold text-ios-subLight dark:text-ios-subDark mb-3 ml-2 tracking-wider flex items-center gap-2">
+                        <i data-lucide="carrot" class="w-4 h-4 text-ios-green"></i> Vegetables & Groceries
+                    </h3>
+                    <div id="vegetableList" class="flex flex-col gap-3 mb-6"></div>
+                </div>
+
+                <!-- General List -->
+                <div id="generalSection">
+                    <h3 class="text-[0.8em] uppercase font-bold text-ios-subLight dark:text-ios-subDark mb-3 ml-2 tracking-wider flex items-center gap-2">
+                        <i data-lucide="package" class="w-4 h-4 text-ios-orange"></i> General Items
+                    </h3>
+                    <div id="generalList" class="flex flex-col gap-3"></div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyListState" class="hidden flex-col items-center justify-center py-10 text-center opacity-60">
+                    <i data-lucide="shopping-bag" class="w-12 h-12 mb-3 text-ios-subLight dark:text-ios-subDark animate-bounce"></i>
+                    <p class="font-medium text-ios-textLight dark:text-ios-textDark">No items on your list.</p>
+                </div>
+            </div>
+
+            <!-- BENTO REALTIME STATISTICS DASHBOARD (Moved to bottom) -->
+            <div class="bento-stats ui-elem opacity-0">
+                <!-- Card 1: Overall Progress (Wide) -->
+                <div class="bento-card bento-wide" style="background: linear-gradient(135deg, rgba(0, 122, 255, 0.15), rgba(0, 122, 255, 0.03));">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs uppercase font-extrabold tracking-wider opacity-60">Overall Progress</span>
+                        <div class="p-1.5 bg-[#007AFF]/10 rounded-lg text-[#007AFF] dark:text-[#0a84ff]"><i data-lucide="check-square" class="w-4 h-4"></i></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-baseline mb-2">
+                            <span class="text-2xl font-black" id="stats-total-fraction">0 / 0</span>
+                            <span class="text-sm font-semibold" id="stats-total-percent">0%</span>
+                        </div>
+                        <div class="w-full bg-black/10 dark:bg-white/10 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-[#007AFF] h-full transition-all duration-500" id="stats-total-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Vegetable & Grocery -->
+                <div class="bento-card" style="background: linear-gradient(135deg, rgba(52, 199, 89, 0.15), rgba(52, 199, 89, 0.03));">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] uppercase font-extrabold tracking-wider opacity-60">Grocery</span>
+                        <div class="p-1 bg-ios-green/10 rounded text-ios-green"><i data-lucide="carrot" class="w-3.5 h-3.5"></i></div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="text-xl font-black" id="stats-veg-count">0 / 0</div>
+                        <div class="w-full bg-black/10 dark:bg-white/10 h-1 rounded-full overflow-hidden mt-1">
+                            <div class="bg-ios-green h-full transition-all duration-500" id="stats-veg-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: General items -->
+                <div class="bento-card" style="background: linear-gradient(135deg, rgba(255, 149, 0, 0.15), rgba(255, 149, 0, 0.03));">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] uppercase font-extrabold tracking-wider opacity-60">General</span>
+                        <div class="p-1 bg-ios-orange/10 rounded text-ios-orange"><i data-lucide="package" class="w-3.5 h-3.5"></i></div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="text-xl font-black" id="stats-gen-count">0 / 0</div>
+                        <div class="w-full bg-black/10 dark:bg-white/10 h-1 rounded-full overflow-hidden mt-1">
+                            <div class="bg-ios-orange h-full transition-all duration-500" id="stats-gen-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==================== VIEW: HISTORY ==================== -->
+        <div id="view-history" class="spa-view" data-title="History">
+            <section class="mb-6 ui-elem opacity-0 mt-2">
+                <h1 class="text-[2.2em] font-extrabold tracking-tight mb-2 text-ios-textLight dark:text-ios-textDark">Shopping History</h1>
+                <p class="text-[0.9em] text-ios-subLight dark:text-ios-subDark leading-relaxed">
+                    Review and reuse records of your previous shopping trips.
+                </p>
+            </section>
+
+            <div id="historyListContainer" class="ui-elem opacity-0 flex flex-col gap-4"></div>
+
+            <div id="historyEmptyState" class="hidden flex-col items-center justify-center py-16 text-center opacity-60 ui-elem opacity-0">
+                <i data-lucide="clock" class="w-12 h-12 mb-3 text-ios-subLight dark:text-ios-subDark"></i>
+                <p class="font-medium text-ios-textLight dark:text-ios-textDark">History is empty.</p>
+                <p class="text-[0.8em] mt-1">Complete shopping checklist cycles to build records.</p>
+            </div>
+        </div>
+
+        <!-- ==================== VIEW: SETTINGS ==================== -->
+        <div id="view-settings" class="spa-view" data-title="Settings">
+            <section class="mb-6 ui-elem opacity-0 mt-2">
+                <h1 class="text-[2.2em] font-extrabold tracking-tight mb-2 text-ios-textLight dark:text-ios-textDark">Settings</h1>
+                <p class="text-[0.9em] text-ios-subLight dark:text-ios-subDark leading-relaxed">
+                    Personalize typography, light colors, borders, and general storage parameters.
+                </p>
+            </section>
+            
+            <!-- Dynamic Settings Container (Rendered exactly matching original specifications) -->
+            <div id="settings-container"></div>
+        </div>
+
+    </main>
+
+    <!-- FLOATING FINISH BUTTON -->
+    <div id="finishShoppingWrap">
+        <button id="finishBtn" class="btn-3d btn-finish-glow !bg-gradient-to-r from-ios-green to-[#28A745] dark:from-[#28A745] dark:to-[#1e7e34] !shadow-[0_8px_20px_rgba(52,199,89,0.3)] w-full">
+            <i data-lucide="check-circle" class="w-6 h-6"></i> Archive shopping trip
+        </button>
+    </div>
+
+    <!-- FLOATING TAB BAR -->
+    <nav class="floating-nav" id="floatingTabBar">
+        <a href="#home" class="tab-link active-tab" data-target="home" title="Checklist">
+            <i data-lucide="list-todo" class="w-6 h-6"></i>
+        </a>
+        <a href="#history" class="tab-link" data-target="history" title="History Records">
+            <i data-lucide="history" class="w-6 h-6"></i>
+        </a>
+        <a href="#settings" class="tab-link group" data-target="settings" title="System Settings">
+            <i data-lucide="settings" class="w-6 h-6 animate-[spin_6s_linear_infinite]"></i>
+        </a>
+    </nav>
+
+    <!-- Scripts -->
+    <script>
+        /* ================= STATE & STORAGE KEYS ================= */
+        const STORAGE_CURRENT = 'anshu_grocery_current';
+        const STORAGE_HISTORY = 'anshu_grocery_history';
+
+        let currentList = { vegetable: [], general: [] };
+        let historyLists = [];
+        let activeCategory = 'vegetable';
+
+        /* ================= PREMIUM SETTINGS ENGINE ================= */
+        const FONTS = ['Inter', 'Poppins', 'Roboto', 'Montserrat', 'Nunito', 'Lora', 'Oswald', 'Raleway', 'Ubuntu', 'Merriweather'];
+        const BG_COLORS = ['#F2F2F7', '#FFFFFF', '#FFF5F5', '#F0FDF4', '#EFF6FF', '#000000', '#1C1C1E'];
+        const TEXT_COLORS = ['#000000', '#333333', '#007AFF', '#FF3B30', '#FFFFFF', '#EBEBF5'];
+        const RADIUS_OPTS = [
+            { label: 'Sharp', val: '0' },
+            { label: 'Medium', val: '12' },
+            { label: 'Rounded', val: '20' },
+            { label: 'Maximum', val: '32' }
+        ];
+
+        let prefs = { font: 'Inter', bg: '#F2F2F7', text: '#000000', fontSize: '17', radius: '20', theme: 'system' };
+
+        function isDarkHex(hex) { return (hex === '#000000' || hex === '#1C1C1E'); }
+
+        function loadPrefs() {
+            const saved = localStorage.getItem('anshu_prefs');
+            if (saved) { prefs = JSON.parse(saved); } 
+            else { prefs.theme = (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) ? 'dark' : 'light'; }
+            if(prefs.theme === 'dark') document.documentElement.classList.add('dark');
+            else document.documentElement.classList.remove('dark');
+            applyPrefsGlobally();
+        }
+
+        function savePrefs() {
+            localStorage.setItem('anshu_prefs', JSON.stringify(prefs));
+            applyPrefsGlobally();
+        }
+
+        function applyPrefsGlobally() {
+            const root = document.documentElement;
+            root.style.setProperty('--user-font', `'${prefs.font}', sans-serif`);
+            document.body.style.fontFamily = `'${prefs.font}', sans-serif`;
+            
+            if (prefs.theme === 'dark') {
+                root.style.setProperty('--user-bg', '#000000');
+                root.style.setProperty('--user-surface', '#1C1C1E');
+                root.style.setProperty('--user-text', '#FFFFFF');
+                document.getElementById('theme-icon-sun')?.classList.replace('hidden', 'block');
+                document.getElementById('theme-icon-moon')?.classList.replace('block', 'hidden');
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000000');
+            } else {
+                root.style.setProperty('--user-bg', prefs.bg);
+                root.style.setProperty('--user-surface', isDarkHex(prefs.bg) ? '#1C1C1E' : '#FFFFFF');
+                root.style.setProperty('--user-text', prefs.text);
+                document.getElementById('theme-icon-sun')?.classList.replace('block', 'hidden');
+                document.getElementById('theme-icon-moon')?.classList.replace('hidden', 'block');
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', prefs.bg);
+            }
+            
+            root.style.setProperty('--user-font-size', `${prefs.fontSize}px`);
+            root.style.setProperty('--user-radius', `${prefs.radius}px`);
+            document.body.style.fontSize = `${prefs.fontSize}px`;
+        }
+
+        function renderSettingsUI() {
+            const container = document.getElementById('settings-container');
+            const currentRadiusLabel = RADIUS_OPTS.find(r => r.val === prefs.radius)?.label || 'Rounded';
+            let storageKB = getStorageUsage();
+
+            container.innerHTML = `
+                <!-- Appearance Group -->
+                <div class="setting-group-title ui-elem opacity-0">Appearance</div>
+                <div class="setting-card ui-elem opacity-0">
+                    <div class="setting-item" onclick="toggleThemeDirectly()">
+                        <div class="setting-icon-box grad-gray"><i data-lucide="moon" class="w-5 h-5"></i></div>
+                        <div class="setting-content">
+                            <span class="setting-title">Dark Mode</span>
+                            <div class="custom-toggle ${prefs.theme === 'dark' ? 'active' : ''}" id="ui-theme-toggle"><div class="toggle-knob"></div></div>
+                        </div>
+                    </div>
+                    <div class="expand-pill" onclick="togglePill(this)">
+                        <div class="setting-item">
+                            <div class="setting-icon-box grad-blue"><i data-lucide="type" class="w-5 h-5"></i></div>
+                            <div class="setting-content">
+                                <span class="setting-title">Typography</span>
+                                <span class="setting-value"><span id="set-font-label">${prefs.font}</span> <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 transform-icon"></i></span>
+                            </div>
+                        </div>
+                        <div class="pill-content"><div class="pill-inner"><div class="option-list">
+                            ${FONTS.map(f => `<div class="option-item ${prefs.font===f?'selected':''}" style="font-family: '${f}', sans-serif;" onclick="event.stopPropagation(); updateSetting('font', '${f}'); resetSettingsSelection(this, 'option-item'); document.getElementById('set-font-label').innerText = '${f}';">${f}</div>`).join('')}
+                        </div></div></div>
+                    </div>
+                    <div class="expand-pill" onclick="togglePill(this)">
+                        <div class="setting-item">
+                            <div class="setting-icon-box grad-green"><i data-lucide="a-large-small" class="w-5 h-5"></i></div>
+                            <div class="setting-content">
+                                <span class="setting-title">Font Size</span>
+                                <span class="setting-value"><span id="set-fs-label">${prefs.fontSize}px</span> <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 transform-icon"></i></span>
+                            </div>
+                        </div>
+                        <div class="pill-content"><div class="pill-inner">
+                            <input type="range" min="14" max="24" value="${prefs.fontSize}" class="w-full accent-[#007AFF]" oninput="document.getElementById('set-fs-label').innerText = this.value + 'px'; updateSetting('fontSize', this.value)" onclick="event.stopPropagation()">
+                        </div></div>
+                    </div>
+                </div>
+
+                <!-- Colors Group -->
+                <div class="setting-group-title ui-elem opacity-0">Colors (Light Mode)</div>
+                <div class="setting-card ui-elem opacity-0">
+                    <div class="expand-pill" onclick="togglePill(this)">
+                        <div class="setting-item">
+                            <div class="setting-icon-box grad-orange"><i data-lucide="palette" class="w-5 h-5"></i></div>
+                            <div class="setting-content">
+                                <span class="setting-title">Background Color</span>
+                                <span class="setting-value"><i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 transform-icon"></i></span>
+                            </div>
+                        </div>
+                        <div class="pill-content"><div class="pill-inner"><div class="color-palette">
+                            ${BG_COLORS.map(c => `<div class="color-swatch ${prefs.bg===c?'selected':''}" style="background: ${c};" onclick="event.stopPropagation(); updateSetting('bg', '${c}'); resetSettingsSelection(this, 'color-swatch');"></div>`).join('')}
+                        </div></div></div>
+                    </div>
+                    <div class="expand-pill" onclick="togglePill(this)">
+                        <div class="setting-item">
+                            <div class="setting-icon-box grad-purple"><i data-lucide="baseline" class="w-5 h-5"></i></div>
+                            <div class="setting-content border-none">
+                                <span class="setting-title">Text Color</span>
+                                <span class="setting-value"><i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 transform-icon"></i></span>
+                            </div>
+                        </div>
+                        <div class="pill-content"><div class="pill-inner"><div class="color-palette">
+                            ${TEXT_COLORS.map(c => `<div class="color-swatch ${prefs.text===c?'selected':''}" style="background: ${c}; border-color: ${isDarkHex(c) ? '#38383A' : '#C6C6C8'};" onclick="event.stopPropagation(); updateSetting('text', '${c}'); resetSettingsSelection(this, 'color-swatch');"></div>`).join('')}
+                        </div></div></div>
+                    </div>
+                </div>
+
+                <!-- Interface Group -->
+                <div class="setting-group-title ui-elem opacity-0">Interface</div>
+                <div class="setting-card ui-elem opacity-0">
+                    <div class="expand-pill" onclick="togglePill(this)">
+                        <div class="setting-item">
+                            <div class="setting-icon-box grad-cyan"><i data-lucide="square" class="w-5 h-5"></i></div>
+                            <div class="setting-content border-none">
+                                <span class="setting-title">UI Style</span>
+                                <span class="setting-value"><span id="set-rad-label">${currentRadiusLabel}</span> <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 transform-icon"></i></span>
+                            </div>
+                        </div>
+                        <div class="pill-content"><div class="pill-inner"><div class="option-list">
+                            ${RADIUS_OPTS.map(r => `<div class="option-item ${prefs.radius===r.val?'selected':''}" onclick="event.stopPropagation(); updateSetting('radius', '${r.val}'); resetSettingsSelection(this, 'option-item'); document.getElementById('set-rad-label').innerText = '${r.label}';">${r.label}</div>`).join('')}
+                        </div></div></div>
+                    </div>
+                </div>
+
+                <!-- Data & Storage Group -->
+                <div class="setting-group-title ui-elem opacity-0 flex justify-between pr-4"><span>Data & Storage</span> <span>${storageKB} KB</span></div>
+                <div class="setting-card ui-elem opacity-0" style="margin-bottom:10px;">
+                    <div class="setting-item" onclick="clearHistory()">
+                        <div class="setting-icon-box grad-gray"><i data-lucide="eraser" class="w-5 h-5"></i></div>
+                        <div class="setting-content">
+                            <span class="setting-title text-ios-textLight dark:text-ios-textDark">Clear History</span>
+                        </div>
+                    </div>
+                    <div class="setting-item" onclick="resetApp()">
+                        <div class="setting-icon-box grad-red"><i data-lucide="trash-2" class="w-5 h-5"></i></div>
+                        <div class="setting-content border-none">
+                            <span class="setting-title" style="color: #FF3B30;">Reset App Data</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- App Info -->
+                <div class="flex flex-col items-center justify-center mt-12 opacity-50 ui-elem opacity-0 pb-10">
+                    <i data-lucide="shopping-cart" class="w-10 h-10 mb-2 text-ios-subLight dark:text-ios-subDark"></i>
+                    <p class="text-[0.9em] font-bold text-ios-textLight dark:text-ios-textDark">AnshuList Grocery</p>
+                    <p class="text-[0.75em] text-ios-subLight dark:text-ios-subDark mt-1">Version 3.0 • Premium Bento Edition</p>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        window.togglePill = function(el) { el.classList.toggle('open'); };
+        window.updateSetting = function(key, val) {
+            prefs[key] = val; savePrefs();
+            iziToast.show({ title: 'Updated', message: 'Applied successfully.', position: 'topCenter', timeout: 1000, color: 'green', theme: prefs.theme === 'dark' ? 'dark' : 'light' });
         };
-        historyLists.unshift(historyEntry);
-        saveHistory();
-        // clear current list
-        currentList = { vegetable: [], general: [] };
-        saveCurrent();
-        renderHome();
+        window.resetSettingsSelection = function(el, cls) {
+            const siblings = el.parentElement.querySelectorAll('.'+cls);
+            siblings.forEach(s => s.classList.remove('selected'));
+            el.classList.add('selected');
+        };
 
-        Swal.fire({
-          title: 'Done! 🛒',
-          text: 'List saved to history',
-          icon: 'success',
-          timer: 1800,
-          showConfirmButton: false,
-          background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff',
-          color: 'inherit'
-        });
-      }
+        window.toggleThemeDirectly = function() {
+            const willBeDark = prefs.theme !== 'dark';
+            if (willBeDark) {
+                document.documentElement.classList.add('dark'); prefs.theme = 'dark'; localStorage.theme = 'dark';
+            } else {
+                document.documentElement.classList.remove('dark'); prefs.theme = 'light'; localStorage.theme = 'light';
+            }
+            savePrefs();
+            const toggle = document.getElementById('ui-theme-toggle');
+            if(toggle) { if(willBeDark) toggle.classList.add('active'); else toggle.classList.remove('active'); }
+            if(navigator.vibrate) navigator.vibrate(15);
+        };
 
-      // ----- RENDER HISTORY -----
-      function renderHistory() {
-        const container = document.getElementById('historyList');
-        const emptyDiv = document.getElementById('historyEmpty');
-        if (!container) return;
-        container.innerHTML = '';
-        if (historyLists.length === 0) {
-          emptyDiv.style.display = 'block';
-          return;
+        function getStorageUsage() {
+            let total = 0;
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const val = localStorage.getItem(key);
+                total += (key.length + (val ? val.length : 0)) * 2;
+            }
+            return (total / 1024).toFixed(1);
         }
-        emptyDiv.style.display = 'none';
-        historyLists.forEach((entry, idx) => {
-          const card = document.createElement('div');
-          card.className = 'history-item';
-          const info = document.createElement('div');
-          info.className = 'history-info';
-          info.innerHTML = `<strong>${entry.date} ${entry.time}</strong><br>${entry.vegetableItems.length+entry.generalItems.length} items`;
-          const actions = document.createElement('div');
-          actions.className = 'history-actions';
-          const reloadBtn = document.createElement('button');
-          reloadBtn.innerHTML = '<i class="fas fa-redo-alt"></i>';
-          reloadBtn.setAttribute('aria-label', 'Reload list');
-          reloadBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            currentList = {
-              vegetable: entry.vegetableItems.map(i => ({ ...i, purchased: false })),
-              general: entry.generalItems.map(i => ({ ...i, purchased: false }))
-            };
-            saveCurrent();
-            switchPage('home');
-            renderHome();
-          });
-          const delBtn = document.createElement('button');
-          delBtn.innerHTML = '<i class="fas fa-trash"></i>';
-          delBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            Swal.fire({
-              title: 'Delete history?',
-              text: 'This cannot be undone',
-              icon: 'warning',
-              showCancelButton: true,
-              background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff',
-              color: 'inherit'
-            }).then(res => {
-              if (res.isConfirmed) {
-                historyLists.splice(idx, 1);
-                saveHistory();
-                renderHistory();
-              }
+
+        /* ================= GROCERY APP LOGIC ================= */
+        
+        function loadData() {
+            const savedCurrent = localStorage.getItem(STORAGE_CURRENT);
+            if (savedCurrent) { try { currentList = JSON.parse(savedCurrent); } catch { currentList = { vegetable: [], general: [] }; } }
+            const savedHistory = localStorage.getItem(STORAGE_HISTORY);
+            if (savedHistory) { try { historyLists = JSON.parse(savedHistory); } catch { historyLists = []; } }
+        }
+
+        function saveData() {
+            localStorage.setItem(STORAGE_CURRENT, JSON.stringify(currentList));
+            updateRealtimeStats();
+            checkFinishState();
+        }
+
+        function saveHistoryData() { localStorage.setItem(STORAGE_HISTORY, JSON.stringify(historyLists)); }
+
+        /* Realtime Calculations for Bento Dashboard Panels */
+        function updateRealtimeStats() {
+            const vegTotal = currentList.vegetable.length;
+            const vegBought = currentList.vegetable.filter(item => item.purchased).length;
+
+            const genTotal = currentList.general.length;
+            const genBought = currentList.general.filter(item => item.purchased).length;
+
+            const totalCount = vegTotal + genTotal;
+            const totalBought = vegBought + genBought;
+
+            // Update Overall Panel elements
+            const totalPercent = totalCount > 0 ? Math.round((totalBought / totalCount) * 100) : 0;
+            document.getElementById('stats-total-fraction').innerText = `${totalBought} / ${totalCount}`;
+            document.getElementById('stats-total-percent').innerText = `${totalPercent}%`;
+            document.getElementById('stats-total-bar').style.width = `${totalPercent}%`;
+
+            // Update Veggies & Grocery Card elements
+            const vegPercent = vegTotal > 0 ? Math.round((vegBought / vegTotal) * 100) : 0;
+            document.getElementById('stats-veg-count').innerText = `${vegBought} / ${vegTotal}`;
+            document.getElementById('stats-veg-bar').style.width = `${vegPercent}%`;
+
+            // Update General Items Card elements
+            const genPercent = genTotal > 0 ? Math.round((genBought / genTotal) * 100) : 0;
+            document.getElementById('stats-gen-count').innerText = `${genBought} / ${genTotal}`;
+            document.getElementById('stats-gen-bar').style.width = `${genPercent}%`;
+        }
+
+        function renderLists() {
+            const vegList = document.getElementById('vegetableList');
+            const genList = document.getElementById('generalList');
+            const vegSec = document.getElementById('vegetableSection');
+            const genSec = document.getElementById('generalSection');
+            const emptyState = document.getElementById('emptyListState');
+
+            vegList.innerHTML = ''; genList.innerHTML = '';
+
+            let hasItems = false;
+
+            if(currentList.vegetable.length > 0) {
+                hasItems = true; vegSec.style.display = 'block';
+                currentList.vegetable.forEach((item, idx) => vegList.appendChild(createItemEl(item, 'vegetable', idx)));
+            } else { vegSec.style.display = 'none'; }
+
+            if(currentList.general.length > 0) {
+                hasItems = true; genSec.style.display = 'block';
+                currentList.general.forEach((item, idx) => genList.appendChild(createItemEl(item, 'general', idx)));
+            } else { genSec.style.display = 'none'; }
+
+            if(!hasItems) emptyState.classList.remove('hidden'); else emptyState.classList.add('hidden');
+
+            lucide.createIcons();
+            updateRealtimeStats();
+            checkFinishState();
+        }
+
+        function createItemEl(item, category, idx) {
+            const div = document.createElement('div');
+            div.className = "ios-card flex items-center justify-between p-4 border border-ios-separatorLight/30 dark:border-ios-separatorDark/30 shadow-sm transition-all";
+            
+            div.innerHTML = `
+                <div class="flex items-center gap-3 flex-1 overflow-hidden">
+                    <input type="checkbox" class="custom-checkbox" ${item.purchased ? 'checked' : ''} />
+                    <span class="item-text text-[1.1em] font-medium text-ios-textLight dark:text-ios-textDark truncate ${item.purchased ? 'purchased' : ''}">${item.name}</span>
+                </div>
+                <div class="flex gap-1 ml-3 shrink-0">
+                    <button class="edit-btn p-2 text-ios-subLight hover:text-ios-blueLight transition-colors rounded-full active:bg-ios-separatorLight/20"><i data-lucide="edit-2" class="w-5 h-5"></i></button>
+                    <button class="del-btn p-2 text-ios-subLight hover:text-ios-red transition-colors rounded-full active:bg-ios-separatorLight/20"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                </div>
+            `;
+
+            const cb = div.querySelector('input[type="checkbox"]');
+            const textSpan = div.querySelector('.item-text');
+            
+            cb.addEventListener('change', (e) => {
+                item.purchased = e.target.checked;
+                if(item.purchased) textSpan.classList.add('purchased'); else textSpan.classList.remove('purchased');
+                if(navigator.vibrate) navigator.vibrate(10);
+                saveData();
             });
-          });
-          actions.appendChild(reloadBtn);
-          actions.appendChild(delBtn);
-          card.appendChild(info);
-          card.appendChild(actions);
-          container.appendChild(card);
-        });
-      }
 
-      // ----- SETTINGS RENDER & ACTIONS -----
-      function renderSettings() {
-        updateStorageUsage();
-      }
-      function updateStorageUsage() {
-        let total = 0;
-        for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          const val = localStorage.getItem(key);
-          total += (key.length + (val ? val.length : 0)) * 2; // approx UTF-16
+            div.querySelector('.edit-btn').addEventListener('click', () => {
+                Swal.fire({
+                    title: 'Edit Item',
+                    input: 'text',
+                    inputValue: item.name,
+                    showCancelButton: true,
+                    confirmButtonColor: '#007AFF',
+                    background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+                    color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
+                    customClass: { popup: 'rounded-[24px]' },
+                    inputValidator: (val) => { if (!val.trim()) return 'Please enter a name'; }
+                }).then(res => {
+                    if (res.isConfirmed && res.value.trim()) {
+                        item.name = res.value.trim(); saveData(); renderLists();
+                    }
+                });
+            });
+
+            div.querySelector('.del-btn').addEventListener('click', () => {
+                if (category === 'vegetable') currentList.vegetable.splice(idx, 1);
+                else currentList.general.splice(idx, 1);
+                gsap.to(div, {opacity: 0, scale: 0.9, duration: 0.2, onComplete: () => { saveData(); renderLists(); }});
+                iziToast.show({ title: 'Deleted', message: 'Item removed', position: 'topCenter', color: 'red', timeout: 1500, theme: prefs.theme === 'dark'?'dark':'light' });
+            });
+
+            return div;
         }
-        const kb = (total / 1024).toFixed(1);
-        document.getElementById('storageUsage').innerText = `${kb} KB`;
-      }
 
-      // clear history
-      function clearHistoryWithConfirm() {
-        Swal.fire({
-          title: 'Clear all history?',
-          text: 'This action is permanent',
-          icon: 'warning',
-          showCancelButton: true,
-          background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff'
-        }).then(r => {
-          if (r.isConfirmed) {
-            historyLists = [];
-            saveHistory();
-            renderHistory();
-            if (currentPage === 'history') renderHistory();
-            Swal.fire('Cleared', '', 'success');
-          }
+        function addItem() {
+            const input = document.getElementById('itemInput');
+            const name = input.value.trim();
+            if (!name) {
+                gsap.fromTo(input, {x: -5}, {x: 5, duration: 0.1, yoyo: true, repeat: 3, onComplete: ()=>gsap.to(input, {x:0})});
+                return;
+            }
+            if (activeCategory === 'vegetable') currentList.vegetable.unshift({ name, purchased: false });
+            else currentList.general.unshift({ name, purchased: false });
+            
+            saveData(); renderLists();
+            input.value = ''; input.focus();
+            if(navigator.vibrate) navigator.vibrate(15);
+            iziToast.success({ title: 'Added', message: name, position: 'topCenter', timeout: 1500, theme: prefs.theme === 'dark'?'dark':'light' });
+        }
+
+        function checkFinishState() {
+            const vegAll = currentList.vegetable.every(i => i.purchased);
+            const genAll = currentList.general.every(i => i.purchased);
+            const hasItems = (currentList.vegetable.length + currentList.general.length) > 0;
+            const finishWrap = document.getElementById('finishShoppingWrap');
+
+            if (hasItems && vegAll && genAll) {
+                finishWrap.classList.add('visible');
+                gsap.to(finishWrap, {opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)"});
+            } else {
+                gsap.to(finishWrap, {opacity: 0, y: 20, duration: 0.3, onComplete: () => finishWrap.classList.remove('visible')});
+            }
+        }
+
+        function finishShopping() {
+            const now = new Date();
+            const entry = {
+                id: Date.now(),
+                date: now.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'}),
+                time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                vegetableItems: currentList.vegetable.map(i => ({ ...i })),
+                generalItems: currentList.general.map(i => ({ ...i }))
+            };
+            historyLists.unshift(entry);
+            saveHistoryData();
+            
+            currentList = { vegetable: [], general: [] };
+            saveData(); renderLists();
+
+            Swal.fire({
+                title: 'Shopping Complete! 🎉',
+                text: 'Record saved to History.',
+                icon: 'success',
+                confirmButtonColor: '#34C759',
+                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
+                customClass: { popup: 'rounded-[24px]' }
+            });
+        }
+
+        /* History Rendering */
+        function renderHistory() {
+            const container = document.getElementById('historyListContainer');
+            const emptyState = document.getElementById('historyEmptyState');
+            container.innerHTML = '';
+
+            if (historyLists.length === 0) {
+                emptyState.classList.remove('hidden'); return;
+            }
+            emptyState.classList.add('hidden');
+
+            historyLists.forEach((entry, idx) => {
+                const total = entry.vegetableItems.length + entry.generalItems.length;
+                const card = document.createElement('div');
+                card.className = "ios-card p-5 border border-ios-separatorLight/30 dark:border-ios-separatorDark/30 shadow-sm flex items-center justify-between";
+                
+                card.innerHTML = `
+                    <div>
+                        <h3 class="font-bold text-[1.1em] text-ios-textLight dark:text-ios-textDark">${entry.date}</h3>
+                        <p class="text-[0.85em] text-ios-subLight dark:text-ios-subDark mt-0.5"><i data-lucide="clock" class="w-3 h-3 inline"></i> ${entry.time} • <span class="font-semibold">${total} items</span></p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="reload-btn bg-ios-blueLight/10 text-ios-blueLight p-2.5 rounded-full hover:bg-ios-blueLight/20 transition-colors"><i data-lucide="rotate-ccw" class="w-5 h-5"></i></button>
+                        <button class="del-history-btn bg-ios-red/10 text-ios-red p-2.5 rounded-full hover:bg-ios-red/20 transition-colors"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                    </div>
+                `;
+
+                card.querySelector('.reload-btn').addEventListener('click', () => {
+                    Swal.fire({
+                        title: 'Reload this list?',
+                        text: 'This will replace your active list state.',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, reload',
+                        confirmButtonColor: '#007AFF',
+                        background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+                        color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
+                        customClass: { popup: 'rounded-[24px]' }
+                    }).then(res => {
+                        if(res.isConfirmed) {
+                            currentList = {
+                                vegetable: entry.vegetableItems.map(i => ({ ...i, purchased: false })),
+                                general: entry.generalItems.map(i => ({ ...i, purchased: false }))
+                            };
+                            saveData();
+                            window.location.hash = '#home';
+                        }
+                    });
+                });
+
+                card.querySelector('.del-history-btn').addEventListener('click', () => {
+                    historyLists.splice(idx, 1); saveHistoryData();
+                    gsap.to(card, {opacity: 0, x: -50, duration: 0.3, onComplete: () => renderHistory()});
+                });
+
+                container.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        /* App Reset Actions */
+        window.clearHistory = function() {
+            Swal.fire({
+                title: 'Clear All History?',
+                text: "Your past shopping lists will be deleted.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#FF3B30',
+                confirmButtonText: 'Clear',
+                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
+                customClass: { popup: 'rounded-[24px]' }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    historyLists = []; saveHistoryData();
+                    iziToast.success({ title: 'Cleared', message: 'History removed.', position: 'topCenter', theme: prefs.theme === 'dark' ? 'dark' : 'light' });
+                    renderSettingsUI();
+                }
+            })
+        };
+
+        window.resetApp = function() {
+            Swal.fire({
+                title: 'Reset Entire App?',
+                text: "Current lists, history, and custom themes will be permanently deleted.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#FF3B30',
+                confirmButtonText: 'Reset',
+                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
+                customClass: { popup: 'rounded-[24px]' }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.clear();
+                    window.location.reload();
+                }
+            })
+        };
+
+        window.triggerInsta = function() {
+            iziToast.show({ title: 'Anshu', message: 'Developer Profile Redirect', position: 'topCenter', timeout: 1500 });
+            Swal.fire({
+                title: 'Developer',
+                text: 'Visit developer profile on Instagram?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#007AFF',
+                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000'
+            }).then((res) => {
+                if (res.isConfirmed) window.open('https://instagram.com/anshurajhans', '_blank');
+            });
+        };
+
+        window.toggleQuickMenu = function() {
+            Swal.fire({
+                title: 'Vault Quick Controls',
+                text: 'Direct links to major features',
+                icon: 'info',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Settings',
+                denyButtonText: 'History',
+                confirmButtonColor: '#007AFF',
+                denyButtonColor: '#34C759',
+                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.hash = '#settings';
+                } else if (result.isDenied) {
+                    window.location.hash = '#history';
+                }
+            });
+        };
+
+        /* ================= Core Initialization & Routing ================= */
+        document.addEventListener("DOMContentLoaded", () => {
+            loadPrefs();
+            loadData();
+            lucide.createIcons();
+
+            // Dismiss Splash Screen
+            setTimeout(() => {
+                const splash = document.getElementById('splash');
+                splash.style.opacity = '0';
+                splash.style.visibility = 'hidden';
+                document.getElementById('floatingTabBar').classList.add('visible');
+            }, 1800);
+
+            // Header Theme Toggle
+            const themeBtnHeader = document.getElementById('theme-toggle');
+            themeBtnHeader.addEventListener('click', () => {
+                window.toggleThemeDirectly();
+                gsap.fromTo(themeBtnHeader, {rotation: -180, scale: 0.5}, {rotation: 0, scale: 1, duration: 0.5, ease: "back.out(1.5)"});
+            });
+
+            // SPA Routing System
+            const routes = { '': 'view-home', '#': 'view-home', '#home': 'view-home', '#history': 'view-history', '#settings': 'view-settings' };
+            const navTitle = document.getElementById('nav-title');
+            const tabLinks = document.querySelectorAll('.tab-link');
+            let currentActiveId = 'view-home';
+
+            function handleRouting() {
+                const hash = window.location.hash || '#home';
+                const targetId = routes[hash] || 'view-home';
+                if (targetId === currentActiveId) return;
+
+                const currentEl = document.getElementById(currentActiveId);
+                const targetEl = document.getElementById(targetId);
+                
+                if(targetId === 'view-home') renderLists();
+                if(targetId === 'view-history') renderHistory();
+                if(targetId === 'view-settings') renderSettingsUI();
+
+                gsap.to(currentEl, {
+                    opacity: 0, scale: 0.95, y: -20, duration: 0.25, ease: "power2.inOut",
+                    onComplete: () => {
+                        currentEl.classList.remove('active');
+                        targetEl.classList.add('active');
+                        window.scrollTo(0, 0);
+                        
+                        gsap.to(navTitle, {opacity: 0, y: -5, duration: 0.15, onComplete: () => {
+                            if(hash === '#home' || hash === '') {
+                                navTitle.style.fontFamily = "'Kavoon', serif";
+                                navTitle.innerText = "AnshuList";
+                            } else {
+                                navTitle.style.fontFamily = `var(--user-font), sans-serif`;
+                                navTitle.innerText = targetEl.getAttribute('data-title');
+                            }
+                            gsap.to(navTitle, {opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.5)"});
+                        }});
+
+                        tabLinks.forEach(link => link.classList.remove('active-tab'));
+                        document.querySelector(`.tab-link[href="${hash}"]`)?.classList.add('active-tab');
+
+                        gsap.fromTo(targetEl, { opacity: 0, scale: 0.95, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.2)" });
+                        gsap.to("#" + targetId + " .ui-elem", { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: "back.out(1.2)", delay: 0.1 });
+
+                        currentActiveId = targetId;
+                    }
+                });
+            }
+
+            window.addEventListener('hashchange', handleRouting);
+            
+            // Initial Route Activation
+            const initialHash = window.location.hash || '#home';
+            const initialTarget = routes[initialHash];
+            
+            if(initialHash !== '#home') {
+                document.getElementById('view-home').classList.remove('active');
+                document.getElementById(initialTarget).classList.add('active');
+                document.querySelector(`.tab-link[href="${initialHash}"]`)?.classList.add('active-tab');
+                document.querySelector('.tab-link[href="#home"]')?.classList.remove('active-tab');
+                
+                navTitle.style.fontFamily = `var(--user-font), sans-serif`;
+                navTitle.innerText = document.getElementById(initialTarget).getAttribute('data-title');
+                currentActiveId = initialTarget;
+            }
+            
+            if(initialTarget === 'view-home') renderLists();
+            if(initialTarget === 'view-history') renderHistory();
+            if(initialTarget === 'view-settings') renderSettingsUI();
+
+            gsap.to("#" + currentActiveId + " .ui-elem", { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "back.out(1.2)" });
+
+            // Event Bindings
+            document.getElementById('addItemBtn').addEventListener('click', addItem);
+            document.getElementById('itemInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') addItem(); });
+            document.getElementById('finishBtn').addEventListener('click', finishShopping);
+
+            // Category Slider Handler
+            const segmentBtns = document.querySelectorAll('.segment-btn');
+            const segmentSlider = document.getElementById('segmentSlider');
+            segmentBtns.forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    segmentBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    activeCategory = btn.dataset.target;
+                    segmentSlider.style.transform = `translateX(${index * 100}%)`;
+                    document.getElementById('itemInput').focus();
+                });
+            });
         });
-      }
-
-      // reset app
-      function resetApp() {
-        Swal.fire({
-          title: 'Reset everything?',
-          text: 'Current list and history will vanish',
-          icon: 'warning',
-          showCancelButton: true,
-          background: document.body.classList.contains('dark') ? '#1c1c1e' : '#fff'
-        }).then(r => {
-          if (r.isConfirmed) {
-            localStorage.clear();
-            loadFromStorage(); // reload defaults (empty)
-            saveCurrent(); saveHistory();
-            loadTheme(); // restore theme from storage (but we cleared, so default light)
-            document.body.className = 'light';
-            localStorage.setItem(STORAGE_THEME, 'light');
-            switchPage('home');
-            renderHome(); renderHistory(); renderSettings();
-          }
-        });
-      }
-
-      // ----- PAGE SWITCHING -----
-      function switchPage(page) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(`${page}Page`).classList.add('active');
-        currentPage = page;
-        if (page === 'home') renderHome();
-        if (page === 'history') renderHistory();
-        if (page === 'settings') renderSettings();
-        closeDrawer();
-      }
-
-      // drawer functions
-      const drawer = document.getElementById('drawer');
-      const overlay = document.getElementById('drawerOverlay');
-      const hamburger = document.getElementById('hamburgerBtn');
-      function openDrawer() {
-        drawer.classList.add('active');
-        overlay.classList.add('active');
-        hamburger.classList.add('open');
-      }
-      function closeDrawer() {
-        drawer.classList.remove('active');
-        overlay.classList.remove('active');
-        hamburger.classList.remove('open');
-      }
-
-      // ----- EVENT LISTENERS -----
-      document.addEventListener('DOMContentLoaded', () => {
-        loadFromStorage();
-        loadTheme();
-        renderHome();
-        renderHistory();
-
-        // hamburger
-        hamburger.addEventListener('click', openDrawer);
-        overlay.addEventListener('click', closeDrawer);
-
-        // drawer navigation
-        document.querySelectorAll('.drawer-item').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const page = btn.dataset.page;
-            switchPage(page);
-          });
-        });
-
-        // tabs
-        document.querySelectorAll('.category-tab').forEach(tab => {
-          tab.addEventListener('click', () => {
-            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            activeCategory = tab.dataset.category;
-          });
-        });
-
-        // add item
-        document.getElementById('addItemBtn').addEventListener('click', addItem);
-        document.getElementById('itemInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') addItem(); });
-
-        // finish
-        document.getElementById('finishBtn').addEventListener('click', finishShopping);
-
-        // theme toggle (header & settings)
-        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-        document.getElementById('settingsThemeToggle').addEventListener('click', toggleTheme);
-
-        // clear history
-        document.getElementById('clearHistoryBtn').addEventListener('click', clearHistoryWithConfirm);
-
-        // reset app
-        document.getElementById('resetAppBtn').addEventListener('click', resetApp);
-      });
-    })();
-
-    // SERVICE WORKER REGISTRATION (PWA offline capability)
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        // we register a service-worker.js file that should be placed at root.
-        // For demo, inline is impossible, but we provide registration.
-        navigator.serviceWorker.register('service-worker.js').catch(err => console.warn('SW registration failed:', err));
-      });
-    }
-  </script>
-  <!-- minimal service worker placeholder (create service-worker.js with cache and fetch) -->
-  <!-- For production, add service-worker.js with static cache. Since single file, content not embedded but registration points to it. -->
+    </script>
 </body>
 </html>
