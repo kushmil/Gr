@@ -472,7 +472,7 @@
             <section class="mb-6 ui-elem opacity-0 mt-2">
                 <h1 class="text-[2.2em] font-extrabold tracking-tight mb-2 text-ios-textLight dark:text-ios-textDark">Settings</h1>
                 <p class="text-[0.9em] text-ios-subLight dark:text-ios-subDark leading-relaxed">
-                    Personalize typography, light colors, borders, and general storage parameters.
+                    Personalize typography, light colors, borders, and progressive web app parameters.
                 </p>
             </section>
             
@@ -511,6 +511,7 @@
         let currentList = { vegetable: [], general: [] };
         let historyLists = [];
         let activeCategory = 'vegetable';
+        let deferredPrompt = null; // Stash beforeinstallprompt event
 
         /* ================= PREMIUM SETTINGS ENGINE ================= */
         const FONTS = ['Inter', 'Poppins', 'Roboto', 'Montserrat', 'Nunito', 'Lora', 'Oswald', 'Raleway', 'Ubuntu', 'Merriweather'];
@@ -609,6 +610,18 @@
                     </div>
                 </div>
 
+                <!-- App Installation (PWA) -->
+                <div class="setting-group-title ui-elem opacity-0">App Installation</div>
+                <div class="setting-card ui-elem opacity-0">
+                    <div class="setting-item" id="pwa-install-item" onclick="triggerPWAInstall()">
+                        <div class="setting-icon-box grad-blue"><i data-lucide="download" class="w-5 h-5"></i></div>
+                        <div class="setting-content border-none">
+                            <span class="setting-title">Install AnshuList App</span>
+                            <span class="setting-value" id="pwa-install-status">Checking...</span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Colors Group -->
                 <div class="setting-group-title ui-elem opacity-0">Colors (Light Mode)</div>
                 <div class="setting-card ui-elem opacity-0">
@@ -680,6 +693,7 @@
                 </div>
             `;
             lucide.createIcons();
+            setTimeout(updateInstallButtonState, 50);
         }
 
         window.togglePill = function(el) { el.classList.toggle('open'); };
@@ -715,6 +729,91 @@
             }
             return (total / 1024).toFixed(1);
         }
+
+        /* ================= PWA INSTALL LOGIC ================= */
+        function updateInstallButtonState() {
+            const installItem = document.getElementById('pwa-install-item');
+            const statusText = document.getElementById('pwa-install-status');
+            if (!installItem || !statusText) return;
+
+            // Check if running in standalone display mode
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+            if (isStandalone) {
+                statusText.innerHTML = `<span class="text-ios-green flex items-center gap-1 font-semibold"><i data-lucide="check" class="w-4 h-4"></i> Installed</span>`;
+                installItem.style.opacity = '0.7';
+                installItem.style.pointerEvents = 'none';
+            } else if (deferredPrompt) {
+                statusText.innerHTML = `<span class="text-ios-blueLight dark:text-ios-blueDark flex items-center gap-1 font-bold animate-pulse">Install Now <i data-lucide="arrow-down-to-line" class="w-4 h-4"></i></span>`;
+                installItem.style.opacity = '1';
+                installItem.style.pointerEvents = 'auto';
+            } else {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    statusText.innerHTML = `<span class="text-xs text-ios-subLight flex items-center gap-1">Tap Share <i class="fa-solid fa-share-nodes"></i> & 'Add to Home Screen'</span>`;
+                } else {
+                    statusText.innerHTML = `<span class="text-xs text-ios-subLight">Install Guide</span>`;
+                }
+                installItem.style.opacity = '1';
+                installItem.style.pointerEvents = 'auto';
+            }
+            lucide.createIcons();
+        }
+
+        window.triggerPWAInstall = function() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        iziToast.success({ title: 'Success', message: 'Installing...', position: 'topCenter' });
+                    }
+                    deferredPrompt = null;
+                    updateInstallButtonState();
+                });
+            } else {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    Swal.fire({
+                        title: 'Install on iOS Safari',
+                        html: `
+                            <div class="text-left text-sm space-y-3 p-1">
+                                <p>To install <strong>AnshuList</strong> on your iOS device:</p>
+                                <ol class="list-decimal pl-5 space-y-2">
+                                    <li>Tap the <strong>Share</strong> button <span class="bg-black/5 dark:bg-white/10 px-2 py-1 rounded inline-block"><i class="fa-solid fa-arrow-up-from-bracket"></i></span> at the bottom of Safari.</li>
+                                    <li>Scroll down and tap <strong>Add to Home Screen</strong> <span class="bg-black/5 dark:bg-white/10 px-2 py-1 rounded inline-block"><i class="fa-regular fa-square-plus"></i></span>.</li>
+                                    <li>Tap <strong>Add</strong> in the top right corner.</li>
+                                </ol>
+                            </div>
+                        `,
+                        icon: 'info',
+                        confirmButtonText: 'Got it',
+                        confirmButtonColor: '#007AFF',
+                        background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+                        color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
+                        customClass: { popup: 'rounded-[24px]' }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'How to Install',
+                        html: `
+                            <div class="text-left text-sm space-y-3 p-1">
+                                <p>To run <strong>AnshuList</strong> as a standalone Progressive Web App (PWA):</p>
+                                <ul class="list-disc pl-5 space-y-2">
+                                    <li><strong>Using Chrome/Edge/Firefox:</strong> Click on the menu icon <span class="bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded font-bold">⋮</span> in top right, then click "Install App" or "Add to Home Screen".</li>
+                                    <li><strong>Requirements:</strong> Ensure you are visiting via a secure connection (HTTPS) and that the <code>sw.js</code> file is uploaded to the same directory.</li>
+                                </ul>
+                            </div>
+                        `,
+                        icon: 'info',
+                        confirmButtonText: 'Got it',
+                        confirmButtonColor: '#007AFF',
+                        background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+                        color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
+                        customClass: { popup: 'rounded-[24px]' }
+                    });
+                }
+            }
+        };
 
         /* ================= GROCERY APP LOGIC ================= */
         
@@ -1035,6 +1134,35 @@
             });
         };
 
+        /* ================= PWA Event Handling & Service Worker Registration ================= */
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            updateInstallButtonState();
+        });
+
+        window.addEventListener('appinstalled', (evt) => {
+            deferredPrompt = null;
+            updateInstallButtonState();
+            Swal.fire({
+                title: 'Installed! 🎉',
+                text: 'AnshuList has been successfully added to your device.',
+                icon: 'success',
+                confirmButtonColor: '#34C759',
+                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
+                customClass: { popup: 'rounded-[24px]' }
+            });
+        });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('SW Registered:', reg.scope))
+                    .catch(err => console.log('SW Registration Ignored or Offline Mode Only.'));
+            });
+        }
+
         /* ================= Core Initialization & Routing ================= */
         document.addEventListener("DOMContentLoaded", () => {
             loadPrefs();
@@ -1072,7 +1200,9 @@
                 
                 if(targetId === 'view-home') renderLists();
                 if(targetId === 'view-history') renderHistory();
-                if(targetId === 'view-settings') renderSettingsUI();
+                if(targetId === 'view-settings') {
+                    renderSettingsUI();
+                }
 
                 gsap.to(currentEl, {
                     opacity: 0, scale: 0.95, y: -20, duration: 0.25, ease: "power2.inOut",
@@ -1122,7 +1252,9 @@
             
             if(initialTarget === 'view-home') renderLists();
             if(initialTarget === 'view-history') renderHistory();
-            if(initialTarget === 'view-settings') renderSettingsUI();
+            if(initialTarget === 'view-settings') {
+                renderSettingsUI();
+            }
 
             gsap.to("#" + currentActiveId + " .ui-elem", { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "back.out(1.2)" });
 
