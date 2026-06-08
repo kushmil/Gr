@@ -1,1281 +1,2219 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>AnshuList | Premium Bento Grocery</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>AnshuList | Grocery</title>
+  
+  <!-- Apple Native App Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="AnshuList">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23007AFF%22/><text x=%2250%22 y=%2270%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22%23fff%22>🛒</text></svg>">
+  
+  <!-- Link to External PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
 
-    <!-- PWA primary meta -->
-    <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="AnshuList">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23007AFF'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%23fff'%3E🛒%3C/text%3E%3C/svg%3E">
-    
-    <!-- Inline Manifest -->
-    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22AnshuList%20Grocery%22%2C%22short_name%22%3A%22AnshuList%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F2F2F7%22%2C%22theme_color%22%3A%22%23007AFF%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23007AFF'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%23fff'%3E🛒%3C/text%3E%3C/svg%3E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/svg+xml%22%7D%5D%7D">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Theme Base Color Scales */
+    :root[data-theme="light"] {
+      --bg-color: #f2f2f7;
+      --card-bg: #ffffff;
+      --card-border: rgba(0, 0, 0, 0.05);
+      --text-main: #1c1c1e;
+      --text-muted: #8e8e93;
+      --accent-color: #007aff;
+      --accent-hover: #0056b3;
+      --panel-bg: rgba(255, 255, 255, 0.85);
+      --input-bg: #e5e5ea;
+      --input-border: rgba(0, 0, 0, 0.1);
+      --shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+      --green-color: #34c759;
+      --orange-color: #ff9500;
+      --red-color: #ff3b30;
+      --blue-badge: rgba(0, 122, 255, 0.1);
+    }
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Kavoon&family=Inter:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,900;1,900&family=Lora:ital,wght@0,400;0,600&family=Merriweather:wght@400;700&family=Montserrat:wght@400;500;600&family=Nunito:wght@400;600;700&family=Oswald:wght@400;500&family=Poppins:wght@400;500;600&family=Raleway:wght@400;500;600&family=Roboto:wght@400;500;700&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
+    :root[data-theme="dark"] {
+      --bg-color: #000000;
+      --card-bg: #1c1c1e;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f2f2f7;
+      --text-muted: #8e8e93;
+      --accent-color: #0a84ff;
+      --accent-hover: #5ac8fa;
+      --panel-bg: rgba(28, 28, 30, 0.85);
+      --input-bg: #2c2c2e;
+      --input-border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      --green-color: #30d158;
+      --orange-color: #ff9f0a;
+      --red-color: #ff453a;
+      --blue-badge: rgba(10, 132, 255, 0.15);
+    }
 
-    <!-- CDNs -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    /* Font Hierarchy Variable Scale System */
+    :root[data-font-size="small"] { --base-font: 14px; }
+    :root[data-font-size="medium"] { --base-font: 16px; }
+    :root[data-font-size="large"] { --base-font: 18px; }
+    :root[data-font-size="huge"] { --base-font: 20px; }
 
-    <!-- Tailwind Config for Theme System -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['var(--user-font)', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-                        brand: ['Kavoon', 'serif'],
-                        massive: ['Anton', 'sans-serif'],
-                        serifAccent: ['Playfair Display', 'serif']
-                    },
-                    colors: {
-                        ios: {
-                            bgLight: 'var(--user-bg)', cardLight: 'var(--user-surface)', textLight: 'var(--user-text)', subLight: '#8E8E93', blueLight: '#007AFF', separatorLight: '#C6C6C8',
-                            bgDark: 'var(--user-bg)', cardDark: 'var(--user-surface)', textDark: 'var(--user-text)', subDark: '#8E8E93', blueDark: '#0A84FF', separatorDark: '#38383A',
-                            green: '#34C759', orange: '#FF9500', red: '#FF3B30', purple: '#AF52DE', cyan: '#32ADE6'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
 
-    <style>
-        /* ================= CSS VARIABLES (Live Updates) ================= */
-        :root {
-            --user-font: 'Inter', sans-serif;
-            --user-bg: #F2F2F7;
-            --user-surface: #FFFFFF;
-            --user-text: #000000;
-            --user-font-size: 17px;
-            --user-radius: 20px;
-        }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-size: var(--base-font, 20px);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      padding-bottom: 210px; /* Space for complete visual items */
+    }
 
-        /* Splash Screen */
-        #splash {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--user-bg); display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 9999;
-            transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1), visibility 0s linear 0.6s;
-        }
-        .splash-title {
-            font-family: 'Anton', sans-serif; font-size: clamp(3.2rem, 10vw, 6.5rem);
-            letter-spacing: -0.02em; line-height: 1;
-            background: linear-gradient(135deg, var(--user-text), #007AFF);
-            -webkit-background-clip: text; background-clip: text; color: transparent;
-            animation: pulseGlow 1.8s infinite alternate;
-        }
-        .dark .splash-title {
-            background: linear-gradient(135deg, #FFFFFF, #0A84FF);
-            -webkit-background-clip: text; background-clip: text;
-        }
-        @keyframes pulseGlow {
-            0% { opacity: 0.7; transform: scale(0.98); }
-            100% { opacity: 1; transform: scale(1); }
-        }
+    /* App Dynamic Transition Config Classes */
+    body.transition-fade, body.transition-fade * {
+      transition: background-color var(--transition-speed, 0.45s) ease, 
+                  border-color var(--transition-speed, 0.45s) ease, 
+                  color var(--transition-speed, 0.45s) ease,
+                  box-shadow var(--transition-speed, 0.45s) ease,
+                  transform var(--transition-speed, 0.45s) cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-        /* Base iOS Reset */
-        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
-        body {
-            background-color: var(--user-bg); color: var(--user-text); margin: 0;
-            overflow-x: hidden; font-size: var(--user-font-size);
-            transition: background-color 0.4s ease, color 0.4s ease;
-            -webkit-font-smoothing: antialiased; min-height: 100vh;
-        }
+    /* Screen Views Configurations */
+    .app-screen {
+      display: none;
+      width: 100%;
+      max-width: 768px;
+      margin: 0 auto;
+      padding: 24px 20px;
+      animation: iosFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-        /* SPA View Management */
-        .spa-view { display: none; opacity: 0; transform: scale(0.98); }
-        .spa-view.active { display: block; opacity: 1; transform: scale(1); }
+    .app-screen.active {
+      display: block;
+    }
 
-        /* Glassmorphism Header */
-        .ios-nav {
-            background: rgba(242, 242, 247, 0.7);
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-            border-bottom: 0.5px solid rgba(198, 198, 200, 0.5);
-        }
-        .dark .ios-nav { 
-            background: rgba(28, 28, 30, 0.7); 
-            border-bottom: 0.5px solid rgba(56, 56, 58, 0.5); 
-        }
+    @keyframes iosFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        /* Header Traffic Lights */
-        .traffic-lights {
-            display: flex; gap: 8px; background: rgba(120, 120, 128, 0.1);
-            padding: 8px 14px; border-radius: 40px; cursor: pointer;
-            transition: background 0.2s;
-        }
-        .traffic-lights:active { transform: scale(0.95); }
-        .traffic-lights span { width: 10px; height: 10px; border-radius: 50%; }
-        .tl-red { background: #ff5f56; }
-        .tl-yellow { background: #ffbd2e; }
-        .tl-green { background: #27c93f; }
+    /* Header bar configuration */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-top: env(safe-area-inset-top, 0px);
+    }
 
-        /* Floating Navigation Panel */
-        .floating-nav {
-            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            border-radius: 99px; display: flex; align-items: center; justify-content: space-between;
-            padding: 8px 12px; gap: 12px; z-index: 50; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            opacity: 0;
-        }
-        .floating-nav.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
-        .dark .floating-nav { background: rgba(28, 28, 30, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
+    .header-title-section {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .tab-link { 
-            color: #8E8E93; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: transparent;
-            position: relative;
-        }
-        .tab-link:active { transform: scale(0.85); }
-        .tab-link.active-tab { color: #FFFFFF; background: #007AFF; box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4); transform: translateY(-4px); }
-        .dark .tab-link.active-tab { background: #0A84FF; box-shadow: 0 8px 20px rgba(10, 132, 255, 0.4); }
+    .header-sub {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
 
-        .tab-link.active-tab::after {
-            content: ''; position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%;
-            background: currentColor; animation: navDotPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        @keyframes navDotPop {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+    .header-main-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
 
-        /* UI Components */
-        .ios-card { background-color: var(--user-surface); border-radius: var(--user-radius); transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-        .ios-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
-        .dark .ios-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
-        
-        /* Bento Hero Grid Row */
-        .hero-bento {
-            display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.5rem;
-            align-items: center; border-bottom: 2px solid #007AFF; padding-bottom: 1.5rem; margin-bottom: 2rem;
-        }
-        .dark .hero-bento { border-bottom-color: #0A84FF; }
-        .hero-massive {
-            font-family: 'Anton', sans-serif; font-size: clamp(2.8rem, 8vw, 5.5rem);
-            line-height: 0.85; letter-spacing: -0.02em; text-transform: uppercase; color: var(--user-text);
-        }
-        .hero-massive span { color: #007AFF; display: inline-block; }
-        .dark .hero-massive span { color: #0A84FF; }
+    /* Active dynamic theme toggle space holder */
+    .toggle-header-host {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60px;
+      min-width: 60px;
+    }
 
-        .fah-btn {
-            background-color: var(--user-text); color: var(--user-bg);
-            border: 2px solid #007AFF; padding: 0.75rem 1.5rem; font-weight: 800; font-size: 0.95rem;
-            text-transform: uppercase; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
-            transition: all 0.25s ease; box-shadow: 4px 4px 0px rgba(0, 122, 255, 0.3); border-radius: 40px;
-        }
-        .fah-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px rgba(0, 122, 255, 0.5); }
-        .fah-btn:active { transform: translate(1px, 1px); box-shadow: 0px 0px 0px transparent; }
+    /* Bento grid layout interfaces */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
 
-        .btn-3d {
-            background: linear-gradient(135deg, #007AFF, #0056b3); color: #FFFFFF; border-radius: calc(var(--user-radius) * 0.8);
-            font-weight: 600; padding: 16px 24px; display: flex; align-items: center; justify-content: center; gap: 8px;
-            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.3); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); width: 100%; border: none; cursor: pointer;
-        }
-        .btn-3d:active { transform: scale(0.96); box-shadow: 0 4px 10px rgba(0, 122, 255, 0.2); }
-        .dark .btn-3d { background: linear-gradient(135deg, #0A84FF, #004085); box-shadow: 0 8px 20px rgba(10, 132, 255, 0.3); }
+    .bento-item {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+    }
 
-        .ios-input {
-            width: 100%; padding: 16px; border-radius: calc(var(--user-radius) * 0.8); background-color: var(--user-surface); border: 1.5px solid transparent;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03); color: var(--user-text); outline: none; transition: all 0.3s ease;
-        }
-        .ios-input:focus { border-color: #007AFF; box-shadow: 0 0 0 4px rgba(0,122,255,0.15); transform: translateY(-2px); }
-        .dark .ios-input:focus { border-color: #0A84FF; box-shadow: 0 0 0 4px rgba(10,132,255,0.15); }
+    .bento-size-full { grid-column: span 6; }
 
-        /* Checkbox Styling */
-        .custom-checkbox {
-            appearance: none; -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
-            border: 2px solid #C6C6C8; display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s ease; cursor: pointer; flex-shrink: 0; background: transparent;
-        }
-        .dark .custom-checkbox { border-color: #38383A; }
-        .custom-checkbox:checked { background-color: #34C759; border-color: #34C759; transform: scale(1.05); }
-        .custom-checkbox:checked::after {
-            content: ''; width: 6px; height: 11px; border: solid white; border-width: 0 2px 2px 0;
-            transform: rotate(45deg); margin-bottom: 2px;
-        }
+    /* HUGE CURVED AND WIDE INPUT DESIGN UPGRADE */
+    .input-row {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
 
-        .item-text { transition: all 0.3s ease; }
-        .item-text.purchased { text-decoration: line-through; opacity: 0.5; }
+    .custom-input {
+      flex: 1;
+      padding: 18px 24px;
+      border-radius: 28px; /* Extremely curved edges */
+      border: 1.5px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text-main);
+      font-size: 1.1rem; /* Bigger huge typography */
+      font-weight: 700;
+      outline: none;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
+      transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+    }
 
-        /* Settings UI CSS */
-        .setting-group-title { font-size: 12px; text-transform: uppercase; font-weight: 700; color: #8E8E93; margin: 0 0 8px 16px; letter-spacing: 0.05em; }
-        .setting-card { background: var(--user-surface); border-radius: var(--user-radius); margin-bottom: 28px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.03); border: 1px solid rgba(198,198,200,0.3); transition: all 0.3s; }
-        .dark .setting-card { border-color: rgba(56,56,58,0.3); }
+    .custom-input:focus {
+      border-color: var(--accent-color);
+      background: var(--card-bg);
+      box-shadow: 0 0 0 4px var(--blue-badge), inset 0 2px 4px rgba(0,0,0,0.02);
+    }
 
-        .setting-item { display: flex; align-items: center; padding-left: 16px; cursor: pointer; background: var(--user-surface); transition: background 0.2s; }
-        .setting-item:active { background: rgba(0,0,0,0.03); }
-        .dark .setting-item:active { background: rgba(255,255,255,0.05); }
+    .accent-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 28px; /* Perfect circular matching */
+      border: none;
+      background: var(--accent-color);
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s, background-color 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+    }
 
-        .setting-icon-box { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .setting-content { flex: 1; margin-left: 14px; padding: 14px 16px 14px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid rgba(198,198,200,0.5); }
-        .dark .setting-content { border-bottom-color: rgba(56,56,58,0.5); }
-        .expand-pill:last-child .setting-content, .setting-item:last-child .setting-content { border-bottom: none; }
-        
-        .setting-title { font-weight: 600; color: var(--user-text); }
-        .setting-value { font-size: 0.9em; color: #8E8E93; display: flex; align-items: center; gap: 4px; }
-        
-        /* Gradients */
-        .grad-gray { background: linear-gradient(135deg, #8E8E93, #48484A); }
-        .grad-blue { background: linear-gradient(135deg, #007AFF, #0056b3); }
-        .grad-green { background: linear-gradient(135deg, #34C759, #28A745); }
-        .grad-orange { background: linear-gradient(135deg, #FF9500, #FF3B30); }
-        .grad-purple { background: linear-gradient(135deg, #AF52DE, #5E5CE6); }
-        .grad-red { background: linear-gradient(135deg, #FF3B30, #D70015); }
-        .grad-cyan { background: linear-gradient(135deg, #32ADE6, #007AFF); }
+    .accent-btn:active {
+      transform: scale(0.92);
+    }
 
-        /* Expanding Pill Logic */
-        .pill-content { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s; }
-        .expand-pill.open .pill-content { max-height: 500px; opacity: 1; border-top: 0.5px solid rgba(198,198,200,0.2); }
-        .dark .expand-pill.open .pill-content { border-top-color: rgba(56,56,58,0.2); }
-        .expand-pill.open .transform-icon { transform: rotate(180deg); }
-        .pill-inner { padding: 12px 16px 16px 16px; }
+    /* Segmented selector component configurations */
+    .segmented-control {
+      position: relative;
+      display: flex;
+      background: var(--input-bg);
+      border-radius: 16px;
+      padding: 4px;
+      margin-top: 14px;
+    }
 
-        /* Custom OS Toggle */
-        .custom-toggle { width: 50px; height: 30px; border-radius: 15px; background: #E5E5EA; position: relative; transition: background 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
-        .dark .custom-toggle { background: #38383A; }
-        .custom-toggle.active { background: #34C759; }
-        .toggle-knob { width: 26px; height: 26px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .custom-toggle.active .toggle-knob { transform: translateX(20px); }
+    .segment-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 12px;
+      cursor: pointer;
+      z-index: 2;
+      transition: color 0.3s;
+      border-radius: 12px;
+    }
 
-        /* Option Lists & Color Swatches */
-        .option-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .option-item { padding: 10px 12px; border: 1px solid rgba(198,198,200,0.5); border-radius: calc(var(--user-radius) * 0.6); text-align: center; cursor: pointer; transition: all 0.2s; font-weight: 500; color: var(--user-text); }
-        .dark .option-item { border-color: rgba(56,56,58,0.5); }
-        .option-item.selected { background-color: #007AFF; color: white !important; border-color: #007AFF; }
-        
-        .color-palette { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-        .color-swatch { width: 44px; height: 44px; border-radius: 50%; border: 2px solid rgba(198,198,200,0.5); cursor: pointer; transition: transform 0.2s; }
-        .dark .color-swatch { border-color: rgba(56,56,58,0.5); }
-        .color-swatch.selected { transform: scale(1.15); border-color: #007AFF; }
+    .segment-btn.active {
+      color: #ffffff;
+    }
 
-        /* Segment Control */
-        .segment-control { display: flex; background: rgba(118, 118, 128, 0.12); border-radius: calc(var(--user-radius) * 0.8); padding: 4px; position: relative; margin-bottom: 20px;}
-        .dark .segment-control { background: rgba(118, 118, 128, 0.24); }
-        
-        .segment-btn { flex: 1; text-align: center; padding: 8px; font-weight: 600; font-size: 0.9em; border-radius: calc(var(--user-radius) * 0.6); z-index: 1; position: relative; color: var(--user-text); opacity: 0.6; transition: all 0.3s; }
-        .segment-btn.active { opacity: 1; color: #007AFF; text-shadow: 0 0 12px rgba(0, 122, 255, 0.3); }
-        .dark .segment-btn.active { color: #0A84FF; text-shadow: 0 0 12px rgba(10, 132, 255, 0.4); }
-        
-        .segment-slider { position: absolute; top: 4px; bottom: 4px; width: calc(50% - 4px); background: var(--user-surface); border-radius: calc(var(--user-radius) * 0.6); box-shadow: 0 4px 16px rgba(0, 122, 255, 0.25), 0 2px 4px rgba(0,0,0,0.06); border: 1px solid rgba(0, 122, 255, 0.15); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .dark .segment-slider { box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3), 0 2px 4px rgba(0,0,0,0.2); border: 1px solid rgba(10, 132, 255, 0.25); }
-        
-        /* Finish Floating Button */
-        #finishShoppingWrap {
-            position: fixed; bottom: 90px; left: 0; right: 0; padding: 0 16px; z-index: 40;
-            display: none; opacity: 0; transform: translateY(20px); pointer-events: none;
-            max-width: 42rem; margin: 0 auto;
-        }
-        #finishShoppingWrap.visible { display: block; pointer-events: auto; }
-        .btn-finish-glow { animation: finishGlow 2s infinite; }
-        @keyframes finishGlow { 0% { box-shadow: 0 8px 20px rgba(52,199,89,0.3); } 50% { box-shadow: 0 12px 30px rgba(52,199,89,0.6); } 100% { box-shadow: 0 8px 20px rgba(52,199,89,0.3); } }
+    .segment-slider {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: calc(50% - 4px);
+      height: calc(100% - 8px);
+      background: var(--accent-color);
+      border-radius: 12px;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1;
+    }
 
-        /* ===== BENTO STATS GRID ===== */
-        .bento-stats {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.5rem; margin-bottom: 2rem;
-        }
-        .bento-card {
-            background: var(--user-surface); border: 1px solid rgba(120, 120, 128, 0.1);
-            border-radius: var(--user-radius); padding: 1.25rem; display: flex; flex-direction: column;
-            justify-content: space-between; min-height: 120px; transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .bento-card:hover { transform: translateY(-4px); border-color: #007AFF; box-shadow: 0 12px 24px rgba(0,0,0,0.05); }
-        .dark .bento-card:hover { border-color: #0A84FF; box-shadow: 0 12px 24px rgba(0,0,0,0.4); }
-        .bento-wide { grid-column: span 2; }
-        
-        @media (max-width: 640px) {
-            .bento-stats { grid-template-columns: 1fr; }
-            .bento-wide { grid-column: span 1; }
-            .hero-bento { grid-template-columns: 1fr; text-align: center; }
-        }
-    </style>
+    /* Category List Area configurations */
+    .category-section {
+      margin-top: 24px;
+    }
+
+    .category-header {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .items-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Beautiful Premium Custom Item Card elements */
+    .grocery-item-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: itemPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes itemPopIn {
+      from { opacity: 0; transform: scale(0.95) translateY(5px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .grocery-item-card:active {
+      transform: scale(0.98);
+    }
+
+    /* Custom Checkbox elements */
+    .custom-checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .custom-checkbox-inner {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .custom-checkbox-input {
+      display: none;
+    }
+
+    .custom-checkbox-input:checked + .custom-checkbox-inner {
+      background-color: var(--green-color);
+      border-color: var(--green-color);
+    }
+
+    .custom-checkbox-input:checked + .custom-checkbox-inner::after {
+      content: '';
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      margin-bottom: 2px;
+    }
+
+    .item-label-text {
+      font-weight: 600;
+      color: var(--text-main);
+      transition: all 0.3s ease;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .custom-checkbox-input:checked ~ .item-label-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .action-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: var(--input-bg);
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s, background-color 0.15s;
+    }
+
+    .action-icon-btn:active {
+      transform: scale(0.85);
+    }
+
+    .action-icon-btn.edit:hover { background-color: var(--accent-color); color: white; }
+    .action-icon-btn.delete:hover { background-color: var(--red-color); color: white; }
+
+    /* SHOPPING PROGRESS BENTO CARD SECTION */
+    .progress-dashboard-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: iosFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .progress-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .progress-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .progress-count {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--accent-color);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: var(--input-bg);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-color), var(--green-color));
+      border-radius: 4px;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Empty lists visual state container */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-icon {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .empty-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Floating Navigation Panel (pitch black, icons only) */
+    .floating-nav {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #000000;
+      border-radius: 30px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+      z-index: 999;
+      width: auto;
+      max-width: 90vw;
+    }
+
+    .nav-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 24px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .nav-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: #8e8e93;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.2s, transform 0.2s;
+    }
+
+    .nav-btn.active {
+      background-color: #222222;
+    }
+
+    .nav-btn.active svg {
+      stroke: #ffffff;
+      transform: scale(1.05);
+    }
+
+    .nav-btn:active {
+      transform: scale(0.9);
+    }
+
+    /* Stats Dashboard configuration styles */
+    .stats-card-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-dashboard-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-top: 4px;
+    }
+
+    .bar-chart-container {
+      margin-top: 16px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 120px;
+      padding: 0 4px;
+    }
+
+    .chart-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .chart-bar-pillar {
+      width: 20px;
+      border-radius: 6px;
+      background-color: var(--accent-color);
+      min-height: 4px;
+      transition: height 1s ease-out;
+    }
+
+    .chart-day-lbl {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Preferences configuration elements */
+    .setting-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .setting-section-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .selector-option {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .selector-option.active {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      color: #ffffff;
+    }
+
+    select {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
+      padding: 12px;
+      border-radius: 12px;
+      font-family: inherit;
+      outline: none;
+      cursor: pointer;
+      font-weight: 700;
+      appearance: none;
+    }
+
+    .icon-list-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    /* Historical list cards styling */
+    .history-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .history-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .history-date {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .history-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Splash Screen Selections System */
+    .splash-container {
+      position: fixed;
+      inset: 0;
+      background-color: var(--bg-color);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    }
+
+    .splash-container.hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-style-minimalist {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .splash-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background-color: #000000;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      animation: logoScale 1.2s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
+    }
+
+    @keyframes logoScale {
+      0% { transform: scale(0.95); }
+      100% { transform: scale(1.05); }
+    }
+
+    .splash-style-ring {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .geometric-ring {
+      width: 60px;
+      height: 60px;
+      border: 3px solid var(--input-border);
+      border-top: 3px solid var(--accent-color);
+      border-radius: 50%;
+      animation: spin-ring 0.8s linear infinite;
+      margin-bottom: 24px;
+    }
+
+    @keyframes spin-ring {
+      to { transform: rotate(360deg); }
+    }
+
+    .splash-style-ios {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 60px 40px;
+      align-items: center;
+    }
+
+    .ios-progress-bar {
+      width: 140px;
+      height: 4px;
+      background: var(--input-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .ios-progress-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--text-main);
+      animation: progress-fill 1.4s ease-out forwards;
+    }
+
+    @keyframes progress-fill {
+      to { width: 100%; }
+    }
+
+    .subtext-brand {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* Standard iOS terms footer configuration */
+    .terms-block {
+      text-align: center;
+      padding: 24px 0;
+      border-top: 1px solid var(--card-border);
+      margin-top: 24px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      line-height: 1.5;
+    }
+
+    /* Premium Custom iOS Style Alert Modal Overlay configuration */
+    .premium-dialog-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .premium-dialog-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .premium-dialog {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 24px;
+      width: 90%;
+      max-width: 380px;
+      box-shadow: var(--shadow);
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+    }
+
+    .premium-dialog-overlay.active .premium-dialog {
+      transform: scale(1);
+    }
+
+    .dialog-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .dialog-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text-main);
+      margin: 16px 0;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .dialog-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .dialog-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .dialog-btn.cancel {
+      background: var(--input-bg);
+      color: var(--text-main);
+    }
+
+    .dialog-btn.confirm {
+      background: var(--accent-color);
+      color: #ffffff;
+    }
+
+    /* Interactive Premium Finish Floating Banner configuration */
+    .finish-button-wrap {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      width: calc(100% - 40px);
+      max-width: 728px;
+      z-index: 98;
+      display: none;
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+    }
+
+    .finish-button-wrap.visible {
+      display: block;
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .btn-finish-premium {
+      width: 100%;
+      background: linear-gradient(135deg, var(--green-color), #28a745);
+      color: #ffffff;
+      border: none;
+      border-radius: 20px;
+      padding: 16px;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      box-shadow: 0 10px 30px rgba(52, 199, 89, 0.3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-finish-premium:active {
+      transform: scale(0.97);
+    }
+
+    /* Transitions & Ripple Overlays */
+    .slide-transition-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--accent-color);
+      z-index: 99999;
+      transform: translateX(-100%);
+      pointer-events: none;
+    }
+
+    .slide-transition-overlay.active {
+      animation: sweep-right var(--transition-speed, 0.45s) ease-in-out forwards;
+    }
+
+    @keyframes sweep-right {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+
+    .zoom-wrapper {
+      transition: transform var(--transition-speed, 0.45s) cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .zoom-wrapper.zoomed {
+      transform: scale(0.92);
+      opacity: 0.7;
+    }
+
+    .ripple-container {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ripple-layer {
+      position: absolute;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      will-change: transform;
+      background: var(--ripple-bg, #000000);
+    }
+
+    .ripple-layer.expanding {
+      animation: grow-ripple var(--transition-speed, 0.45s) cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes grow-ripple {
+      to {
+        transform: translate(-50%, -50%) scale(var(--ripple-target-scale, 1));
+      }
+    }
+
+    /* 11 Icon Picker Toggles styles configuration exactly adapted from Game Hub [1] */
+    .toggle-wrapper {
+      display: none;
+      user-select: none;
+    }
+
+    .toggle-wrapper.active {
+      display: block;
+    }
+
+    /* 1. Morphing */
+    .morph-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+    }
+
+    .morph-btn svg {
+      width: 44px;
+      height: 44px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .morph-btn .sun-beams {
+      transform-origin: center;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .morph-btn .sun-center { transition: r 0.5s ease; }
+    .morph-btn .mask-circle { transition: cx 0.5s ease, cy 0.5s ease; }
+
+    [data-theme="dark"] .morph-btn svg { transform: rotate(40deg); }
+    [data-theme="dark"] .morph-btn .sun-beams { transform: scale(0.3) rotate(45deg); opacity: 0; }
+    [data-theme="dark"] .morph-btn .sun-center { r: 9px; }
+    [data-theme="dark"] .morph-btn .mask-circle { cx: 17px; cy: 7px; }
+
+    /* 2. Sliding Sky Pill */
+    .sky-pill {
+      width: 80px;
+      height: 40px;
+      border-radius: 20px;
+      background: linear-gradient(to right, #38bdf8, #bae6fd);
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+      transition: background 0.5s;
+    }
+
+    [data-theme="dark"] .sky-pill { background: linear-gradient(to right, #0f172a, #1e1b4b); }
+
+    .sky-knob {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #fef08a;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.4s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    [data-theme="dark"] .sky-knob { transform: translateX(40px); background: #e2e8f0; }
+
+    .sky-clouds {
+      position: absolute;
+      bottom: -4px;
+      left: 8px;
+      width: 36px;
+      height: 20px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 10px;
+      transition: transform 0.5s, opacity 0.4s;
+    }
+
+    [data-theme="dark"] .sky-clouds { transform: translateY(24px); opacity: 0; }
+
+    .sky-stars {
+      position: absolute;
+      top: 6px;
+      right: 12px;
+      font-size: 8px;
+      color: #fff;
+      display: flex;
+      gap: 3px;
+      opacity: 0;
+      transform: translateY(-16px);
+      transition: transform 0.5s, opacity 0.4s;
+    }
+
+    [data-theme="dark"] .sky-stars { transform: translateY(0); opacity: 1; }
+
+    /* 3. Hanging Chain */
+    .hanging-bulb { position: relative; width: 60px; height: 100px; cursor: pointer; }
+    .bulb-socket { width: 16px; height: 12px; background: #64748b; margin: 0 auto; border-radius: 2px 2px 0 0; }
+    .bulb-glass {
+      width: 34px; height: 34px; border-radius: 50%; background: #cbd5e1; margin: 0 auto;
+      border: 3px solid #64748b; position: relative; transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .bulb-glass::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); width: 10px; height: 6px; background: #64748b; }
+    [data-theme="dark"] .bulb-glass { background: #fef08a; border-color: #f59e0b; box-shadow: 0 0 20px rgba(254, 240, 138, 0.8); }
+    .pull-cord { width: 2px; height: 35px; background: #475569; position: absolute; top: 12px; right: 12px; transition: height 0.15s ease-out; }
+    .pull-cord::after { content: ''; position: absolute; bottom: -6px; left: -3px; width: 8px; height: 8px; background: #475569; border-radius: 50%; }
+    .hanging-bulb:active .pull-cord { height: 48px; }
+
+    /* 4. 3D Flip */
+    .flip-container { width: 50px; height: 50px; perspective: 1000px; cursor: pointer; }
+    .flip-card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    [data-theme="dark"] .flip-card-inner { transform: rotateY(180deg); }
+    .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--card-border); box-shadow: var(--shadow); }
+    .flip-front { background-color: #fffde7; }
+    .flip-back { background-color: #1e1b4b; transform: rotateY(180deg); }
+    .flip-front svg { color: #f59e0b; }
+    .flip-back svg { color: #e2e8f0; }
+
+    /* 5. Solar Eclipse */
+    .eclipse-wrapper { width: 50px; height: 50px; position: relative; cursor: pointer; border-radius: 50%; overflow: hidden; background: #1e293b; border: 2px solid var(--card-border); transition: background-color 0.4s; }
+    [data-theme="dark"] .eclipse-wrapper { background: #020617; }
+    .eclipse-sun { position: absolute; top: 8px; left: 8px; width: 30px; height: 30px; border-radius: 50%; background: #f97316; box-shadow: 0 0 8px #f97316; transition: background-color 0.4s, box-shadow 0.4s; }
+    [data-theme="dark"] .eclipse-sun { background: #f8fafc; box-shadow: 0 0 16px rgba(255, 255, 255, 0.9); }
+    .eclipse-moon-shadow { position: absolute; top: 8px; left: -32px; width: 30px; height: 30px; border-radius: 50%; background: #020617; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    [data-theme="dark"] .eclipse-moon-shadow { transform: translateX(38px); }
+
+    /* 6. Sleepy Eye */
+    .eye-btn { background: none; border: none; cursor: pointer; color: var(--text-main); }
+    .eye-btn svg { width: 44px; height: 44px; stroke: currentColor; stroke-width: 2; fill: none; }
+    .eye-open-elements, .eye-closed-elements { transition: opacity 0.4s, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform-origin: center; }
+    .eye-closed-elements { opacity: 0; transform: scale(0.6); }
+    [data-theme="dark"] .eye-open-elements { opacity: 0; transform: scale(0.6); }
+    [data-theme="dark"] .eye-closed-elements { opacity: 1; transform: scale(1); }
+
+    /* 7. Moon Shadow */
+    .shadow-btn { width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; border: 2px solid var(--text-main); position: relative; }
+    .shadow-core { width: 24px; height: 24px; border-radius: 50%; background-color: var(--text-main); position: relative; transition: transform 0.5s ease; }
+    .shadow-mask { position: absolute; top: 0; right: -24px; width: 24px; height: 24px; border-radius: 50%; background-color: var(--bg-color); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s; }
+    [data-theme="dark"] .shadow-core { transform: rotate(-25deg); }
+    [data-theme="dark"] .shadow-mask { transform: translate(-17px, 1.5px) scale(0.95); }
+
+    /* 8. Astrolabe */
+    .astro-container { width: 52px; height: 52px; border-radius: 50%; border: 1.5px dashed var(--accent-color); position: relative; cursor: pointer; transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .astro-sun, .astro-moon { position: absolute; left: 50%; transform: translate(-50%, -50%); }
+    .astro-sun { top: 10px; color: #fbbf24; }
+    .astro-moon { bottom: -6px; color: #cbd5e1; }
+    .astro-axis { position: absolute; top: 50%; left: 50%; width: 1.5px; height: 28px; background: var(--text-muted); transform: translate(-50%, -50%); }
+    .astro-pivot { position: absolute; top: 50%; left: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); transform: translate(-50%, -50%); }
+    [data-theme="dark"] .astro-container { transform: rotate(180deg); }
+
+    /* 9. Mountain Ridge */
+    .landscape-container { width: 70px; height: 40px; border-radius: 20px; cursor: pointer; overflow: hidden; border: 1.5px solid var(--card-border); box-shadow: var(--shadow); position: relative; }
+    .landscape-sky { width: 100%; height: 100%; background: linear-gradient(to bottom, #7dd3fc, #e0f2fe); transition: background 0.4s; }
+    [data-theme="dark"] .landscape-sky { background: linear-gradient(to bottom, #030712, #1e1b4b); }
+    .landscape-stars { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s; }
+    [data-theme="dark"] .landscape-stars { opacity: 1; }
+    .landscape-sun { position: absolute; left: 14px; bottom: 8px; width: 14px; height: 14px; background: #f97316; border-radius: 50%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s; }
+    [data-theme="dark"] .landscape-sun { transform: translateY(24px); opacity: 0; }
+    .landscape-moon { position: absolute; right: 14px; bottom: -24px; width: 14px; height: 14px; border-radius: 50%; background: #e2e8f0; box-shadow: -2px 2px 0 #cbd5e1 inset; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    [data-theme="dark"] .landscape-moon { transform: translateY(-32px); }
+    .landscape-mountains { position: absolute; bottom: -1px; width: 100%; height: 16px; fill: #8d6e63; transition: fill 0.4s; }
+    [data-theme="dark"] .landscape-mountains { fill: #374151; }
+
+    /* 10. Cyberpunk */
+    .cyber-toggle { background: #090d16; border: 1.5px solid #10b981; border-radius: 6px; padding: 4px 8px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.65rem; }
+    .cyber-lbl { transition: color 0.3s; }
+    .cyber-lbl.day { color: #10b981; }
+    .cyber-lbl.night { color: #1f2937; }
+    .cyber-slot { width: 26px; height: 14px; background: #111827; border-radius: 7px; position: relative; }
+    .cyber-bead { position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border-radius: 50%; background: #10b981; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s; }
+    [data-theme="dark"] .cyber-toggle { border-color: #ec4899; }
+    [data-theme="dark"] .cyber-lbl.day { color: #1f2937; }
+    [data-theme="dark"] .cyber-lbl.night { color: #ec4899; }
+    [data-theme="dark"] .cyber-bead { transform: translateX(12px); background: #ec4899; }
+
+    /* 11. Hourglass */
+    .hourglass-btn { background: none; border: none; cursor: pointer; color: var(--text-main); display: flex; align-items: center; justify-content: center; }
+    .hourglass-btn svg { width: 40px; height: 40px; stroke: currentColor; stroke-width: 2; fill: none; transition: transform 0.8s cubic-bezier(0.68, -0.6, 0.34, 1.6); transform-origin: center; }
+    .hourglass-sand-top, .hourglass-sand-bottom { transition: transform 0.8s, opacity 0.4s; transform-origin: center; }
+    [data-theme="dark"] .hourglass-btn svg { transform: rotate(180deg); }
+  </style>
 </head>
-<body class="bg-ios-bgLight dark:bg-ios-bgDark">
+<body class="transition-fade">
 
-    <!-- SPLASH SCREEN -->
-    <div id="splash">
-        <div class="text-center">
-            <div class="splash-title">ANSHULIST</div>
-            <div class="text-[0.9rem] uppercase font-bold tracking-[4px] mt-4 opacity-70">grocery & general · bento vault</div>
+  <!-- Visual Transitions Engine Overlays -->
+  <div class="slide-transition-overlay" id="slideOverlay"></div>
+  <div class="ripple-container" id="rippleContainer"></div>
+
+  <!-- Dynamic Initialization Launch Splash Screen Screen -->
+  <div class="splash-container" id="globalSplash">
+    <div class="splash-render-zone" id="splashZone"></div>
+  </div>
+
+  <!-- Custom Alert Overlay -->
+  <div class="premium-dialog-overlay" id="customDialogOverlay">
+    <div class="premium-dialog">
+      <h3 class="dialog-title" id="dialogTitle">Dialog</h3>
+      <input type="text" class="dialog-input" id="dialogInput" placeholder="">
+      <div class="dialog-buttons">
+        <button class="dialog-btn cancel" id="dialogCancelBtn">Cancel</button>
+        <button class="dialog-btn confirm" id="dialogConfirmBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="zoom-wrapper" id="zoomWrapper">
+
+    <!-- ==========================================================
+         HOME TAB (ACTIVE SHOPPING LIST VIEW)
+         ========================================================== -->
+    <section class="app-screen active" id="tab-home">
+      <header class="header-bar">
+        <div class="header-title-section">
+          <span class="header-sub">Interactive Grocery</span>
+          <h1 class="header-main-title">ANSHULIST</h1>
         </div>
+        <!-- Dynamic Toggle Host inside home tab -->
+        <div class="toggle-header-host" id="homeToggleHost"></div>
+      </header>
+
+      <!-- Main Input Bento Box Grid component (Curved Visual Upgrade) -->
+      <div class="bento-grid">
+        <div class="bento-item bento-size-full" style="gap: 12px;">
+          <div class="input-row">
+            <input type="text" id="groceryInput" class="custom-input" placeholder="e.g. Tomatoes or Milk..." autocomplete="off">
+            <button id="addGroceryBtn" class="accent-btn" aria-label="Add Item">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Category Segmented Slide Controller Slider -->
+          <div class="segmented-control">
+            <div class="segment-slider" id="segmentSlider"></div>
+            <button class="segment-btn active" data-category="vegetable">Vegetable 🌱</button>
+            <button class="segment-btn" data-category="general">General 📦</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories Render Zone -->
+      <div id="listsContainer">
+        <!-- Vegetables Lists Sector -->
+        <div class="category-section" id="vegetableSection">
+          <h3 class="category-header">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--green-color);">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+              <path d="M12 6v12M6 12h12"></path>
+            </svg>
+            Vegetables
+          </h3>
+          <div class="items-container" id="vegetableList"></div>
+        </div>
+
+        <!-- General Lists Sector -->
+        <div class="category-section" id="generalSection">
+          <h3 class="category-header">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--orange-color);">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+            </svg>
+            General Items
+          </h3>
+          <div class="items-container" id="generalList"></div>
+        </div>
+
+        <!-- Dynamic Live Progress Tracking Dashboard Bento Card -->
+        <div class="progress-dashboard-card" id="progressDashboard" style="display: none;">
+          <div class="progress-info-row">
+            <span class="progress-label">Shopping Progress</span>
+            <span class="progress-count" id="progressCountVal">0 / 0 Items</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFillBar"></div>
+          </div>
+        </div>
+
+        <!-- Empty Lists visual container placeholder -->
+        <div class="empty-state hidden" id="emptyListState">
+          <div class="empty-icon">🛒</div>
+          <div class="empty-text">Your list is completely clear. Ready to shop!</div>
+        </div>
+      </div>
+
+      <footer class="terms-block">
+        By utilizing AnshuList, you agree to our structural <a href="#terms">Terms of Service</a> & <a href="#privacy">Privacy Principles</a>.<br>
+        © 2026 AnshuList. Crafted with Premium aesthetics.
+      </footer>
+    </section>
+
+    <!-- ==========================================================
+         HISTORY TAB VIEW
+         ========================================================== -->
+    <section class="app-screen" id="tab-history">
+      <header class="header-bar">
+        <div class="header-title-section">
+          <span class="header-sub">Historical Data</span>
+          <h1 class="header-main-title">HISTORY</h1>
+        </div>
+      </header>
+
+      <div class="items-container" id="historyListContainer"></div>
+
+      <div class="empty-state hidden" id="historyEmptyState">
+        <div class="empty-icon">🕒</div>
+        <div class="empty-text">No previous lists stored. Complete a list to track logs here.</div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         STATISTICS OVERVIEW SCREEN VIEW
+         ========================================================== -->
+    <section class="app-screen" id="tab-stats">
+      <header class="header-bar">
+        <div class="header-title-section">
+          <span class="header-sub">Metrics Overview</span>
+          <h1 class="header-main-title">STATISTICS</h1>
+        </div>
+      </header>
+
+      <div class="stats-card-group">
+        <div class="stat-dashboard-card">
+          <div class="stat-lbl">Completed Lists</div>
+          <div class="stat-val" id="totalListsVal">0</div>
+        </div>
+        <div class="stat-dashboard-card">
+          <div class="stat-lbl">Total Items Purchased</div>
+          <div class="stat-val" id="totalItemsVal">0</div>
+        </div>
+      </div>
+
+      <div class="stat-dashboard-card">
+        <div class="stat-lbl">Weekly Checkout Tracker</div>
+        <div class="bar-chart-container" id="statChart">
+          <!-- Populated dynamically via JS state configuration -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         PREFERENCES SETTINGS VIEW
+         ========================================================== -->
+    <section class="app-screen" id="tab-settings">
+      <header class="header-bar">
+        <div class="header-title-section">
+          <span class="header-sub">Tailor Visuals</span>
+          <h1 class="header-main-title">PREFERENCES</h1>
+        </div>
+      </header>
+
+      <div class="setting-section">
+        <h3 class="setting-section-title">Font Size Control</h3>
+        <div class="options-grid" id="fontSizeSelector">
+          <div class="selector-option" data-font="small">Small</div>
+          <div class="selector-option" data-font="medium">Medium</div>
+          <div class="selector-option" data-font="large">Large</div>
+          <div class="selector-option" data-font="huge">Huge</div>
+        </div>
+      </div>
+
+      <div class="setting-section">
+        <h3 class="setting-section-title">Theme Icon Picker</h3>
+        <div class="icon-list-grid" id="toggleStyleGrid">
+          <div class="selector-option" data-style-id="1">1. Morphing</div>
+          <div class="selector-option" data-style-id="2">2. Sky Pill</div>
+          <div class="selector-option" data-style-id="3">3. Pull Chain</div>
+          <div class="selector-option" data-style-id="4">4. 3D Flip</div>
+          <div class="selector-option" data-style-id="5">5. Eclipse</div>
+          <div class="selector-option" data-style-id="6">6. Sleepy Eye</div>
+          <div class="selector-option" data-style-id="7">7. Moon Shadow</div>
+          <div class="selector-option" data-style-id="8">8. Astrolabe</div>
+          <div class="selector-option" data-style-id="9">9. Mountain</div>
+          <div class="selector-option" data-style-id="10">10. Cyberpunk</div>
+          <div class="selector-option" data-style-id="11">11. Hourglass</div>
+        </div>
+      </div>
+
+      <div class="setting-section">
+        <h3 class="setting-section-title">Page Transitions</h3>
+        <select id="transitionSelection">
+          <option value="fade">CSS Opacity Cross-Fade</option>
+          <option value="ripple">Circular Ripple (At Cursor)</option>
+          <option value="slide">Sweep Slide Overlay</option>
+          <option value="zoom">Elastic Scale Pop</option>
+          <option value="instant">Instant Swap</option>
+        </select>
+      </div>
+
+      <div class="setting-section">
+        <h3 class="setting-section-title">Splash Screen Style</h3>
+        <select id="splashSelection">
+          <option value="1">Minimalist Brand Icon (Style 1)</option>
+          <option value="2">Geometric Ring Rotating (Style 2)</option>
+          <option value="3">Classic iOS Slide Loader (Style 3)</option>
+        </select>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; line-height: 1.4;">
+          The splash screen automatically displays for 1.8 seconds when launching or refreshing the app structure.
+        </p>
+      </div>
+
+      <div class="setting-section">
+        <h3 class="setting-section-title">Data Actions</h3>
+        <div style="display: flex; gap: 8px; flex-direction: column;">
+          <button class="selector-option" id="clearAllHistoryBtn" style="border: 1px solid var(--red-color); color: var(--red-color); padding: 14px;">Clear List Logs History</button>
+          <button class="selector-option" id="factoryResetBtn" style="background-color: var(--red-color); border: 1px solid var(--red-color); color: white; padding: 14px;">Full Engine Reset</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Dynamic Finish Floating banner widget -->
+  <div class="finish-button-wrap" id="finishBanner">
+    <button class="btn-finish-premium" id="completeShoppingBtn">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      Finish Shopping Session
+    </button>
+  </div>
+
+  <!-- FLOATING NAVIGATION PANEL (BLACK BG / NO TEXT / SVGS ONLY) -->
+  <nav class="floating-nav">
+    <button class="nav-btn active" data-target="tab-home" aria-label="Shopping List">
+      <svg viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </button>
+    <button class="nav-btn" data-target="tab-history" aria-label="History Logs">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+    </button>
+    <button class="nav-btn" data-target="tab-stats" aria-label="Gameplay Statistics">
+      <svg viewBox="0 0 24 24">
+        <line x1="18" y1="20" x2="18" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+    </button>
+    <button class="nav-btn" data-target="tab-settings" aria-label="Preferences Menu">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- DYNAMIC THEME TOGGLE TEMPLATES SOURCE -->
+  <div style="display: none;" id="themeToggleSource">
+    
+    <!-- Style 1 -->
+    <div class="toggle-wrapper" data-style="1">
+      <button class="morph-btn" aria-label="Toggle Theme">
+        <svg viewBox="0 0 24 24">
+          <mask id="moon-mask">
+            <rect x="0" y="0" width="24" height="24" fill="white" />
+            <circle cx="24" cy="0" r="8" fill="black" class="mask-circle" />
+          </mask>
+          <circle cx="12" cy="12" r="5" fill="currentColor" mask="url(#moon-mask)" class="sun-center" />
+          <g class="sun-beams">
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </g>
+        </svg>
+      </button>
     </div>
 
-    <!-- DYNAMIC TOP NAV -->
-    <header class="ios-nav sticky top-0 z-40 w-full">
-        <div class="max-w-2xl mx-auto px-4 py-3 flex justify-between items-center h-[65px]">
-            <div class="w-1/3 flex justify-start items-center">
-                <div class="traffic-lights" onclick="toggleQuickMenu()">
-                    <span class="tl-red"></span><span class="tl-yellow"></span><span class="tl-green"></span>
-                </div>
-            </div>
-            <div class="w-1/3 flex justify-center items-center whitespace-nowrap">
-                <span id="nav-title" class="font-brand text-xl text-ios-textLight dark:text-ios-textDark tracking-tight transition-opacity">AnshuList</span>
-            </div>
-            <div class="w-1/3 flex justify-end items-center">
-                <button id="theme-toggle" class="p-2.5 rounded-full bg-ios-separatorLight/30 dark:bg-ios-separatorDark/50 text-ios-textLight dark:text-ios-textDark transition-all active:scale-75 outline-none hover:bg-ios-separatorLight/50">
-                    <i data-lucide="sun" id="theme-icon-sun" class="w-5 h-5 hidden dark:block"></i>
-                    <i data-lucide="moon" id="theme-icon-moon" class="w-5 h-5 block dark:hidden"></i>
-                </button>
-            </div>
+    <!-- Style 2 -->
+    <div class="toggle-wrapper" data-style="2">
+      <div class="sky-pill">
+        <div class="sky-clouds"></div>
+        <div class="sky-stars">
+          <span>✦</span><span>★</span><span>✦</span>
         </div>
-    </header>
-
-    <!-- MAIN ROUTER CONTAINER -->
-    <main id="app-router" class="max-w-2xl mx-auto w-full px-4 pt-6 pb-36 min-h-screen">
-
-        <!-- ==================== VIEW: HOME (LIST) ==================== -->
-        <div id="view-home" class="spa-view active" data-title="AnshuList">
-            
-            <!-- Hero Layout -->
-            <div class="hero-bento ui-elem opacity-0">
-                <div class="hero-massive">
-                    ANSHU<span>LIST</span>
-                </div>
-                <div class="text-right">
-                    <div class="font-serifAccent italic text-[1.1rem] opacity-60 mb-2">bento layout · stats</div>
-                    <button class="fah-btn" onclick="triggerInsta()"><i class="fab fa-instagram"></i> @anshu</button>
-                </div>
-            </div>
-
-            <!-- Input Form -->
-            <section class="mb-6 ui-elem opacity-0 relative">
-                <div class="flex items-center gap-2">
-                    <div class="relative flex-1">
-                        <i data-lucide="plus" class="absolute left-4 top-4 text-ios-subLight dark:text-ios-subDark w-6 h-6"></i>
-                        <input type="text" id="itemInput" class="ios-input pl-14 font-medium" placeholder="e.g. Fresh Tomatoes" autocomplete="off" />
-                    </div>
-                    <button id="addItemBtn" class="bg-ios-blueLight dark:bg-ios-blueDark text-white h-[56px] w-[56px] rounded-full flex items-center justify-center shrink-0 active:scale-90 transition-all shadow-md">
-                        <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                    </button>
-                </div>
-            </section>
-
-            <!-- Category Selector -->
-            <section class="mb-8 ui-elem opacity-0">
-                <div class="segment-control" id="categoryTabs">
-                    <div class="segment-slider" id="segmentSlider"></div>
-                    <button class="segment-btn active" data-target="vegetable">Grocery / Veg 🌱</button>
-                    <button class="segment-btn" data-target="general">General 📦</button>
-                </div>
-            </section>
-
-            <!-- Lists Containers -->
-            <div id="listsContainer" class="ui-elem opacity-0 min-h-[200px]">
-                
-                <!-- Vegetable List -->
-                <div id="vegetableSection">
-                    <h3 class="text-[0.8em] uppercase font-bold text-ios-subLight dark:text-ios-subDark mb-3 ml-2 tracking-wider flex items-center gap-2">
-                        <i data-lucide="carrot" class="w-4 h-4 text-ios-green"></i> Vegetables & Groceries
-                    </h3>
-                    <div id="vegetableList" class="flex flex-col gap-3 mb-6"></div>
-                </div>
-
-                <!-- General List -->
-                <div id="generalSection">
-                    <h3 class="text-[0.8em] uppercase font-bold text-ios-subLight dark:text-ios-subDark mb-3 ml-2 tracking-wider flex items-center gap-2">
-                        <i data-lucide="package" class="w-4 h-4 text-ios-orange"></i> General Items
-                    </h3>
-                    <div id="generalList" class="flex flex-col gap-3"></div>
-                </div>
-
-                <!-- Empty State -->
-                <div id="emptyListState" class="hidden flex-col items-center justify-center py-10 text-center opacity-60">
-                    <i data-lucide="shopping-bag" class="w-12 h-12 mb-3 text-ios-subLight dark:text-ios-subDark animate-bounce"></i>
-                    <p class="font-medium text-ios-textLight dark:text-ios-textDark">No items on your list.</p>
-                </div>
-            </div>
-
-            <!-- BENTO REALTIME STATISTICS DASHBOARD (Moved to bottom) -->
-            <div class="bento-stats ui-elem opacity-0">
-                <!-- Card 1: Overall Progress (Wide) -->
-                <div class="bento-card bento-wide" style="background: linear-gradient(135deg, rgba(0, 122, 255, 0.15), rgba(0, 122, 255, 0.03));">
-                    <div class="flex justify-between items-start">
-                        <span class="text-xs uppercase font-extrabold tracking-wider opacity-60">Overall Progress</span>
-                        <div class="p-1.5 bg-[#007AFF]/10 rounded-lg text-[#007AFF] dark:text-[#0a84ff]"><i data-lucide="check-square" class="w-4 h-4"></i></div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between items-baseline mb-2">
-                            <span class="text-2xl font-black" id="stats-total-fraction">0 / 0</span>
-                            <span class="text-sm font-semibold" id="stats-total-percent">0%</span>
-                        </div>
-                        <div class="w-full bg-black/10 dark:bg-white/10 h-2.5 rounded-full overflow-hidden">
-                            <div class="bg-[#007AFF] h-full transition-all duration-500" id="stats-total-bar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2: Vegetable & Grocery -->
-                <div class="bento-card" style="background: linear-gradient(135deg, rgba(52, 199, 89, 0.15), rgba(52, 199, 89, 0.03));">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] uppercase font-extrabold tracking-wider opacity-60">Grocery</span>
-                        <div class="p-1 bg-ios-green/10 rounded text-ios-green"><i data-lucide="carrot" class="w-3.5 h-3.5"></i></div>
-                    </div>
-                    <div class="mt-4">
-                        <div class="text-xl font-black" id="stats-veg-count">0 / 0</div>
-                        <div class="w-full bg-black/10 dark:bg-white/10 h-1 rounded-full overflow-hidden mt-1">
-                            <div class="bg-ios-green h-full transition-all duration-500" id="stats-veg-bar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3: General items -->
-                <div class="bento-card" style="background: linear-gradient(135deg, rgba(255, 149, 0, 0.15), rgba(255, 149, 0, 0.03));">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] uppercase font-extrabold tracking-wider opacity-60">General</span>
-                        <div class="p-1 bg-ios-orange/10 rounded text-ios-orange"><i data-lucide="package" class="w-3.5 h-3.5"></i></div>
-                    </div>
-                    <div class="mt-4">
-                        <div class="text-xl font-black" id="stats-gen-count">0 / 0</div>
-                        <div class="w-full bg-black/10 dark:bg-white/10 h-1 rounded-full overflow-hidden mt-1">
-                            <div class="bg-ios-orange h-full transition-all duration-500" id="stats-gen-bar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- ==================== VIEW: HISTORY ==================== -->
-        <div id="view-history" class="spa-view" data-title="History">
-            <section class="mb-6 ui-elem opacity-0 mt-2">
-                <h1 class="text-[2.2em] font-extrabold tracking-tight mb-2 text-ios-textLight dark:text-ios-textDark">Shopping History</h1>
-                <p class="text-[0.9em] text-ios-subLight dark:text-ios-subDark leading-relaxed">
-                    Review and reuse records of your previous shopping trips.
-                </p>
-            </section>
-
-            <div id="historyListContainer" class="ui-elem opacity-0 flex flex-col gap-4"></div>
-
-            <div id="historyEmptyState" class="hidden flex-col items-center justify-center py-16 text-center opacity-60 ui-elem opacity-0">
-                <i data-lucide="clock" class="w-12 h-12 mb-3 text-ios-subLight dark:text-ios-subDark"></i>
-                <p class="font-medium text-ios-textLight dark:text-ios-textDark">History is empty.</p>
-                <p class="text-[0.8em] mt-1">Complete shopping checklist cycles to build records.</p>
-            </div>
-        </div>
-
-        <!-- ==================== VIEW: SETTINGS ==================== -->
-        <div id="view-settings" class="spa-view" data-title="Settings">
-            <section class="mb-6 ui-elem opacity-0 mt-2">
-                <h1 class="text-[2.2em] font-extrabold tracking-tight mb-2 text-ios-textLight dark:text-ios-textDark">Settings</h1>
-                <p class="text-[0.9em] text-ios-subLight dark:text-ios-subDark leading-relaxed">
-                    Personalize typography, light colors, borders, and progressive web app parameters.
-                </p>
-            </section>
-            
-            <!-- Dynamic Settings Container (Rendered exactly matching original specifications) -->
-            <div id="settings-container"></div>
-        </div>
-
-    </main>
-
-    <!-- FLOATING FINISH BUTTON -->
-    <div id="finishShoppingWrap">
-        <button id="finishBtn" class="btn-3d btn-finish-glow !bg-gradient-to-r from-ios-green to-[#28A745] dark:from-[#28A745] dark:to-[#1e7e34] !shadow-[0_8px_20px_rgba(52,199,89,0.3)] w-full">
-            <i data-lucide="check-circle" class="w-6 h-6"></i> Archive shopping trip
-        </button>
+        <div class="sky-knob"></div>
+      </div>
     </div>
 
-    <!-- FLOATING TAB BAR -->
-    <nav class="floating-nav" id="floatingTabBar">
-        <a href="#home" class="tab-link active-tab" data-target="home" title="Checklist">
-            <i data-lucide="list-todo" class="w-6 h-6"></i>
-        </a>
-        <a href="#history" class="tab-link" data-target="history" title="History Records">
-            <i data-lucide="history" class="w-6 h-6"></i>
-        </a>
-        <a href="#settings" class="tab-link group" data-target="settings" title="System Settings">
-            <i data-lucide="settings" class="w-6 h-6 animate-[spin_6s_linear_infinite]"></i>
-        </a>
-    </nav>
+    <!-- Style 3 -->
+    <div class="toggle-wrapper" data-style="3">
+      <div class="hanging-bulb">
+        <div class="bulb-socket"></div>
+        <div class="bulb-glass"></div>
+        <div class="pull-cord"></div>
+      </div>
+    </div>
 
-    <!-- Scripts -->
-    <script>
-        /* ================= STATE & STORAGE KEYS ================= */
-        const STORAGE_CURRENT = 'anshu_grocery_current';
-        const STORAGE_HISTORY = 'anshu_grocery_history';
+    <!-- Style 4 -->
+    <div class="toggle-wrapper" data-style="4">
+      <div class="flip-container">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          </div>
+          <div class="flip-back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        let currentList = { vegetable: [], general: [] };
-        let historyLists = [];
-        let activeCategory = 'vegetable';
-        let deferredPrompt = null; // Stash beforeinstallprompt event
+    <!-- Style 5 -->
+    <div class="toggle-wrapper" data-style="5">
+      <div class="eclipse-wrapper">
+        <div class="eclipse-sun"></div>
+        <div class="eclipse-moon-shadow"></div>
+      </div>
+    </div>
 
-        /* ================= PREMIUM SETTINGS ENGINE ================= */
-        const FONTS = ['Inter', 'Poppins', 'Roboto', 'Montserrat', 'Nunito', 'Lora', 'Oswald', 'Raleway', 'Ubuntu', 'Merriweather'];
-        const BG_COLORS = ['#F2F2F7', '#FFFFFF', '#FFF5F5', '#F0FDF4', '#EFF6FF', '#000000', '#1C1C1E'];
-        const TEXT_COLORS = ['#000000', '#333333', '#007AFF', '#FF3B30', '#FFFFFF', '#EBEBF5'];
-        const RADIUS_OPTS = [
-            { label: 'Sharp', val: '0' },
-            { label: 'Medium', val: '12' },
-            { label: 'Rounded', val: '20' },
-            { label: 'Maximum', val: '32' }
-        ];
+    <!-- Style 6 -->
+    <div class="toggle-wrapper" data-style="6">
+      <button class="eye-btn" aria-label="Toggle Theme">
+        <svg viewBox="0 0 24 24">
+          <g class="eye-open-elements">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+            <circle cx="12" cy="12" r="3" fill="currentColor" />
+          </g>
+          <g class="eye-closed-elements">
+            <path d="M2 10c2.5 4 7.5 4 10 0" />
+            <line x1="3" y1="13" x2="1" y2="16" />
+            <line x1="21" y1="13" x2="23" y2="16" />
+            <line x1="7" y1="14" x2="6" y2="18" />
+            <line x1="17" y1="14" x2="18" y2="18" />
+            <line x1="12" y1="14" x2="12" y2="19" />
+          </g>
+        </svg>
+      </button>
+    </div>
 
-        let prefs = { font: 'Inter', bg: '#F2F2F7', text: '#000000', fontSize: '17', radius: '20', theme: 'system' };
+    <!-- Style 7 -->
+    <div class="toggle-wrapper" data-style="7">
+      <div class="shadow-btn">
+        <div class="shadow-core">
+          <div class="shadow-mask"></div>
+        </div>
+      </div>
+    </div>
 
-        function isDarkHex(hex) { return (hex === '#000000' || hex === '#1C1C1E'); }
+    <!-- Style 8 -->
+    <div class="toggle-wrapper" data-style="8">
+      <div class="astro-container">
+        <div class="astro-axis"></div>
+        <div class="astro-pivot"></div>
+        <div class="astro-sun">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
+        <div class="astro-moon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </div>
+      </div>
+    </div>
 
-        function loadPrefs() {
-            const saved = localStorage.getItem('anshu_prefs');
-            if (saved) { prefs = JSON.parse(saved); } 
-            else { prefs.theme = (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) ? 'dark' : 'light'; }
-            if(prefs.theme === 'dark') document.documentElement.classList.add('dark');
-            else document.documentElement.classList.remove('dark');
-            applyPrefsGlobally();
+    <!-- Style 9 -->
+    <div class="toggle-wrapper" data-style="9">
+      <div class="landscape-container">
+        <div class="landscape-sky"></div>
+        <div class="landscape-stars">
+          <span style="position: absolute; color: #fff; font-size: 6px; top: 6px; left: 12px;">★</span>
+          <span style="position: absolute; color: #fff; font-size: 6px; top: 12px; left: 36px;">✦</span>
+          <span style="position: absolute; color: #fff; font-size: 6px; top: 4px; left: 54px;">★</span>
+        </div>
+        <div class="landscape-sun"></div>
+        <div class="landscape-moon"></div>
+        <svg class="landscape-mountains" viewBox="0 0 100 22">
+          <path d="M-10 22 L15 6 L45 18 L75 2 L110 22 Z" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Style 10 -->
+    <div class="toggle-wrapper" data-style="10">
+      <div class="cyber-toggle">
+        <span class="cyber-lbl day">D</span>
+        <div class="cyber-slot">
+          <div class="cyber-bead"></div>
+        </div>
+        <span class="cyber-lbl night">N</span>
+      </div>
+    </div>
+
+    <!-- Style 11 -->
+    <div class="toggle-wrapper" data-style="11">
+      <button class="hourglass-btn" aria-label="Toggle Theme">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 2h14M5 22h14" />
+          <path d="M19 2v3a7 7 0 0 1-7 7 7 7 0 0 1-7-7V2" />
+          <path d="M5 22v-3a7 7 0 0 1 7-7 7 7 0 0 1 7 7v3" />
+          <polygon points="6,4 18,4 12,11" fill="currentColor" class="hourglass-sand-top" />
+          <polygon points="12,13 7,20 17,20" fill="currentColor" opacity="0.4" class="hourglass-sand-bottom" />
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- JAVASCRIPT APPLICATION CORE ENGINE -->
+  <script>
+    // State Config Space matching user's custom layout preferences [1]
+    const appState = {
+      theme: localStorage.getItem('gh_theme') || 'light',
+      fontSize: localStorage.getItem('gh_fontSize') || 'huge', 
+      activeToggleStyle: parseInt(localStorage.getItem('gh_toggleStyle'), 10) || 9, // Start with Mountain (#9) [1]
+      transitionType: localStorage.getItem('gh_transition') || 'ripple', // Start with Ripple Transition [1]
+      splashStyle: localStorage.getItem('gh_splash') || '3', // Start with iOS Slide splash (#3) [1]
+      activeCategory: 'vegetable',
+      currentList: JSON.parse(localStorage.getItem('anshu_grocery_current')) || { vegetable: [], general: [] },
+      history: JSON.parse(localStorage.getItem('anshu_grocery_history')) || [],
+      stats: {
+        weeklyCheckouts: JSON.parse(localStorage.getItem('anshu_grocery_weekly_stats')) || [0, 0, 0, 0, 0, 0, 0]
+      }
+    };
+
+    // DOM Caching Elements
+    const bodyEl = document.body;
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const appScreens = document.querySelectorAll('.app-screen');
+    const zoomWrapper = document.getElementById('zoomWrapper');
+    const transitionSelection = document.getElementById('transitionSelection');
+    const splashSelection = document.getElementById('splashSelection');
+    const toggleStyleGrid = document.getElementById('toggleStyleGrid');
+    const fontSizeSelector = document.getElementById('fontSizeSelector');
+    const homeToggleHost = document.getElementById('homeToggleHost');
+    const globalSplash = document.getElementById('globalSplash');
+    const splashZone = document.getElementById('splashZone');
+    
+    // Grocery Lists Node bindings
+    const groceryInput = document.getElementById('groceryInput');
+    const addGroceryBtn = document.getElementById('addGroceryBtn');
+    const vegetableSection = document.getElementById('vegetableSection');
+    const generalSection = document.getElementById('generalSection');
+    const vegetableList = document.getElementById('vegetableList');
+    const generalList = document.getElementById('generalList');
+    const emptyListState = document.getElementById('emptyListState');
+    const finishBanner = document.getElementById('finishBanner');
+    const completeShoppingBtn = document.getElementById('completeShoppingBtn');
+
+    // Shopping Progress Bento Card Bindings
+    const progressDashboard = document.getElementById('progressDashboard');
+    const progressCountVal = document.getElementById('progressCountVal');
+    const progressFillBar = document.getElementById('progressFillBar');
+    
+    // Dialog overlays bindings
+    const customDialogOverlay = document.getElementById('customDialogOverlay');
+    const dialogTitle = document.getElementById('dialogTitle');
+    const dialogInput = document.getElementById('dialogInput');
+    const dialogCancelBtn = document.getElementById('dialogCancelBtn');
+    const dialogConfirmBtn = document.getElementById('dialogConfirmBtn');
+
+    // Splash Screens HTML Templates [1]
+    const splashTemplates = {
+      '1': `
+        <div class="splash-style-minimalist">
+          <div class="splash-logo">AL</div>
+          <span class="subtext-brand">AnshuList</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">Premium Custom Design</span>
+        </div>
+      `,
+      '2': `
+        <div class="splash-style-ring">
+          <div class="geometric-ring"></div>
+          <span class="subtext-brand">Loading Database</span>
+        </div>
+      `,
+      '3': `
+        <div class="splash-style-ios">
+          <div style="text-align: center; margin-top: 100px;">
+            <h1 style="font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em;">ANSHULIST</h1>
+            <span class="subtext-brand" style="color: var(--accent-color);">Premium Native iOS Style</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 80px;">
+            <div class="ios-progress-bar">
+              <div class="ios-progress-fill"></div>
+            </div>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Loaded securely via PWA sandbox</span>
+          </div>
+        </div>
+      `
+    };
+
+    // Inline custom alert validation sequence
+    let dialogResolve = null;
+    function triggerCustomDialog(titleText, defaultVal = '') {
+      return new Promise((resolve) => {
+        dialogTitle.textContent = titleText;
+        dialogInput.value = defaultVal;
+        customDialogOverlay.classList.add('active');
+        dialogInput.focus();
+        dialogResolve = resolve;
+      });
+    }
+
+    dialogConfirmBtn.addEventListener('click', () => {
+      const val = dialogInput.value.trim();
+      if (val && dialogResolve) {
+        customDialogOverlay.classList.remove('active');
+        dialogResolve(val);
+      }
+    });
+
+    dialogCancelBtn.addEventListener('click', () => {
+      customDialogOverlay.classList.remove('active');
+      dialogResolve(null);
+    });
+
+    dialogInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const val = dialogInput.value.trim();
+        if (val && dialogResolve) {
+          customDialogOverlay.classList.remove('active');
+          dialogResolve(val);
         }
+      }
+    });
 
-        function savePrefs() {
-            localStorage.setItem('anshu_prefs', JSON.stringify(prefs));
-            applyPrefsGlobally();
+    // Run Splash Sequence on initialization [1]
+    function triggerSplashSequence() {
+      splashZone.innerHTML = splashTemplates[appState.splashStyle] || splashTemplates['1'];
+      globalSplash.classList.remove('hidden');
+
+      setTimeout(() => {
+        globalSplash.classList.add('hidden');
+      }, 1800);
+    }
+
+    // Apply Native iOS Font Hierarchy [1]
+    function applyFontState() {
+      document.documentElement.setAttribute('data-font-size', appState.fontSize);
+      document.querySelectorAll('#fontSizeSelector .selector-option').forEach(opt => {
+        if (opt.getAttribute('data-font') === appState.fontSize) {
+          opt.classList.add('active');
+        } else {
+          opt.classList.remove('active');
         }
+      });
+    }
 
-        function applyPrefsGlobally() {
-            const root = document.documentElement;
-            root.style.setProperty('--user-font', `'${prefs.font}', sans-serif`);
-            document.body.style.fontFamily = `'${prefs.font}', sans-serif`;
-            
-            if (prefs.theme === 'dark') {
-                root.style.setProperty('--user-bg', '#000000');
-                root.style.setProperty('--user-surface', '#1C1C1E');
-                root.style.setProperty('--user-text', '#FFFFFF');
-                document.getElementById('theme-icon-sun')?.classList.replace('hidden', 'block');
-                document.getElementById('theme-icon-moon')?.classList.replace('block', 'hidden');
-                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000000');
-            } else {
-                root.style.setProperty('--user-bg', prefs.bg);
-                root.style.setProperty('--user-surface', isDarkHex(prefs.bg) ? '#1C1C1E' : '#FFFFFF');
-                root.style.setProperty('--user-text', prefs.text);
-                document.getElementById('theme-icon-sun')?.classList.replace('block', 'hidden');
-                document.getElementById('theme-icon-moon')?.classList.replace('hidden', 'block');
-                document.querySelector('meta[name="theme-color"]').setAttribute('content', prefs.bg);
-            }
-            
-            root.style.setProperty('--user-font-size', `${prefs.fontSize}px`);
-            root.style.setProperty('--user-radius', `${prefs.radius}px`);
-            document.body.style.fontSize = `${prefs.fontSize}px`;
+    // Apply color values [1]
+    function applyThemeState(targetTheme) {
+      document.documentElement.setAttribute('data-theme', targetTheme);
+      appState.theme = targetTheme;
+      localStorage.setItem('gh_theme', targetTheme);
+    }
+
+    // Render interactive theme toggle components [1]
+    function renderActiveToggle() {
+      const sourceWrap = document.querySelector(`#themeToggleSource .toggle-wrapper[data-style="${appState.activeToggleStyle}"]`);
+      if (sourceWrap) {
+        homeToggleHost.innerHTML = sourceWrap.outerHTML;
+        const activeWrapper = homeToggleHost.querySelector('.toggle-wrapper');
+        if (activeWrapper) {
+          activeWrapper.classList.add('active');
+          activeWrapper.addEventListener('click', (e) => executeToggleSequence(e));
         }
+      }
 
-        function renderSettingsUI() {
-            const container = document.getElementById('settings-container');
-            const currentRadiusLabel = RADIUS_OPTS.find(r => r.val === prefs.radius)?.label || 'Rounded';
-            let storageKB = getStorageUsage();
-
-            container.innerHTML = `
-                <!-- Appearance Group -->
-                <div class="setting-group-title ui-elem opacity-0">Appearance</div>
-                <div class="setting-card ui-elem opacity-0">
-                    <div class="setting-item" onclick="toggleThemeDirectly()">
-                        <div class="setting-icon-box grad-gray"><i data-lucide="moon" class="w-5 h-5"></i></div>
-                        <div class="setting-content">
-                            <span class="setting-title">Dark Mode</span>
-                            <div class="custom-toggle ${prefs.theme === 'dark' ? 'active' : ''}" id="ui-theme-toggle"><div class="toggle-knob"></div></div>
-                        </div>
-                    </div>
-                    <div class="expand-pill" onclick="togglePill(this)">
-                        <div class="setting-item">
-                            <div class="setting-icon-box grad-blue"><i data-lucide="type" class="w-5 h-5"></i></div>
-                            <div class="setting-content">
-                                <span class="setting-title">Typography</span>
-                                <span class="setting-value"><span id="set-font-label">${prefs.font}</span> <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 transform-icon"></i></span>
-                            </div>
-                        </div>
-                        <div class="pill-content"><div class="pill-inner"><div class="option-list">
-                            ${FONTS.map(f => `<div class="option-item ${prefs.font===f?'selected':''}" style="font-family: '${f}', sans-serif;" onclick="event.stopPropagation(); updateSetting('font', '${f}'); resetSettingsSelection(this, 'option-item'); document.getElementById('set-font-label').innerText = '${f}';">${f}</div>`).join('')}
-                        </div></div></div>
-                    </div>
-                    <div class="expand-pill" onclick="togglePill(this)">
-                        <div class="setting-item">
-                            <div class="setting-icon-box grad-green"><i data-lucide="a-large-small" class="w-5 h-5"></i></div>
-                            <div class="setting-content">
-                                <span class="setting-title">Font Size</span>
-                                <span class="setting-value"><span id="set-fs-label">${prefs.fontSize}px</span> <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 transform-icon"></i></span>
-                            </div>
-                        </div>
-                        <div class="pill-content"><div class="pill-inner">
-                            <input type="range" min="14" max="24" value="${prefs.fontSize}" class="w-full accent-[#007AFF]" oninput="document.getElementById('set-fs-label').innerText = this.value + 'px'; updateSetting('fontSize', this.value)" onclick="event.stopPropagation()">
-                        </div></div>
-                    </div>
-                </div>
-
-                <!-- App Installation (PWA) -->
-                <div class="setting-group-title ui-elem opacity-0">App Installation</div>
-                <div class="setting-card ui-elem opacity-0">
-                    <div class="setting-item" id="pwa-install-item" onclick="triggerPWAInstall()">
-                        <div class="setting-icon-box grad-blue"><i data-lucide="download" class="w-5 h-5"></i></div>
-                        <div class="setting-content border-none">
-                            <span class="setting-title">Install AnshuList App</span>
-                            <span class="setting-value" id="pwa-install-status">Checking...</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Colors Group -->
-                <div class="setting-group-title ui-elem opacity-0">Colors (Light Mode)</div>
-                <div class="setting-card ui-elem opacity-0">
-                    <div class="expand-pill" onclick="togglePill(this)">
-                        <div class="setting-item">
-                            <div class="setting-icon-box grad-orange"><i data-lucide="palette" class="w-5 h-5"></i></div>
-                            <div class="setting-content">
-                                <span class="setting-title">Background Color</span>
-                                <span class="setting-value"><i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 transform-icon"></i></span>
-                            </div>
-                        </div>
-                        <div class="pill-content"><div class="pill-inner"><div class="color-palette">
-                            ${BG_COLORS.map(c => `<div class="color-swatch ${prefs.bg===c?'selected':''}" style="background: ${c};" onclick="event.stopPropagation(); updateSetting('bg', '${c}'); resetSettingsSelection(this, 'color-swatch');"></div>`).join('')}
-                        </div></div></div>
-                    </div>
-                    <div class="expand-pill" onclick="togglePill(this)">
-                        <div class="setting-item">
-                            <div class="setting-icon-box grad-purple"><i data-lucide="baseline" class="w-5 h-5"></i></div>
-                            <div class="setting-content border-none">
-                                <span class="setting-title">Text Color</span>
-                                <span class="setting-value"><i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 transform-icon"></i></span>
-                            </div>
-                        </div>
-                        <div class="pill-content"><div class="pill-inner"><div class="color-palette">
-                            ${TEXT_COLORS.map(c => `<div class="color-swatch ${prefs.text===c?'selected':''}" style="background: ${c}; border-color: ${isDarkHex(c) ? '#38383A' : '#C6C6C8'};" onclick="event.stopPropagation(); updateSetting('text', '${c}'); resetSettingsSelection(this, 'color-swatch');"></div>`).join('')}
-                        </div></div></div>
-                    </div>
-                </div>
-
-                <!-- Interface Group -->
-                <div class="setting-group-title ui-elem opacity-0">Interface</div>
-                <div class="setting-card ui-elem opacity-0">
-                    <div class="expand-pill" onclick="togglePill(this)">
-                        <div class="setting-item">
-                            <div class="setting-icon-box grad-cyan"><i data-lucide="square" class="w-5 h-5"></i></div>
-                            <div class="setting-content border-none">
-                                <span class="setting-title">UI Style</span>
-                                <span class="setting-value"><span id="set-rad-label">${currentRadiusLabel}</span> <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 transform-icon"></i></span>
-                            </div>
-                        </div>
-                        <div class="pill-content"><div class="pill-inner"><div class="option-list">
-                            ${RADIUS_OPTS.map(r => `<div class="option-item ${prefs.radius===r.val?'selected':''}" onclick="event.stopPropagation(); updateSetting('radius', '${r.val}'); resetSettingsSelection(this, 'option-item'); document.getElementById('set-rad-label').innerText = '${r.label}';">${r.label}</div>`).join('')}
-                        </div></div></div>
-                    </div>
-                </div>
-
-                <!-- Data & Storage Group -->
-                <div class="setting-group-title ui-elem opacity-0 flex justify-between pr-4"><span>Data & Storage</span> <span>${storageKB} KB</span></div>
-                <div class="setting-card ui-elem opacity-0" style="margin-bottom:10px;">
-                    <div class="setting-item" onclick="clearHistory()">
-                        <div class="setting-icon-box grad-gray"><i data-lucide="eraser" class="w-5 h-5"></i></div>
-                        <div class="setting-content">
-                            <span class="setting-title text-ios-textLight dark:text-ios-textDark">Clear History</span>
-                        </div>
-                    </div>
-                    <div class="setting-item" onclick="resetApp()">
-                        <div class="setting-icon-box grad-red"><i data-lucide="trash-2" class="w-5 h-5"></i></div>
-                        <div class="setting-content border-none">
-                            <span class="setting-title" style="color: #FF3B30;">Reset App Data</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- App Info -->
-                <div class="flex flex-col items-center justify-center mt-12 opacity-50 ui-elem opacity-0 pb-10">
-                    <i data-lucide="shopping-cart" class="w-10 h-10 mb-2 text-ios-subLight dark:text-ios-subDark"></i>
-                    <p class="text-[0.9em] font-bold text-ios-textLight dark:text-ios-textDark">AnshuList Grocery</p>
-                    <p class="text-[0.75em] text-ios-subLight dark:text-ios-subDark mt-1">Version 3.0 • Premium Bento Edition</p>
-                </div>
-            `;
-            lucide.createIcons();
-            setTimeout(updateInstallButtonState, 50);
+      document.querySelectorAll('#toggleStyleGrid .selector-option').forEach(opt => {
+        if (parseInt(opt.getAttribute('data-style-id'), 10) === appState.activeToggleStyle) {
+          opt.classList.add('active');
+        } else {
+          opt.classList.remove('active');
         }
+      });
+    }
 
-        window.togglePill = function(el) { el.classList.toggle('open'); };
-        window.updateSetting = function(key, val) {
-            prefs[key] = val; savePrefs();
-            iziToast.show({ title: 'Updated', message: 'Applied successfully.', position: 'topCenter', timeout: 1000, color: 'green', theme: prefs.theme === 'dark' ? 'dark' : 'light' });
-        };
-        window.resetSettingsSelection = function(el, cls) {
-            const siblings = el.parentElement.querySelectorAll('.'+cls);
-            siblings.forEach(s => s.classList.remove('selected'));
-            el.classList.add('selected');
-        };
-
-        window.toggleThemeDirectly = function() {
-            const willBeDark = prefs.theme !== 'dark';
-            if (willBeDark) {
-                document.documentElement.classList.add('dark'); prefs.theme = 'dark'; localStorage.theme = 'dark';
-            } else {
-                document.documentElement.classList.remove('dark'); prefs.theme = 'light'; localStorage.theme = 'light';
-            }
-            savePrefs();
-            const toggle = document.getElementById('ui-theme-toggle');
-            if(toggle) { if(willBeDark) toggle.classList.add('active'); else toggle.classList.remove('active'); }
-            if(navigator.vibrate) navigator.vibrate(15);
-        };
-
-        function getStorageUsage() {
-            let total = 0;
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                const val = localStorage.getItem(key);
-                total += (key.length + (val ? val.length : 0)) * 2;
-            }
-            return (total / 1024).toFixed(1);
-        }
-
-        /* ================= PWA INSTALL LOGIC ================= */
-        function updateInstallButtonState() {
-            const installItem = document.getElementById('pwa-install-item');
-            const statusText = document.getElementById('pwa-install-status');
-            if (!installItem || !statusText) return;
-
-            // Check if running in standalone display mode
-            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-
-            if (isStandalone) {
-                statusText.innerHTML = `<span class="text-ios-green flex items-center gap-1 font-semibold"><i data-lucide="check" class="w-4 h-4"></i> Installed</span>`;
-                installItem.style.opacity = '0.7';
-                installItem.style.pointerEvents = 'none';
-            } else if (deferredPrompt) {
-                statusText.innerHTML = `<span class="text-ios-blueLight dark:text-ios-blueDark flex items-center gap-1 font-bold animate-pulse">Install Now <i data-lucide="arrow-down-to-line" class="w-4 h-4"></i></span>`;
-                installItem.style.opacity = '1';
-                installItem.style.pointerEvents = 'auto';
-            } else {
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if (isIOS) {
-                    statusText.innerHTML = `<span class="text-xs text-ios-subLight flex items-center gap-1">Tap Share <i class="fa-solid fa-share-nodes"></i> & 'Add to Home Screen'</span>`;
-                } else {
-                    statusText.innerHTML = `<span class="text-xs text-ios-subLight">Install Guide</span>`;
-                }
-                installItem.style.opacity = '1';
-                installItem.style.pointerEvents = 'auto';
-            }
-            lucide.createIcons();
-        }
-
-        window.triggerPWAInstall = function() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        iziToast.success({ title: 'Success', message: 'Installing...', position: 'topCenter' });
-                    }
-                    deferredPrompt = null;
-                    updateInstallButtonState();
-                });
-            } else {
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if (isIOS) {
-                    Swal.fire({
-                        title: 'Install on iOS Safari',
-                        html: `
-                            <div class="text-left text-sm space-y-3 p-1">
-                                <p>To install <strong>AnshuList</strong> on your iOS device:</p>
-                                <ol class="list-decimal pl-5 space-y-2">
-                                    <li>Tap the <strong>Share</strong> button <span class="bg-black/5 dark:bg-white/10 px-2 py-1 rounded inline-block"><i class="fa-solid fa-arrow-up-from-bracket"></i></span> at the bottom of Safari.</li>
-                                    <li>Scroll down and tap <strong>Add to Home Screen</strong> <span class="bg-black/5 dark:bg-white/10 px-2 py-1 rounded inline-block"><i class="fa-regular fa-square-plus"></i></span>.</li>
-                                    <li>Tap <strong>Add</strong> in the top right corner.</li>
-                                </ol>
-                            </div>
-                        `,
-                        icon: 'info',
-                        confirmButtonText: 'Got it',
-                        confirmButtonColor: '#007AFF',
-                        background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
-                        color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
-                        customClass: { popup: 'rounded-[24px]' }
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'How to Install',
-                        html: `
-                            <div class="text-left text-sm space-y-3 p-1">
-                                <p>To run <strong>AnshuList</strong> as a standalone Progressive Web App (PWA):</p>
-                                <ul class="list-disc pl-5 space-y-2">
-                                    <li><strong>Using Chrome/Edge/Firefox:</strong> Click on the menu icon <span class="bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded font-bold">⋮</span> in top right, then click "Install App" or "Add to Home Screen".</li>
-                                    <li><strong>Requirements:</strong> Ensure you are visiting via a secure connection (HTTPS) and that the <code>sw.js</code> file is uploaded to the same directory.</li>
-                                </ul>
-                            </div>
-                        `,
-                        icon: 'info',
-                        confirmButtonText: 'Got it',
-                        confirmButtonColor: '#007AFF',
-                        background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
-                        color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
-                        customClass: { popup: 'rounded-[24px]' }
-                    });
-                }
-            }
-        };
-
-        /* ================= GROCERY APP LOGIC ================= */
+    // Handle interactive transitions [1]
+    function executeToggleSequence(clickEvent) {
+      const nextTheme = appState.theme === 'light' ? 'dark' : 'light';
+      
+      if (appState.transitionType === 'instant') {
+        applyThemeState(nextTheme);
+      } 
+      else if (appState.transitionType === 'fade') {
+        applyThemeState(nextTheme);
+      } 
+      else if (appState.transitionType === 'slide') {
+        const slideOverlay = document.getElementById('slideOverlay');
+        slideOverlay.classList.add('active');
         
-        function loadData() {
-            const savedCurrent = localStorage.getItem(STORAGE_CURRENT);
-            if (savedCurrent) { try { currentList = JSON.parse(savedCurrent); } catch { currentList = { vegetable: [], general: [] }; } }
-            const savedHistory = localStorage.getItem(STORAGE_HISTORY);
-            if (savedHistory) { try { historyLists = JSON.parse(savedHistory); } catch { historyLists = []; } }
+        setTimeout(() => {
+          applyThemeState(nextTheme);
+        }, 225);
+
+        setTimeout(() => {
+          slideOverlay.classList.remove('active');
+        }, 450);
+      } 
+      else if (appState.transitionType === 'zoom') {
+        zoomWrapper.classList.add('zoomed');
+        
+        setTimeout(() => {
+          applyThemeState(nextTheme);
+        }, 180);
+
+        setTimeout(() => {
+          zoomWrapper.classList.remove('zoomed');
+        }, 450);
+      } 
+      else if (appState.transitionType === 'ripple') {
+        const x = clickEvent ? clickEvent.clientX : window.innerWidth / 2;
+        const y = clickEvent ? clickEvent.clientY : window.innerHeight / 2;
+        
+        const rip = document.createElement('div');
+        rip.classList.add('ripple-layer');
+        rip.style.left = `${x}px`;
+        rip.style.top = `${y}px`;
+        
+        const fillThemeColor = nextTheme === 'dark' ? '#000000' : '#f2f2f7';
+        rip.style.setProperty('--ripple-bg', fillThemeColor);
+
+        const maxHoriz = Math.max(x, window.innerWidth - x);
+        const maxVert = Math.max(y, window.innerHeight - y);
+        const targetRadius = Math.sqrt(maxHoriz*maxHoriz + maxVert*maxVert) * 2.2;
+        rip.style.setProperty('--ripple-target-scale', targetRadius);
+
+        const container = document.getElementById('rippleContainer');
+        container.appendChild(rip);
+
+        rip.offsetWidth; 
+        rip.classList.add('expanding');
+
+        setTimeout(() => {
+          applyThemeState(nextTheme);
+        }, 220);
+
+        setTimeout(() => {
+          rip.remove();
+        }, 450);
+      }
+    }
+
+    // SPA active tab configuration [1]
+    function switchTab(targetTabId) {
+      appScreens.forEach(screen => {
+        if (screen.id === targetTabId) {
+          screen.classList.add('active');
+        } else {
+          screen.classList.remove('active');
         }
+      });
 
-        function saveData() {
-            localStorage.setItem(STORAGE_CURRENT, JSON.stringify(currentList));
-            updateRealtimeStats();
-            checkFinishState();
+      navButtons.forEach(btn => {
+        if (btn.getAttribute('data-target') === targetTabId) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
         }
+      });
 
-        function saveHistoryData() { localStorage.setItem(STORAGE_HISTORY, JSON.stringify(historyLists)); }
+      if (targetTabId === 'tab-stats') {
+        renderStatsAndChart();
+      } else if (targetTabId === 'tab-history') {
+        renderHistoryLogs();
+      }
+    }
 
-        /* Realtime Calculations for Bento Dashboard Panels */
-        function updateRealtimeStats() {
-            const vegTotal = currentList.vegetable.length;
-            const vegBought = currentList.vegetable.filter(item => item.purchased).length;
+    /* ==========================================================
+         GROCERY APPLICATION CORE FUNCTIONS
+         ========================================================== */
 
-            const genTotal = currentList.general.length;
-            const genBought = currentList.general.filter(item => item.purchased).length;
+    function saveGroceryData() {
+      localStorage.setItem('anshu_grocery_current', JSON.stringify(appState.currentList));
+      checkCompleteShoppingStatus();
+    }
 
-            const totalCount = vegTotal + genTotal;
-            const totalBought = vegBought + genBought;
+    // Calculate dynamic counts and show shopping progress [New Bottom Section]
+    function checkCompleteShoppingStatus() {
+      const vItems = appState.currentList.vegetable;
+      const gItems = appState.currentList.general;
+      const totalCount = vItems.length + gItems.length;
 
-            // Update Overall Panel elements
-            const totalPercent = totalCount > 0 ? Math.round((totalBought / totalCount) * 100) : 0;
-            document.getElementById('stats-total-fraction').innerText = `${totalBought} / ${totalCount}`;
-            document.getElementById('stats-total-percent').innerText = `${totalPercent}%`;
-            document.getElementById('stats-total-bar').style.width = `${totalPercent}%`;
+      if (totalCount > 0) {
+        const checkedCount = [...vItems, ...gItems].filter(item => item.checked).length;
+        
+        // Show live progress card inside bento structure
+        progressDashboard.style.display = 'flex';
+        progressCountVal.textContent = `${checkedCount} / ${totalCount} Items`;
+        
+        const percentage = (checkedCount / totalCount) * 100;
+        progressFillBar.style.width = `${percentage}%`;
 
-            // Update Veggies & Grocery Card elements
-            const vegPercent = vegTotal > 0 ? Math.round((vegBought / vegTotal) * 100) : 0;
-            document.getElementById('stats-veg-count').innerText = `${vegBought} / ${vegTotal}`;
-            document.getElementById('stats-veg-bar').style.width = `${vegPercent}%`;
-
-            // Update General Items Card elements
-            const genPercent = genTotal > 0 ? Math.round((genBought / genTotal) * 100) : 0;
-            document.getElementById('stats-gen-count').innerText = `${genBought} / ${genTotal}`;
-            document.getElementById('stats-gen-bar').style.width = `${genPercent}%`;
+        const allChecked = checkedCount === totalCount;
+        if (allChecked) {
+          finishBanner.classList.add('visible');
+        } else {
+          finishBanner.classList.remove('visible');
         }
+      } else {
+        progressDashboard.style.display = 'none';
+        finishBanner.classList.remove('visible');
+      }
+    }
 
-        function renderLists() {
-            const vegList = document.getElementById('vegetableList');
-            const genList = document.getElementById('generalList');
-            const vegSec = document.getElementById('vegetableSection');
-            const genSec = document.getElementById('generalSection');
-            const emptyState = document.getElementById('emptyListState');
+    function renderGroceryLists() {
+      vegetableList.innerHTML = '';
+      generalList.innerHTML = '';
 
-            vegList.innerHTML = ''; genList.innerHTML = '';
+      const vItems = appState.currentList.vegetable;
+      const gItems = appState.currentList.general;
 
-            let hasItems = false;
+      if (vItems.length === 0) {
+        vegetableSection.style.display = 'none';
+      } else {
+        vegetableSection.style.display = 'block';
+        vItems.forEach((item, index) => {
+          vegetableList.appendChild(createGroceryItemElement(item, 'vegetable', index));
+        });
+      }
 
-            if(currentList.vegetable.length > 0) {
-                hasItems = true; vegSec.style.display = 'block';
-                currentList.vegetable.forEach((item, idx) => vegList.appendChild(createItemEl(item, 'vegetable', idx)));
-            } else { vegSec.style.display = 'none'; }
+      if (gItems.length === 0) {
+        generalSection.style.display = 'none';
+      } else {
+        generalSection.style.display = 'block';
+        gItems.forEach((item, index) => {
+          generalList.appendChild(createGroceryItemElement(item, 'general', index));
+        });
+      }
 
-            if(currentList.general.length > 0) {
-                hasItems = true; genSec.style.display = 'block';
-                currentList.general.forEach((item, idx) => genList.appendChild(createItemEl(item, 'general', idx)));
-            } else { genSec.style.display = 'none'; }
+      if (vItems.length === 0 && gItems.length === 0) {
+        emptyListState.classList.remove('hidden');
+      } else {
+        emptyListState.classList.add('hidden');
+      }
 
-            if(!hasItems) emptyState.classList.remove('hidden'); else emptyState.classList.add('hidden');
+      checkCompleteShoppingStatus();
+    }
 
-            lucide.createIcons();
-            updateRealtimeStats();
-            checkFinishState();
+    function createGroceryItemElement(item, category, index) {
+      const itemCard = document.createElement('div');
+      itemCard.className = 'grocery-item-card';
+
+      itemCard.innerHTML = `
+        <label class="custom-checkbox-wrapper">
+          <input type="checkbox" class="custom-checkbox-input" ${item.checked ? 'checked' : ''}>
+          <span class="custom-checkbox-inner"></span>
+          <span class="item-label-text">${item.name}</span>
+        </label>
+        <div class="item-actions">
+          <button class="action-icon-btn edit" aria-label="Edit Item">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+          <button class="action-icon-btn delete" aria-label="Delete Item">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+          </button>
+        </div>
+      `;
+
+      // Checkbox state monitoring
+      const inputEl = itemCard.querySelector('.custom-checkbox-input');
+      inputEl.addEventListener('change', () => {
+        item.checked = inputEl.checked;
+        saveGroceryData();
+        if (navigator.vibrate) navigator.vibrate(12);
+      });
+
+      // Edit dialog triggers
+      itemCard.querySelector('.edit').addEventListener('click', async () => {
+        const newVal = await triggerCustomDialog('Modify List Item', item.name);
+        if (newVal) {
+          item.name = newVal;
+          saveGroceryData();
+          renderGroceryLists();
         }
+      });
 
-        function createItemEl(item, category, idx) {
-            const div = document.createElement('div');
-            div.className = "ios-card flex items-center justify-between p-4 border border-ios-separatorLight/30 dark:border-ios-separatorDark/30 shadow-sm transition-all";
-            
-            div.innerHTML = `
-                <div class="flex items-center gap-3 flex-1 overflow-hidden">
-                    <input type="checkbox" class="custom-checkbox" ${item.purchased ? 'checked' : ''} />
-                    <span class="item-text text-[1.1em] font-medium text-ios-textLight dark:text-ios-textDark truncate ${item.purchased ? 'purchased' : ''}">${item.name}</span>
-                </div>
-                <div class="flex gap-1 ml-3 shrink-0">
-                    <button class="edit-btn p-2 text-ios-subLight hover:text-ios-blueLight transition-colors rounded-full active:bg-ios-separatorLight/20"><i data-lucide="edit-2" class="w-5 h-5"></i></button>
-                    <button class="del-btn p-2 text-ios-subLight hover:text-ios-red transition-colors rounded-full active:bg-ios-separatorLight/20"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
-                </div>
-            `;
+      // Delete logic and animations
+      itemCard.querySelector('.delete').addEventListener('click', () => {
+        itemCard.style.transform = 'scale(0.9) translateX(-20px)';
+        itemCard.style.opacity = '0';
+        setTimeout(() => {
+          appState.currentList[category].splice(index, 1);
+          saveGroceryData();
+          renderGroceryLists();
+        }, 200);
+      });
 
-            const cb = div.querySelector('input[type="checkbox"]');
-            const textSpan = div.querySelector('.item-text');
-            
-            cb.addEventListener('change', (e) => {
-                item.purchased = e.target.checked;
-                if(item.purchased) textSpan.classList.add('purchased'); else textSpan.classList.remove('purchased');
-                if(navigator.vibrate) navigator.vibrate(10);
-                saveData();
-            });
+      return itemCard;
+    }
 
-            div.querySelector('.edit-btn').addEventListener('click', () => {
-                Swal.fire({
-                    title: 'Edit Item',
-                    input: 'text',
-                    inputValue: item.name,
-                    showCancelButton: true,
-                    confirmButtonColor: '#007AFF',
-                    background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
-                    color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
-                    customClass: { popup: 'rounded-[24px]' },
-                    inputValidator: (val) => { if (!val.trim()) return 'Please enter a name'; }
-                }).then(res => {
-                    if (res.isConfirmed && res.value.trim()) {
-                        item.name = res.value.trim(); saveData(); renderLists();
-                    }
-                });
-            });
+    function addGroceryItem() {
+      const val = groceryInput.value.trim();
+      if (!val) return;
 
-            div.querySelector('.del-btn').addEventListener('click', () => {
-                if (category === 'vegetable') currentList.vegetable.splice(idx, 1);
-                else currentList.general.splice(idx, 1);
-                gsap.to(div, {opacity: 0, scale: 0.9, duration: 0.2, onComplete: () => { saveData(); renderLists(); }});
-                iziToast.show({ title: 'Deleted', message: 'Item removed', position: 'topCenter', color: 'red', timeout: 1500, theme: prefs.theme === 'dark'?'dark':'light' });
-            });
+      const newItem = { name: val, checked: false };
+      appState.currentList[appState.activeCategory].unshift(newItem);
+      groceryInput.value = '';
+      saveGroceryData();
+      renderGroceryLists();
+      groceryInput.focus();
 
-            return div;
-        }
+      if (navigator.vibrate) navigator.vibrate(15);
+    }
 
-        function addItem() {
-            const input = document.getElementById('itemInput');
-            const name = input.value.trim();
-            if (!name) {
-                gsap.fromTo(input, {x: -5}, {x: 5, duration: 0.1, yoyo: true, repeat: 3, onComplete: ()=>gsap.to(input, {x:0})});
-                return;
-            }
-            if (activeCategory === 'vegetable') currentList.vegetable.unshift({ name, purchased: false });
-            else currentList.general.unshift({ name, purchased: false });
-            
-            saveData(); renderLists();
-            input.value = ''; input.focus();
-            if(navigator.vibrate) navigator.vibrate(15);
-            iziToast.success({ title: 'Added', message: name, position: 'topCenter', timeout: 1500, theme: prefs.theme === 'dark'?'dark':'light' });
-        }
+    // Complete current shopping lists logs
+    function completeCurrentShopping() {
+      const now = new Date();
+      const currentListEntry = {
+        id: Date.now(),
+        date: now.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }),
+        time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        vegetable: [...appState.currentList.vegetable],
+        general: [...appState.currentList.general]
+      };
 
-        function checkFinishState() {
-            const vegAll = currentList.vegetable.every(i => i.purchased);
-            const genAll = currentList.general.every(i => i.purchased);
-            const hasItems = (currentList.vegetable.length + currentList.general.length) > 0;
-            const finishWrap = document.getElementById('finishShoppingWrap');
+      appState.history.unshift(currentListEntry);
+      localStorage.setItem('anshu_grocery_history', JSON.stringify(appState.history));
 
-            if (hasItems && vegAll && genAll) {
-                finishWrap.classList.add('visible');
-                gsap.to(finishWrap, {opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)"});
-            } else {
-                gsap.to(finishWrap, {opacity: 0, y: 20, duration: 0.3, onComplete: () => finishWrap.classList.remove('visible')});
-            }
-        }
+      // Append stats tracking values
+      const dayIndex = now.getDay() === 0 ? 6 : now.getDay() - 1; // Align Mon-Sun index scales
+      appState.stats.weeklyCheckouts[dayIndex] += (appState.currentList.vegetable.length + appState.currentList.general.length);
+      localStorage.setItem('anshu_grocery_weekly_stats', JSON.stringify(appState.stats.weeklyCheckouts));
 
-        function finishShopping() {
-            const now = new Date();
-            const entry = {
-                id: Date.now(),
-                date: now.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'}),
-                time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                vegetableItems: currentList.vegetable.map(i => ({ ...i })),
-                generalItems: currentList.general.map(i => ({ ...i }))
+      // Flush current list structures
+      appState.currentList = { vegetable: [], general: [] };
+      saveGroceryData();
+      renderGroceryLists();
+
+      triggerCustomDialog('Session Finalized! 🎉\nItems stored to History.', 'Thank you!');
+    }
+
+    // Render Previous lists logs
+    function renderHistoryLogs() {
+      const container = document.getElementById('historyListContainer');
+      const emptyHistory = document.getElementById('historyEmptyState');
+      container.innerHTML = '';
+
+      if (appState.history.length === 0) {
+        emptyHistory.classList.remove('hidden');
+        return;
+      }
+      emptyHistory.classList.add('hidden');
+
+      appState.history.forEach((entry, idx) => {
+        const totalItems = entry.vegetable.length + entry.general.length;
+        const card = document.createElement('div');
+        card.className = 'history-card';
+        card.innerHTML = `
+          <div class="history-details">
+            <div class="history-date">${entry.date}</div>
+            <div class="history-meta">${entry.time} • ${totalItems} Lists Items Checked</div>
+          </div>
+          <div class="item-actions">
+            <button class="action-icon-btn reload" aria-label="Restore List" style="color: var(--accent-color);">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+              </svg>
+            </button>
+            <button class="action-icon-btn delete" aria-label="Delete Log" style="color: var(--red-color);">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
+          </div>
+        `;
+
+        // Restore list log triggers (UPGRADED: Restores along with active check/tick marks)
+        card.querySelector('.reload').addEventListener('click', async () => {
+          const confirmReload = await triggerCustomDialog('Restore lists to dynamic view? (Overwrites Active) - Type YES', 'YES');
+          if (confirmReload && confirmReload.toUpperCase() === 'YES') {
+            appState.currentList = {
+              vegetable: entry.vegetable.map(i => ({ ...i, checked: i.checked })), // Keeps tick marks intact
+              general: entry.general.map(i => ({ ...i, checked: i.checked })) // Keeps tick marks intact
             };
-            historyLists.unshift(entry);
-            saveHistoryData();
-            
-            currentList = { vegetable: [], general: [] };
-            saveData(); renderLists();
-
-            Swal.fire({
-                title: 'Shopping Complete! 🎉',
-                text: 'Record saved to History.',
-                icon: 'success',
-                confirmButtonColor: '#34C759',
-                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
-                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
-                customClass: { popup: 'rounded-[24px]' }
-            });
-        }
-
-        /* History Rendering */
-        function renderHistory() {
-            const container = document.getElementById('historyListContainer');
-            const emptyState = document.getElementById('historyEmptyState');
-            container.innerHTML = '';
-
-            if (historyLists.length === 0) {
-                emptyState.classList.remove('hidden'); return;
-            }
-            emptyState.classList.add('hidden');
-
-            historyLists.forEach((entry, idx) => {
-                const total = entry.vegetableItems.length + entry.generalItems.length;
-                const card = document.createElement('div');
-                card.className = "ios-card p-5 border border-ios-separatorLight/30 dark:border-ios-separatorDark/30 shadow-sm flex items-center justify-between";
-                
-                card.innerHTML = `
-                    <div>
-                        <h3 class="font-bold text-[1.1em] text-ios-textLight dark:text-ios-textDark">${entry.date}</h3>
-                        <p class="text-[0.85em] text-ios-subLight dark:text-ios-subDark mt-0.5"><i data-lucide="clock" class="w-3 h-3 inline"></i> ${entry.time} • <span class="font-semibold">${total} items</span></p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="reload-btn bg-ios-blueLight/10 text-ios-blueLight p-2.5 rounded-full hover:bg-ios-blueLight/20 transition-colors"><i data-lucide="rotate-ccw" class="w-5 h-5"></i></button>
-                        <button class="del-history-btn bg-ios-red/10 text-ios-red p-2.5 rounded-full hover:bg-ios-red/20 transition-colors"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
-                    </div>
-                `;
-
-                card.querySelector('.reload-btn').addEventListener('click', () => {
-                    Swal.fire({
-                        title: 'Reload this list?',
-                        text: 'This will replace your active list state.',
-                        icon: 'question',
-                        showCancelButton: true,
-                        confirmButtonText: 'Yes, reload',
-                        confirmButtonColor: '#007AFF',
-                        background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
-                        color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
-                        customClass: { popup: 'rounded-[24px]' }
-                    }).then(res => {
-                        if(res.isConfirmed) {
-                            currentList = {
-                                vegetable: entry.vegetableItems.map(i => ({ ...i, purchased: false })),
-                                general: entry.generalItems.map(i => ({ ...i, purchased: false }))
-                            };
-                            saveData();
-                            window.location.hash = '#home';
-                        }
-                    });
-                });
-
-                card.querySelector('.del-history-btn').addEventListener('click', () => {
-                    historyLists.splice(idx, 1); saveHistoryData();
-                    gsap.to(card, {opacity: 0, x: -50, duration: 0.3, onComplete: () => renderHistory()});
-                });
-
-                container.appendChild(card);
-            });
-            lucide.createIcons();
-        }
-
-        /* App Reset Actions */
-        window.clearHistory = function() {
-            Swal.fire({
-                title: 'Clear All History?',
-                text: "Your past shopping lists will be deleted.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#FF3B30',
-                confirmButtonText: 'Clear',
-                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
-                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
-                customClass: { popup: 'rounded-[24px]' }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    historyLists = []; saveHistoryData();
-                    iziToast.success({ title: 'Cleared', message: 'History removed.', position: 'topCenter', theme: prefs.theme === 'dark' ? 'dark' : 'light' });
-                    renderSettingsUI();
-                }
-            })
-        };
-
-        window.resetApp = function() {
-            Swal.fire({
-                title: 'Reset Entire App?',
-                text: "Current lists, history, and custom themes will be permanently deleted.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#FF3B30',
-                confirmButtonText: 'Reset',
-                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
-                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
-                customClass: { popup: 'rounded-[24px]' }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    localStorage.clear();
-                    window.location.reload();
-                }
-            })
-        };
-
-        window.triggerInsta = function() {
-            iziToast.show({ title: 'Anshu', message: 'Developer Profile Redirect', position: 'topCenter', timeout: 1500 });
-            Swal.fire({
-                title: 'Developer',
-                text: 'Visit developer profile on Instagram?',
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonColor: '#007AFF',
-                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
-                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000'
-            }).then((res) => {
-                if (res.isConfirmed) window.open('https://instagram.com/anshurajhans', '_blank');
-            });
-        };
-
-        window.toggleQuickMenu = function() {
-            Swal.fire({
-                title: 'Vault Quick Controls',
-                text: 'Direct links to major features',
-                icon: 'info',
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: 'Settings',
-                denyButtonText: 'History',
-                confirmButtonColor: '#007AFF',
-                denyButtonColor: '#34C759',
-                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
-                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.hash = '#settings';
-                } else if (result.isDenied) {
-                    window.location.hash = '#history';
-                }
-            });
-        };
-
-        /* ================= PWA Event Handling & Service Worker Registration ================= */
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            updateInstallButtonState();
+            saveGroceryData();
+            switchTab('tab-home');
+            renderGroceryLists();
+          }
         });
 
-        window.addEventListener('appinstalled', (evt) => {
-            deferredPrompt = null;
-            updateInstallButtonState();
-            Swal.fire({
-                title: 'Installed! 🎉',
-                text: 'AnshuList has been successfully added to your device.',
-                icon: 'success',
-                confirmButtonColor: '#34C759',
-                background: prefs.theme === 'dark' ? '#1C1C1E' : '#FFFFFF',
-                color: prefs.theme === 'dark' ? '#FFFFFF' : '#000000',
-                customClass: { popup: 'rounded-[24px]' }
-            });
+        // Delete list logs triggers
+        card.querySelector('.delete').addEventListener('click', () => {
+          appState.history.splice(idx, 1);
+          localStorage.setItem('anshu_grocery_history', JSON.stringify(appState.history));
+          renderHistoryLogs();
         });
 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('SW Registered:', reg.scope))
-                    .catch(err => console.log('SW Registration Ignored or Offline Mode Only.'));
-            });
+        container.appendChild(card);
+      });
+    }
+
+    // Dynamic Render of Premium Statistics Chart
+    function renderStatsAndChart() {
+      document.getElementById('totalListsVal').textContent = appState.history.length;
+      
+      let sumChecked = 0;
+      appState.history.forEach(entry => {
+        sumChecked += (entry.vegetable.length + entry.general.length);
+      });
+      document.getElementById('totalItemsVal').textContent = sumChecked;
+
+      const chartHost = document.getElementById('statChart');
+      chartHost.innerHTML = '';
+      const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      
+      const maxCheckouts = Math.max(...appState.stats.weeklyCheckouts, 5); // Fallback scale value
+      
+      appState.stats.weeklyCheckouts.forEach((value, index) => {
+        const col = document.createElement('div');
+        col.classList.add('chart-col');
+
+        const bar = document.createElement('div');
+        bar.classList.add('chart-bar-pillar');
+        const heightPercent = (value / maxCheckouts) * 100;
+        bar.style.height = '0%';
+
+        const dayLbl = document.createElement('span');
+        dayLbl.classList.add('chart-day-lbl');
+        dayLbl.textContent = days[index];
+
+        col.appendChild(bar);
+        col.appendChild(dayLbl);
+        chartHost.appendChild(col);
+
+        setTimeout(() => {
+          bar.style.height = `${Math.min(heightPercent, 100)}%`;
+        }, 100 + (index * 40));
+      });
+    }
+
+    // System configurations integrations setup [1]
+    function setupEventBindings() {
+      // Bottom Bar Navigation switches
+      navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const target = button.getAttribute('data-target');
+          switchTab(target);
+        });
+      });
+
+      // Category Toggle Slider switch
+      const segmentBtns = document.querySelectorAll('.segment-btn');
+      const segmentSlider = document.getElementById('segmentSlider');
+      segmentBtns.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          segmentBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          appState.activeCategory = btn.getAttribute('data-category');
+          segmentSlider.style.transform = `translateX(${index * 100}%)`;
+          groceryInput.focus();
+        });
+      });
+
+      // Insert logic events
+      addGroceryBtn.addEventListener('click', addGroceryItem);
+      groceryInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addGroceryItem();
+      });
+
+      completeShoppingBtn.addEventListener('click', completeShopping);
+
+      // FontSize Selectors
+      fontSizeSelector.addEventListener('click', (e) => {
+        const item = e.target.closest('.selector-option');
+        if (item) {
+          const font = item.getAttribute('data-font');
+          appState.fontSize = font;
+          localStorage.setItem('gh_fontSize', font);
+          applyFontState();
         }
+      });
 
-        /* ================= Core Initialization & Routing ================= */
-        document.addEventListener("DOMContentLoaded", () => {
-            loadPrefs();
-            loadData();
-            lucide.createIcons();
+      // Theme toggle selections styles
+      toggleStyleGrid.addEventListener('click', (e) => {
+        const item = e.target.closest('.selector-option');
+        if (item) {
+          const styleId = parseInt(item.getAttribute('data-style-id'), 10);
+          appState.activeToggleStyle = styleId;
+          localStorage.setItem('gh_toggleStyle', styleId);
+          renderActiveToggle();
+        }
+      });
 
-            // Dismiss Splash Screen
-            setTimeout(() => {
-                const splash = document.getElementById('splash');
-                splash.style.opacity = '0';
-                splash.style.visibility = 'hidden';
-                document.getElementById('floatingTabBar').classList.add('visible');
-            }, 1800);
+      transitionSelection.addEventListener('change', (e) => {
+        appState.transitionType = e.target.value;
+        localStorage.setItem('gh_transition', e.target.value);
+      });
 
-            // Header Theme Toggle
-            const themeBtnHeader = document.getElementById('theme-toggle');
-            themeBtnHeader.addEventListener('click', () => {
-                window.toggleThemeDirectly();
-                gsap.fromTo(themeBtnHeader, {rotation: -180, scale: 0.5}, {rotation: 0, scale: 1, duration: 0.5, ease: "back.out(1.5)"});
-            });
+      splashSelection.addEventListener('change', (e) => {
+        appState.splashStyle = e.target.value;
+        localStorage.setItem('gh_splash', e.target.value);
+      });
 
-            // SPA Routing System
-            const routes = { '': 'view-home', '#': 'view-home', '#home': 'view-home', '#history': 'view-history', '#settings': 'view-settings' };
-            const navTitle = document.getElementById('nav-title');
-            const tabLinks = document.querySelectorAll('.tab-link');
-            let currentActiveId = 'view-home';
+      // Preferences settings panel triggers
+      document.getElementById('clearAllHistoryBtn').addEventListener('click', async () => {
+        const confirmClear = await triggerCustomDialog('Delete all logs permanently? (Type CONFIRM)', '');
+        if (confirmClear && confirmClear.toUpperCase() === 'CONFIRM') {
+          appState.history = [];
+          localStorage.setItem('anshu_grocery_history', JSON.stringify([]));
+          appState.stats.weeklyCheckouts = [0, 0, 0, 0, 0, 0, 0];
+          localStorage.setItem('anshu_grocery_weekly_stats', JSON.stringify([]));
+          triggerCustomDialog('Cleaned successfully.', 'Cleaned!');
+        }
+      });
 
-            function handleRouting() {
-                const hash = window.location.hash || '#home';
-                const targetId = routes[hash] || 'view-home';
-                if (targetId === currentActiveId) return;
+      document.getElementById('factoryResetBtn').addEventListener('click', async () => {
+        const confirmReset = await triggerCustomDialog('Factory Reset All Engine Data? (Type RESET)', '');
+        if (confirmReset && confirmReset.toUpperCase() === 'RESET') {
+          localStorage.clear();
+          window.location.reload();
+        }
+      });
+    }
 
-                const currentEl = document.getElementById(currentActiveId);
-                const targetEl = document.getElementById(targetId);
-                
-                if(targetId === 'view-home') renderLists();
-                if(targetId === 'view-history') renderHistory();
-                if(targetId === 'view-settings') {
-                    renderSettingsUI();
-                }
+    function initPersistedState() {
+      // Synchronize Visual configuration drop down values
+      transitionSelection.value = appState.transitionType;
+      splashSelection.value = appState.splashStyle;
+      
+      applyFontState();
+      applyThemeState(appState.theme);
+      renderActiveToggle();
+      renderGroceryLists();
+    }
 
-                gsap.to(currentEl, {
-                    opacity: 0, scale: 0.95, y: -20, duration: 0.25, ease: "power2.inOut",
-                    onComplete: () => {
-                        currentEl.classList.remove('active');
-                        targetEl.classList.add('active');
-                        window.scrollTo(0, 0);
-                        
-                        gsap.to(navTitle, {opacity: 0, y: -5, duration: 0.15, onComplete: () => {
-                            if(hash === '#home' || hash === '') {
-                                navTitle.style.fontFamily = "'Kavoon', serif";
-                                navTitle.innerText = "AnshuList";
-                            } else {
-                                navTitle.style.fontFamily = `var(--user-font), sans-serif`;
-                                navTitle.innerText = targetEl.getAttribute('data-title');
-                            }
-                            gsap.to(navTitle, {opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.5)"});
-                        }});
+    function completeShopping() {
+      completeCurrentShopping();
+    }
 
-                        tabLinks.forEach(link => link.classList.remove('active-tab'));
-                        document.querySelector(`.tab-link[href="${hash}"]`)?.classList.add('active-tab');
+    // Local Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('Service Worker Registered Successfully'))
+          .catch(err => console.log('Service Worker Registration Failed', err));
+      });
+    }
 
-                        gsap.fromTo(targetEl, { opacity: 0, scale: 0.95, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.2)" });
-                        gsap.to("#" + targetId + " .ui-elem", { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: "back.out(1.2)", delay: 0.1 });
-
-                        currentActiveId = targetId;
-                    }
-                });
-            }
-
-            window.addEventListener('hashchange', handleRouting);
-            
-            // Initial Route Activation
-            const initialHash = window.location.hash || '#home';
-            const initialTarget = routes[initialHash];
-            
-            if(initialHash !== '#home') {
-                document.getElementById('view-home').classList.remove('active');
-                document.getElementById(initialTarget).classList.add('active');
-                document.querySelector(`.tab-link[href="${initialHash}"]`)?.classList.add('active-tab');
-                document.querySelector('.tab-link[href="#home"]')?.classList.remove('active-tab');
-                
-                navTitle.style.fontFamily = `var(--user-font), sans-serif`;
-                navTitle.innerText = document.getElementById(initialTarget).getAttribute('data-title');
-                currentActiveId = initialTarget;
-            }
-            
-            if(initialTarget === 'view-home') renderLists();
-            if(initialTarget === 'view-history') renderHistory();
-            if(initialTarget === 'view-settings') {
-                renderSettingsUI();
-            }
-
-            gsap.to("#" + currentActiveId + " .ui-elem", { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "back.out(1.2)" });
-
-            // Event Bindings
-            document.getElementById('addItemBtn').addEventListener('click', addItem);
-            document.getElementById('itemInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') addItem(); });
-            document.getElementById('finishBtn').addEventListener('click', finishShopping);
-
-            // Category Slider Handler
-            const segmentBtns = document.querySelectorAll('.segment-btn');
-            const segmentSlider = document.getElementById('segmentSlider');
-            segmentBtns.forEach((btn, index) => {
-                btn.addEventListener('click', () => {
-                    segmentBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    activeCategory = btn.dataset.target;
-                    segmentSlider.style.transform = `translateX(${index * 100}%)`;
-                    document.getElementById('itemInput').focus();
-                });
-            });
-        });
-    </script>
+    // Core Initialization
+    initPersistedState();
+    triggerSplashSequence();
+    setupEventBindings();
+  </script>
 </body>
 </html>
