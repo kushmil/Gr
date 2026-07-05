@@ -9,55 +9,69 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="AnshuList">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23007AFF%22/><text x=%2250%22 y=%2270%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22%23fff%22>🛒</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23111111%22/><text x=%2250%22 y=%2270%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22%23FFE59A%22>🛒</text></svg>">
   
   <!-- Link to External PWA Manifest -->
   <link rel="manifest" href="manifest.json">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  
   <style>
-    /* Theme Base Color Scales */
+    /* Google Fonts import for 10+ custom fully functional typography designs */
+    @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Fredoka:wght@300..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Lexend:wght@100..900&family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&family=Outfit:wght@100..900&family=Pacifico&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playpen+Sans:wght@100..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Quicksand:wght@300..700&display=swap');
+
+    /* Brand Kit Color Palette */
+    :root {
+      /* Default Font Engine Custom Property */
+      --font-family-active: 'M PLUS Rounded 1c', 'Quicksand', sans-serif;
+    }
+
     :root[data-theme="light"] {
-      --bg-color: #f2f2f7;
-      --card-bg: #ffffff;
-      --card-border: rgba(0, 0, 0, 0.05);
-      --text-main: #1c1c1e;
-      --text-muted: #8e8e93;
-      --accent-color: #007aff;
-      --accent-hover: #0056b3;
-      --panel-bg: rgba(255, 255, 255, 0.85);
-      --input-bg: #e5e5ea;
-      --input-border: rgba(0, 0, 0, 0.1);
-      --shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
-      --green-color: #34c759;
-      --orange-color: #ff9500;
-      --red-color: #ff3b30;
-      --blue-badge: rgba(0, 122, 255, 0.1);
+      --bg-color: #F7F3EF;        /* Cream Background */
+      --card-bg: #ffffff;         /* Clean White Card */
+      --card-border: #111111;     /* Charcoal Border */
+      --text-main: #111111;       /* Charcoal Black Text */
+      --text-muted: #7A7570;      /* Dark Soft Gray */
+      --accent-color: #111111;    /* Main Accent Charcoal */
+      --accent-hover: #222222;
+      --panel-bg: rgba(247, 243, 239, 0.95);
+      --input-bg: #ffffff;
+      --input-border: #111111;
+      --shadow: 0 6px 0px rgba(17, 17, 17, 0.08); /* Crisp flat design shadow */
+      
+      /* Pastel Palette from Brand Sheet */
+      --yellow-brand: #FFE59A;
+      --pink-brand: #FFB5C1;
+      --green-brand: #B7E1D1;
+      --blue-brand: #A9D3FF;
+      --green-color: #B7E1D1;
+      --orange-color: #FFE59A;
+      --red-color: #FFB5C1;
+      --blue-badge: rgba(169, 211, 255, 0.4);
     }
 
     :root[data-theme="dark"] {
-      --bg-color: #000000;
-      --card-bg: #1c1c1e;
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f2f2f7;
-      --text-muted: #8e8e93;
-      --accent-color: #0a84ff;
-      --accent-hover: #5ac8fa;
-      --panel-bg: rgba(28, 28, 30, 0.85);
-      --input-bg: #2c2c2e;
-      --input-border: rgba(255, 255, 255, 0.1);
-      --shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-      --green-color: #30d158;
-      --orange-color: #ff9f0a;
-      --red-color: #ff453a;
-      --blue-badge: rgba(10, 132, 255, 0.15);
+      --bg-color: #0E0D0C;        /* Rich Pitch Charcoal */
+      --card-bg: #1B1A19;         /* Elevated card for maximum separation */
+      --card-border: #4A4643;     /* Visible high-contrast border */
+      --text-main: #FFFFFF;       /* Crisp Pure White Text for high readability */
+      --text-muted: #C5C0BB;      /* Brighter soft gray to maintain details visible */
+      --accent-color: #FFE59A;    /* Neon Gold highlight for Dark Theme */
+      --accent-hover: #FFB5C1;
+      --panel-bg: rgba(14, 13, 12, 0.98);
+      --input-bg: #1B1A19;
+      --input-border: #7A7570;     /* Distinct visible form boundary */
+      --shadow: 0 6px 0px rgba(0, 0, 0, 0.5);
+      
+      --yellow-brand: #FFE59A;
+      --pink-brand: #FFB5C1;
+      --green-brand: #B7E1D1;
+      --blue-brand: #A9D3FF;
+      --green-color: #B7E1D1;
+      --orange-color: #FFE59A;
+      --red-color: #FFB5C1;
+      --blue-badge: rgba(255, 229, 154, 0.3);
     }
 
-    /* Font Hierarchy Variable Scale System */
+    /* Font Size Settings */
     :root[data-font-size="small"] { --base-font: 14px; }
     :root[data-font-size="medium"] { --base-font: 16px; }
     :root[data-font-size="large"] { --base-font: 18px; }
@@ -68,7 +82,11 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: var(--font-family-active);
+    }
+
+    body, input, button, select, textarea, span, h1, h2, h3, h4, p, label {
+      font-family: var(--font-family-active);
     }
 
     body {
@@ -79,10 +97,9 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
-      padding-bottom: 210px; /* Space for complete visual items */
+      padding-bottom: 210px;
     }
 
-    /* App Dynamic Transition Config Classes */
     body.transition-fade, body.transition-fade * {
       transition: background-color var(--transition-speed, 0.45s) ease, 
                   border-color var(--transition-speed, 0.45s) ease, 
@@ -91,32 +108,57 @@
                   transform var(--transition-speed, 0.45s) cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Screen Views Configurations */
+    /* Views Config */
     .app-screen {
       display: none;
       width: 100%;
       max-width: 768px;
       margin: 0 auto;
       padding: 24px 20px;
-      animation: iosFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: BrandFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .app-screen.active {
       display: block;
     }
 
-    @keyframes iosFadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes BrandFadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    /* Header bar configuration */
+    /* Header Brand Layout mimicking Miyama Graphics */
     .header-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    .header-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo-blob {
+      width: 50px;
+      height: 50px;
+      background-color: var(--pink-brand);
+      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Playful blob */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--card-border);
+      position: relative;
+    }
+
+    .brand-logo-blob::after {
+      content: '● ●';
+      font-size: 8px;
+      color: #111111;
+      letter-spacing: 1px;
     }
 
     .header-title-section {
@@ -125,21 +167,20 @@
     }
 
     .header-sub {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent-color);
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
     .header-main-title {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
     }
 
-    /* Active dynamic theme toggle space holder */
     .toggle-header-host {
       display: flex;
       align-items: center;
@@ -148,19 +189,64 @@
       min-width: 60px;
     }
 
-    /* Bento grid layout interfaces */
+    /* Theme Toggle - Keep ONLY Solar Eclipse style */
+    .eclipse-wrapper {
+      width: 50px;
+      height: 50px;
+      position: relative;
+      cursor: pointer;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #1e293b;
+      border: 2px solid var(--card-border);
+      transition: background-color 0.4s;
+    }
+
+    [data-theme="dark"] .eclipse-wrapper { background: #020617; }
+
+    .eclipse-sun {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #f97316;
+      box-shadow: 0 0 8px #f97316;
+      transition: background-color 0.4s, box-shadow 0.4s;
+    }
+
+    [data-theme="dark"] .eclipse-sun {
+      background: #f8fafc;
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.9);
+    }
+
+    .eclipse-moon-shadow {
+      position: absolute;
+      top: 8px;
+      left: -32px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #020617;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="dark"] .eclipse-moon-shadow { transform: translateX(38px); }
+
+    /* Bento Grid Layout Cards */
     .bento-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 14px;
+      gap: 16px;
       width: 100%;
     }
 
     .bento-item {
       background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 20px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 28px;
+      padding: 24px;
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
@@ -171,7 +257,7 @@
 
     .bento-size-full { grid-column: span 6; }
 
-    /* HUGE CURVED AND WIDE INPUT DESIGN UPGRADE */
+    /* Miyama-inspired Text Input */
     .input-row {
       display: flex;
       gap: 12px;
@@ -180,86 +266,101 @@
 
     .custom-input {
       flex: 1;
-      padding: 18px 24px;
-      border-radius: 28px; /* Extremely curved edges */
+      padding: 16px 22px;
+      border-radius: 16px;
       border: 1.5px solid var(--input-border);
       background: var(--input-bg);
       color: var(--text-main);
-      font-size: 1.1rem; /* Bigger huge typography */
+      font-size: 1rem;
       font-weight: 700;
       outline: none;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
-      transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+      box-shadow: inset 0 2px 4px rgba(17, 17, 17, 0.04);
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .custom-input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.8;
     }
 
     .custom-input:focus {
       border-color: var(--accent-color);
-      background: var(--card-bg);
-      box-shadow: 0 0 0 4px var(--blue-badge), inset 0 2px 4px rgba(0,0,0,0.02);
+      box-shadow: 0 0 0 3px var(--blue-badge);
     }
 
+    /* Pill Button from UI Components */
     .accent-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 28px; /* Perfect circular matching */
-      border: none;
+      padding: 0 24px;
+      border-radius: 16px;
+      border: 1.5px solid var(--card-border);
       background: var(--accent-color);
       color: #ffffff;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.15s, background-color 0.15s, box-shadow 0.15s;
-      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+      gap: 8px;
+      transition: transform 0.15s, background-color 0.15s;
+      box-shadow: var(--shadow);
+    }
+
+    [data-theme="dark"] .accent-btn {
+      color: #111111;
+    }
+
+    .accent-btn svg {
+      stroke: currentColor;
     }
 
     .accent-btn:active {
-      transform: scale(0.92);
+      transform: scale(0.95);
     }
 
-    /* Segmented selector component configurations */
+    /* Miyama Pastel Tags Selector */
     .segmented-control {
       position: relative;
       display: flex;
-      background: var(--input-bg);
-      border-radius: 16px;
-      padding: 4px;
+      gap: 10px;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
       margin-top: 14px;
     }
 
     .segment-btn {
       flex: 1;
-      background: transparent;
-      border: none;
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
       color: var(--text-main);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 0.85rem;
       padding: 12px;
       cursor: pointer;
       z-index: 2;
-      transition: color 0.3s;
-      border-radius: 12px;
+      border-radius: 14px;
+      transition: all 0.2s ease;
+      box-shadow: 0 3px 0px rgba(17, 17, 17, 0.08);
+    }
+
+    .segment-btn:nth-child(2).active {
+      background: var(--green-brand) !important;
+      color: #111111 !important;
+    }
+
+    .segment-btn:nth-child(3).active {
+      background: var(--yellow-brand) !important;
+      color: #111111 !important;
     }
 
     .segment-btn.active {
-      color: #ffffff;
+      transform: translateY(2px);
+      box-shadow: none;
     }
 
-    .segment-slider {
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      width: calc(50% - 4px);
-      height: calc(100% - 8px);
-      background: var(--accent-color);
-      border-radius: 12px;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 1;
-    }
-
-    /* Category List Area configurations */
+    /* Category lists styling */
     .category-section {
-      margin-top: 24px;
+      margin-top: 28px;
     }
 
     .category-header {
@@ -267,25 +368,25 @@
       font-weight: 800;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .items-container {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
-    /* Beautiful Premium Custom Item Card elements */
+    /* Playful Rounded Card elements */
     .grocery-item-card {
       background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 14px 18px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 20px;
+      padding: 16px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -295,19 +396,19 @@
     }
 
     @keyframes itemPopIn {
-      from { opacity: 0; transform: scale(0.95) translateY(5px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .grocery-item-card:active {
       transform: scale(0.98);
     }
 
-    /* Custom Checkbox elements */
+    /* Miyama Square Custom Checkbox */
     .custom-checkbox-wrapper {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       cursor: pointer;
       flex: 1;
       overflow: hidden;
@@ -316,8 +417,9 @@
     .custom-checkbox-inner {
       width: 24px;
       height: 24px;
-      border-radius: 50%;
-      border: 2px solid var(--text-muted);
+      border-radius: 8px; /* Square with round corners */
+      border: 2px solid var(--card-border);
+      background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -330,22 +432,22 @@
     }
 
     .custom-checkbox-input:checked + .custom-checkbox-inner {
-      background-color: var(--green-color);
-      border-color: var(--green-color);
+      background-color: var(--accent-color);
+      border-color: var(--card-border);
     }
 
     .custom-checkbox-input:checked + .custom-checkbox-inner::after {
       content: '';
       width: 5px;
       height: 10px;
-      border: solid white;
+      border: solid #111111;
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
       margin-bottom: 2px;
     }
 
     .item-label-text {
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-main);
       transition: all 0.3s ease;
       text-overflow: ellipsis;
@@ -356,47 +458,48 @@
     .custom-checkbox-input:checked ~ .item-label-text {
       text-decoration: line-through;
       color: var(--text-muted);
-      opacity: 0.6;
+      opacity: 0.55;
     }
 
     .item-actions {
       display: flex;
-      gap: 6px;
+      gap: 8px;
     }
 
     .action-icon-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: none;
-      background: var(--input-bg);
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      border: 1.5px solid var(--card-border);
+      background: var(--card-bg);
       color: var(--text-main);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.15s, background-color 0.15s;
+      transition: all 0.15s;
+      box-shadow: 0 2px 0px rgba(17, 17, 17, 0.08);
     }
 
     .action-icon-btn:active {
-      transform: scale(0.85);
+      transform: translateY(1.5px);
+      box-shadow: none;
     }
 
-    .action-icon-btn.edit:hover { background-color: var(--accent-color); color: white; }
-    .action-icon-btn.delete:hover { background-color: var(--red-color); color: white; }
+    .action-icon-btn.edit:hover { background-color: var(--blue-brand); color: #111111; }
+    .action-icon-btn.delete:hover { background-color: var(--pink-brand); color: #111111; }
 
-    /* SHOPPING PROGRESS BENTO CARD SECTION */
+    /* Shopping Progress Dashboard Card */
     .progress-dashboard-card {
       background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 16px 20px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 24px;
+      padding: 20px;
       box-shadow: var(--shadow);
-      margin-top: 24px;
+      margin-top: 28px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      animation: iosFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 12px;
     }
 
     .progress-info-row {
@@ -406,7 +509,7 @@
     }
 
     .progress-label {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 800;
       color: var(--text-muted);
       text-transform: uppercase;
@@ -416,55 +519,74 @@
     .progress-count {
       font-size: 0.95rem;
       font-weight: 800;
-      color: var(--accent-color);
+      color: var(--text-main);
     }
 
     .progress-track {
       width: 100%;
-      height: 8px;
+      height: 12px;
       background: var(--input-bg);
-      border-radius: 4px;
+      border-radius: 6px;
+      border: 1.5px solid var(--card-border);
       overflow: hidden;
     }
 
     .progress-fill {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, var(--accent-color), var(--green-color));
+      background: var(--green-brand);
       border-radius: 4px;
       transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Empty lists visual state container */
+    /* Miyama Cute Mascot Empty States */
     .empty-state {
       text-align: center;
-      padding: 40px 20px;
+      padding: 48px 24px;
       color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .empty-icon {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
+    .empty-mascot-blob {
+      width: 70px;
+      height: 65px;
+      background-color: var(--yellow-brand);
+      border-radius: 60% 40% 50% 50% / 40% 50% 50% 60%;
+      border: 1.5px solid var(--card-border);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 0px rgba(17, 17, 17, 0.05);
+    }
+
+    .empty-mascot-blob::after {
+      content: '● ●';
+      font-size: 10px;
+      color: #111111;
+      letter-spacing: 1px;
     }
 
     .empty-text {
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    /* Floating Navigation Panel (pitch black, icons only) */
+    /* Floating Navigation Panel (Active Screen Icon inside Yellow Circle 🟡) */
     .floating-nav {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #000000;
-      border-radius: 30px;
-      padding: 8px;
+      background-color: #111111;
+      border-radius: 32px;
+      padding: 10px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+      gap: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
       z-index: 999;
       width: auto;
       max-width: 90vw;
@@ -473,52 +595,53 @@
     .nav-btn {
       width: 52px;
       height: 52px;
-      border-radius: 24px;
+      border-radius: 50%; /* Circle Layout */
       border: none;
       background: transparent;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.2s, transform 0.2s;
+      transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s;
     }
 
     .nav-btn svg {
       width: 22px;
       height: 22px;
       fill: none;
-      stroke: #8e8e93;
+      stroke: #8E8984;
       stroke-width: 2.2;
       stroke-linecap: round;
       stroke-linejoin: round;
-      transition: stroke 0.2s, transform 0.2s;
+      transition: stroke 0.3s, transform 0.2s;
     }
 
+    /* Active SVG embedded inside yellow circle */
     .nav-btn.active {
-      background-color: #222222;
+      background-color: var(--yellow-brand) !important;
     }
 
     .nav-btn.active svg {
-      stroke: #ffffff;
-      transform: scale(1.05);
+      stroke: #111111 !important; /* Perfect visibility stroke */
+      transform: scale(1.1);
     }
 
     .nav-btn:active {
       transform: scale(0.9);
     }
 
-    /* Stats Dashboard configuration styles */
+    /* Stats Dashboard layout */
     .stats-card-group {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
+      gap: 16px;
       margin-bottom: 24px;
     }
 
     .stat-dashboard-card {
       background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 24px;
       padding: 20px;
       box-shadow: var(--shadow);
     }
@@ -527,23 +650,24 @@
       font-size: 0.75rem;
       color: var(--text-muted);
       text-transform: uppercase;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.05em;
     }
 
     .stat-val {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 800;
       letter-spacing: -0.03em;
       margin-top: 4px;
     }
 
+    /* Weekly Bar Chart UI */
     .bar-chart-container {
-      margin-top: 16px;
+      margin-top: 20px;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      height: 120px;
+      height: 130px;
       padding: 0 4px;
     }
 
@@ -556,88 +680,84 @@
     }
 
     .chart-bar-pillar {
-      width: 20px;
-      border-radius: 6px;
-      background-color: var(--accent-color);
+      width: 24px;
+      border-radius: 8px 8px 0 0;
+      background-color: var(--blue-brand);
+      border: 1.5px solid var(--card-border);
       min-height: 4px;
-      transition: height 1s ease-out;
+      transition: height 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .chart-day-lbl {
       font-size: 0.7rem;
       color: var(--text-muted);
-      font-weight: 700;
+      font-weight: 800;
     }
 
     /* Preferences configuration elements */
     .setting-section {
       background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 20px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 26px;
+      padding: 24px;
       box-shadow: var(--shadow);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .setting-section-title {
       font-size: 1.1rem;
       font-weight: 800;
       margin-bottom: 16px;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
     }
 
     .options-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
+      gap: 10px;
     }
 
     .selector-option {
-      background: var(--input-bg);
-      border: 1px solid var(--input-border);
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
       color: var(--text-main);
       padding: 12px;
-      border-radius: 12px;
+      border-radius: 14px;
       text-align: center;
       cursor: pointer;
       font-size: 0.85rem;
-      font-weight: 700;
-      transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+      font-weight: 800;
+      transition: all 0.2s ease;
+      box-shadow: 0 3px 0px rgba(17, 17, 17, 0.08);
     }
 
     .selector-option.active {
-      background-color: var(--accent-color);
-      border-color: var(--accent-color);
-      color: #ffffff;
+      background-color: var(--yellow-brand);
+      color: #111111;
+      box-shadow: none;
+      transform: translateY(2px);
     }
 
     select {
       width: 100%;
-      background: var(--input-bg);
-      border: 1px solid var(--input-border);
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
       color: var(--text-main);
-      padding: 12px;
-      border-radius: 12px;
-      font-family: inherit;
+      padding: 12px 16px;
+      border-radius: 14px;
       outline: none;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: 800;
       appearance: none;
-    }
-
-    .icon-list-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 8px;
+      box-shadow: 0 3px 0px rgba(17, 17, 17, 0.08);
     }
 
     /* Historical list cards styling */
     .history-card {
       background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 18px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 22px;
+      padding: 18px 22px;
       box-shadow: var(--shadow);
       margin-bottom: 12px;
       display: flex;
@@ -654,7 +774,7 @@
     .history-date {
       font-weight: 800;
       font-size: 1.1rem;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
     }
 
     .history-meta {
@@ -691,9 +811,9 @@
     .splash-logo {
       width: 80px;
       height: 80px;
-      border-radius: 20px;
-      background-color: #000000;
-      color: #ffffff;
+      border-radius: 24px;
+      background-color: var(--accent-color);
+      color: #111111;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -765,22 +885,22 @@
       color: var(--text-muted);
     }
 
-    /* Standard iOS terms footer configuration */
+    /* Standard terms footer */
     .terms-block {
       text-align: center;
       padding: 24px 0;
-      border-top: 1px solid var(--card-border);
-      margin-top: 24px;
+      border-top: 1.5px solid var(--card-border);
+      margin-top: 28px;
       color: var(--text-muted);
       font-size: 0.75rem;
       line-height: 1.5;
     }
 
-    /* Premium Custom iOS Style Alert Modal Overlay configuration */
+    /* Premium Alert Modal Overlay */
     .premium-dialog-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(17, 17, 17, 0.45);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 10001;
@@ -799,9 +919,9 @@
 
     .premium-dialog {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 24px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 28px;
+      padding: 28px;
       width: 90%;
       max-width: 380px;
       box-shadow: var(--shadow);
@@ -818,18 +938,18 @@
       font-size: 1.2rem;
       font-weight: 800;
       margin-bottom: 8px;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
     }
 
     .dialog-input {
       width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid var(--input-border);
+      padding: 14px;
+      border-radius: 14px;
+      border: 1.5px solid var(--input-border);
       background: var(--input-bg);
       color: var(--text-main);
       margin: 16px 0;
-      font-weight: 600;
+      font-weight: 700;
       outline: none;
     }
 
@@ -840,25 +960,29 @@
 
     .dialog-btn {
       flex: 1;
-      padding: 12px;
-      border-radius: 12px;
-      border: none;
-      font-weight: 700;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1.5px solid var(--card-border);
+      font-weight: 800;
       cursor: pointer;
       transition: background-color 0.2s;
     }
 
     .dialog-btn.cancel {
-      background: var(--input-bg);
+      background: var(--card-bg);
       color: var(--text-main);
     }
 
     .dialog-btn.confirm {
       background: var(--accent-color);
+      color: #111111;
+    }
+
+    [data-theme="light"] .dialog-btn.confirm {
       color: #ffffff;
     }
 
-    /* Interactive Premium Finish Floating Banner configuration */
+    /* Finished Floating Banner (Pill Layout with Highlight) */
     .finish-button-wrap {
       position: fixed;
       bottom: 100px;
@@ -880,32 +1004,31 @@
 
     .btn-finish-premium {
       width: 100%;
-      background: linear-gradient(135deg, var(--green-color), #28a745);
-      color: #ffffff;
-      border: none;
+      background: var(--green-brand);
+      color: #111111;
+      border: 1.5px solid var(--card-border);
       border-radius: 20px;
-      padding: 16px;
+      padding: 18px;
       font-weight: 800;
       font-size: 1rem;
-      letter-spacing: -0.01em;
-      box-shadow: 0 10px 30px rgba(52, 199, 89, 0.3);
+      box-shadow: var(--shadow);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.2s;
     }
 
     .btn-finish-premium:active {
       transform: scale(0.97);
     }
 
-    /* Transitions & Ripple Overlays */
+    /* Page Transitions & Ripple Overlays */
     .slide-transition-overlay {
       position: fixed;
       inset: 0;
-      background: var(--accent-color);
+      background: var(--pink-brand);
       z-index: 99999;
       transform: translateX(-100%);
       pointer-events: none;
@@ -955,195 +1078,6 @@
         transform: translate(-50%, -50%) scale(var(--ripple-target-scale, 1));
       }
     }
-
-    /* 11 Icon Picker Toggles styles configuration exactly adapted from Game Hub [1] */
-    .toggle-wrapper {
-      display: none;
-      user-select: none;
-    }
-
-    .toggle-wrapper.active {
-      display: block;
-    }
-
-    /* 1. Morphing */
-    .morph-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px;
-    }
-
-    .morph-btn svg {
-      width: 44px;
-      height: 44px;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .morph-btn .sun-beams {
-      transform-origin: center;
-      transition: transform 0.5s ease, opacity 0.5s ease;
-    }
-
-    .morph-btn .sun-center { transition: r 0.5s ease; }
-    .morph-btn .mask-circle { transition: cx 0.5s ease, cy 0.5s ease; }
-
-    [data-theme="dark"] .morph-btn svg { transform: rotate(40deg); }
-    [data-theme="dark"] .morph-btn .sun-beams { transform: scale(0.3) rotate(45deg); opacity: 0; }
-    [data-theme="dark"] .morph-btn .sun-center { r: 9px; }
-    [data-theme="dark"] .morph-btn .mask-circle { cx: 17px; cy: 7px; }
-
-    /* 2. Sliding Sky Pill */
-    .sky-pill {
-      width: 80px;
-      height: 40px;
-      border-radius: 20px;
-      background: linear-gradient(to right, #38bdf8, #bae6fd);
-      position: relative;
-      cursor: pointer;
-      overflow: hidden;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-      transition: background 0.5s;
-    }
-
-    [data-theme="dark"] .sky-pill { background: linear-gradient(to right, #0f172a, #1e1b4b); }
-
-    .sky-knob {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #fef08a;
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.4s;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    [data-theme="dark"] .sky-knob { transform: translateX(40px); background: #e2e8f0; }
-
-    .sky-clouds {
-      position: absolute;
-      bottom: -4px;
-      left: 8px;
-      width: 36px;
-      height: 20px;
-      background: rgba(255,255,255,0.8);
-      border-radius: 10px;
-      transition: transform 0.5s, opacity 0.4s;
-    }
-
-    [data-theme="dark"] .sky-clouds { transform: translateY(24px); opacity: 0; }
-
-    .sky-stars {
-      position: absolute;
-      top: 6px;
-      right: 12px;
-      font-size: 8px;
-      color: #fff;
-      display: flex;
-      gap: 3px;
-      opacity: 0;
-      transform: translateY(-16px);
-      transition: transform 0.5s, opacity 0.4s;
-    }
-
-    [data-theme="dark"] .sky-stars { transform: translateY(0); opacity: 1; }
-
-    /* 3. Hanging Chain */
-    .hanging-bulb { position: relative; width: 60px; height: 100px; cursor: pointer; }
-    .bulb-socket { width: 16px; height: 12px; background: #64748b; margin: 0 auto; border-radius: 2px 2px 0 0; }
-    .bulb-glass {
-      width: 34px; height: 34px; border-radius: 50%; background: #cbd5e1; margin: 0 auto;
-      border: 3px solid #64748b; position: relative; transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
-    }
-    .bulb-glass::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); width: 10px; height: 6px; background: #64748b; }
-    [data-theme="dark"] .bulb-glass { background: #fef08a; border-color: #f59e0b; box-shadow: 0 0 20px rgba(254, 240, 138, 0.8); }
-    .pull-cord { width: 2px; height: 35px; background: #475569; position: absolute; top: 12px; right: 12px; transition: height 0.15s ease-out; }
-    .pull-cord::after { content: ''; position: absolute; bottom: -6px; left: -3px; width: 8px; height: 8px; background: #475569; border-radius: 50%; }
-    .hanging-bulb:active .pull-cord { height: 48px; }
-
-    /* 4. 3D Flip */
-    .flip-container { width: 50px; height: 50px; perspective: 1000px; cursor: pointer; }
-    .flip-card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-    [data-theme="dark"] .flip-card-inner { transform: rotateY(180deg); }
-    .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--card-border); box-shadow: var(--shadow); }
-    .flip-front { background-color: #fffde7; }
-    .flip-back { background-color: #1e1b4b; transform: rotateY(180deg); }
-    .flip-front svg { color: #f59e0b; }
-    .flip-back svg { color: #e2e8f0; }
-
-    /* 5. Solar Eclipse */
-    .eclipse-wrapper { width: 50px; height: 50px; position: relative; cursor: pointer; border-radius: 50%; overflow: hidden; background: #1e293b; border: 2px solid var(--card-border); transition: background-color 0.4s; }
-    [data-theme="dark"] .eclipse-wrapper { background: #020617; }
-    .eclipse-sun { position: absolute; top: 8px; left: 8px; width: 30px; height: 30px; border-radius: 50%; background: #f97316; box-shadow: 0 0 8px #f97316; transition: background-color 0.4s, box-shadow 0.4s; }
-    [data-theme="dark"] .eclipse-sun { background: #f8fafc; box-shadow: 0 0 16px rgba(255, 255, 255, 0.9); }
-    .eclipse-moon-shadow { position: absolute; top: 8px; left: -32px; width: 30px; height: 30px; border-radius: 50%; background: #020617; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-    [data-theme="dark"] .eclipse-moon-shadow { transform: translateX(38px); }
-
-    /* 6. Sleepy Eye */
-    .eye-btn { background: none; border: none; cursor: pointer; color: var(--text-main); }
-    .eye-btn svg { width: 44px; height: 44px; stroke: currentColor; stroke-width: 2; fill: none; }
-    .eye-open-elements, .eye-closed-elements { transition: opacity 0.4s, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform-origin: center; }
-    .eye-closed-elements { opacity: 0; transform: scale(0.6); }
-    [data-theme="dark"] .eye-open-elements { opacity: 0; transform: scale(0.6); }
-    [data-theme="dark"] .eye-closed-elements { opacity: 1; transform: scale(1); }
-
-    /* 7. Moon Shadow */
-    .shadow-btn { width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; border: 2px solid var(--text-main); position: relative; }
-    .shadow-core { width: 24px; height: 24px; border-radius: 50%; background-color: var(--text-main); position: relative; transition: transform 0.5s ease; }
-    .shadow-mask { position: absolute; top: 0; right: -24px; width: 24px; height: 24px; border-radius: 50%; background-color: var(--bg-color); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s; }
-    [data-theme="dark"] .shadow-core { transform: rotate(-25deg); }
-    [data-theme="dark"] .shadow-mask { transform: translate(-17px, 1.5px) scale(0.95); }
-
-    /* 8. Astrolabe */
-    .astro-container { width: 52px; height: 52px; border-radius: 50%; border: 1.5px dashed var(--accent-color); position: relative; cursor: pointer; transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .astro-sun, .astro-moon { position: absolute; left: 50%; transform: translate(-50%, -50%); }
-    .astro-sun { top: 10px; color: #fbbf24; }
-    .astro-moon { bottom: -6px; color: #cbd5e1; }
-    .astro-axis { position: absolute; top: 50%; left: 50%; width: 1.5px; height: 28px; background: var(--text-muted); transform: translate(-50%, -50%); }
-    .astro-pivot { position: absolute; top: 50%; left: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); transform: translate(-50%, -50%); }
-    [data-theme="dark"] .astro-container { transform: rotate(180deg); }
-
-    /* 9. Mountain Ridge */
-    .landscape-container { width: 70px; height: 40px; border-radius: 20px; cursor: pointer; overflow: hidden; border: 1.5px solid var(--card-border); box-shadow: var(--shadow); position: relative; }
-    .landscape-sky { width: 100%; height: 100%; background: linear-gradient(to bottom, #7dd3fc, #e0f2fe); transition: background 0.4s; }
-    [data-theme="dark"] .landscape-sky { background: linear-gradient(to bottom, #030712, #1e1b4b); }
-    .landscape-stars { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s; }
-    [data-theme="dark"] .landscape-stars { opacity: 1; }
-    .landscape-sun { position: absolute; left: 14px; bottom: 8px; width: 14px; height: 14px; background: #f97316; border-radius: 50%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s; }
-    [data-theme="dark"] .landscape-sun { transform: translateY(24px); opacity: 0; }
-    .landscape-moon { position: absolute; right: 14px; bottom: -24px; width: 14px; height: 14px; border-radius: 50%; background: #e2e8f0; box-shadow: -2px 2px 0 #cbd5e1 inset; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-    [data-theme="dark"] .landscape-moon { transform: translateY(-32px); }
-    .landscape-mountains { position: absolute; bottom: -1px; width: 100%; height: 16px; fill: #8d6e63; transition: fill 0.4s; }
-    [data-theme="dark"] .landscape-mountains { fill: #374151; }
-
-    /* 10. Cyberpunk */
-    .cyber-toggle { background: #090d16; border: 1.5px solid #10b981; border-radius: 6px; padding: 4px 8px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.65rem; }
-    .cyber-lbl { transition: color 0.3s; }
-    .cyber-lbl.day { color: #10b981; }
-    .cyber-lbl.night { color: #1f2937; }
-    .cyber-slot { width: 26px; height: 14px; background: #111827; border-radius: 7px; position: relative; }
-    .cyber-bead { position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border-radius: 50%; background: #10b981; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s; }
-    [data-theme="dark"] .cyber-toggle { border-color: #ec4899; }
-    [data-theme="dark"] .cyber-lbl.day { color: #1f2937; }
-    [data-theme="dark"] .cyber-lbl.night { color: #ec4899; }
-    [data-theme="dark"] .cyber-bead { transform: translateX(12px); background: #ec4899; }
-
-    /* 11. Hourglass */
-    .hourglass-btn { background: none; border: none; cursor: pointer; color: var(--text-main); display: flex; align-items: center; justify-content: center; }
-    .hourglass-btn svg { width: 40px; height: 40px; stroke: currentColor; stroke-width: 2; fill: none; transition: transform 0.8s cubic-bezier(0.68, -0.6, 0.34, 1.6); transform-origin: center; }
-    .hourglass-sand-top, .hourglass-sand-bottom { transition: transform 0.8s, opacity 0.4s; transform-origin: center; }
-    [data-theme="dark"] .hourglass-btn svg { transform: rotate(180deg); }
   </style>
 </head>
 <body class="transition-fade">
@@ -1176,30 +1110,38 @@
          ========================================================== -->
     <section class="app-screen active" id="tab-home">
       <header class="header-bar">
-        <div class="header-title-section">
-          <span class="header-sub">Interactive Grocery</span>
-          <h1 class="header-main-title">ANSHULIST</h1>
+        <div class="header-brand-wrap">
+          <div class="brand-logo-blob"></div>
+          <div class="header-title-section">
+            <span class="header-sub">Miyama Designed Grocery</span>
+            <h1 class="header-main-title">ANSHULIST</h1>
+          </div>
         </div>
-        <!-- Dynamic Toggle Host inside home tab -->
-        <div class="toggle-header-host" id="homeToggleHost"></div>
+        <!-- Theme Toggle - Statically Embedded Eclipse System -->
+        <div class="toggle-header-host" id="homeToggleHost">
+          <div class="eclipse-wrapper" id="eclipseToggleBtn" aria-label="Toggle Theme">
+            <div class="eclipse-sun"></div>
+            <div class="eclipse-moon-shadow"></div>
+          </div>
+        </div>
       </header>
 
-      <!-- Main Input Bento Box Grid component (Curved Visual Upgrade) -->
+      <!-- Main Input Bento Box Grid component -->
       <div class="bento-grid">
         <div class="bento-item bento-size-full" style="gap: 12px;">
           <div class="input-row">
-            <input type="text" id="groceryInput" class="custom-input" placeholder="e.g. Tomatoes or Milk..." autocomplete="off">
+            <input type="text" id="groceryInput" class="custom-input" placeholder="Tomatoes or Milk..." autocomplete="off">
             <button id="addGroceryBtn" class="accent-btn" aria-label="Add Item">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              ADD
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
             </button>
           </div>
           
-          <!-- Category Segmented Slide Controller Slider -->
+          <!-- Category Segmented Control -->
           <div class="segmented-control">
-            <div class="segment-slider" id="segmentSlider"></div>
             <button class="segment-btn active" data-category="vegetable">Vegetable 🌱</button>
             <button class="segment-btn" data-category="general">General 📦</button>
           </div>
@@ -1211,7 +1153,7 @@
         <!-- Vegetables Lists Sector -->
         <div class="category-section" id="vegetableSection">
           <h3 class="category-header">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--green-color);">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--green-brand);">
               <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
               <path d="M12 6v12M6 12h12"></path>
             </svg>
@@ -1223,7 +1165,7 @@
         <!-- General Lists Sector -->
         <div class="category-section" id="generalSection">
           <h3 class="category-header">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--orange-color);">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--yellow-brand);">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
               <line x1="9" y1="3" x2="9" y2="21"></line>
             </svg>
@@ -1245,14 +1187,14 @@
 
         <!-- Empty Lists visual container placeholder -->
         <div class="empty-state hidden" id="emptyListState">
-          <div class="empty-icon">🛒</div>
+          <div class="empty-mascot-blob"></div>
           <div class="empty-text">Your list is completely clear. Ready to shop!</div>
         </div>
       </div>
 
       <footer class="terms-block">
-        By utilizing AnshuList, you agree to our structural <a href="#terms">Terms of Service</a> & <a href="#privacy">Privacy Principles</a>.<br>
-        © 2026 AnshuList. Crafted with Premium aesthetics.
+        By utilizing AnshuList, you agree to our structural <a href="#terms" style="color: inherit; font-weight: 700;">Terms of Service</a> & <a href="#privacy" style="color: inherit; font-weight: 700;">Privacy Principles</a>.<br>
+        © 2026 AnshuList. Crafted with Miyama Brand aesthetics.
       </footer>
     </section>
 
@@ -1261,16 +1203,19 @@
          ========================================================== -->
     <section class="app-screen" id="tab-history">
       <header class="header-bar">
-        <div class="header-title-section">
-          <span class="header-sub">Historical Data</span>
-          <h1 class="header-main-title">HISTORY</h1>
+        <div class="header-brand-wrap">
+          <div class="brand-logo-blob" style="background-color: var(--yellow-brand);"></div>
+          <div class="header-title-section">
+            <span class="header-sub">Historical Data</span>
+            <h1 class="header-main-title">HISTORY</h1>
+          </div>
         </div>
       </header>
 
       <div class="items-container" id="historyListContainer"></div>
 
       <div class="empty-state hidden" id="historyEmptyState">
-        <div class="empty-icon">🕒</div>
+        <div class="empty-mascot-blob" style="background-color: var(--pink-brand);"></div>
         <div class="empty-text">No previous lists stored. Complete a list to track logs here.</div>
       </div>
     </section>
@@ -1280,9 +1225,12 @@
          ========================================================== -->
     <section class="app-screen" id="tab-stats">
       <header class="header-bar">
-        <div class="header-title-section">
-          <span class="header-sub">Metrics Overview</span>
-          <h1 class="header-main-title">STATISTICS</h1>
+        <div class="header-brand-wrap">
+          <div class="brand-logo-blob" style="background-color: var(--blue-brand);"></div>
+          <div class="header-title-section">
+            <span class="header-sub">Metrics Overview</span>
+            <h1 class="header-main-title">STATISTICS</h1>
+          </div>
         </div>
       </header>
 
@@ -1310,11 +1258,32 @@
          ========================================================== -->
     <section class="app-screen" id="tab-settings">
       <header class="header-bar">
-        <div class="header-title-section">
-          <span class="header-sub">Tailor Visuals</span>
-          <h1 class="header-main-title">PREFERENCES</h1>
+        <div class="header-brand-wrap">
+          <div class="brand-logo-blob" style="background-color: var(--green-brand);"></div>
+          <div class="header-title-section">
+            <span class="header-sub">Tailor Visuals</span>
+            <h1 class="header-main-title">PREFERENCES</h1>
+          </div>
         </div>
       </header>
+
+      <!-- Fully Functional Fonts Selector Panel (10+ Loaded Styles) -->
+      <div class="setting-section">
+        <h3 class="setting-section-title">Font Face Family</h3>
+        <select id="fontFamilySelector">
+          <option value="'M PLUS Rounded 1c', 'Quicksand', sans-serif">M PLUS Rounded (Brand Default)</option>
+          <option value="'Quicksand', sans-serif">Quicksand (Geometric Soft)</option>
+          <option value="'Fredoka', sans-serif">Fredoka (Bubble/Rounded)</option>
+          <option value="'DynaPuff', sans-serif">DynaPuff (Comic Bold)</option>
+          <option value="'Outfit', sans-serif">Outfit (Sleek Modern)</option>
+          <option value="'Plus Jakarta Sans', sans-serif">Plus Jakarta Sans (Corporate Elegant)</option>
+          <option value="'Playpen Sans', cursive">Playpen Sans (Organic Handwritten)</option>
+          <option value="'Pacifico', cursive">Pacifico (Retro Classic Cursive)</option>
+          <option value="'JetBrains Mono', monospace">JetBrains Mono (Tech Code Style)</option>
+          <option value="'Playfair Display', serif">Playfair Display (Classy Serif Editorial)</option>
+          <option value="'Lexend', sans-serif">Lexend (Fluent High Readability)</option>
+        </select>
+      </div>
 
       <div class="setting-section">
         <h3 class="setting-section-title">Font Size Control</h3>
@@ -1323,23 +1292,6 @@
           <div class="selector-option" data-font="medium">Medium</div>
           <div class="selector-option" data-font="large">Large</div>
           <div class="selector-option" data-font="huge">Huge</div>
-        </div>
-      </div>
-
-      <div class="setting-section">
-        <h3 class="setting-section-title">Theme Icon Picker</h3>
-        <div class="icon-list-grid" id="toggleStyleGrid">
-          <div class="selector-option" data-style-id="1">1. Morphing</div>
-          <div class="selector-option" data-style-id="2">2. Sky Pill</div>
-          <div class="selector-option" data-style-id="3">3. Pull Chain</div>
-          <div class="selector-option" data-style-id="4">4. 3D Flip</div>
-          <div class="selector-option" data-style-id="5">5. Eclipse</div>
-          <div class="selector-option" data-style-id="6">6. Sleepy Eye</div>
-          <div class="selector-option" data-style-id="7">7. Moon Shadow</div>
-          <div class="selector-option" data-style-id="8">8. Astrolabe</div>
-          <div class="selector-option" data-style-id="9">9. Mountain</div>
-          <div class="selector-option" data-style-id="10">10. Cyberpunk</div>
-          <div class="selector-option" data-style-id="11">11. Hourglass</div>
         </div>
       </div>
 
@@ -1368,9 +1320,9 @@
 
       <div class="setting-section">
         <h3 class="setting-section-title">Data Actions</h3>
-        <div style="display: flex; gap: 8px; flex-direction: column;">
-          <button class="selector-option" id="clearAllHistoryBtn" style="border: 1px solid var(--red-color); color: var(--red-color); padding: 14px;">Clear List Logs History</button>
-          <button class="selector-option" id="factoryResetBtn" style="background-color: var(--red-color); border: 1px solid var(--red-color); color: white; padding: 14px;">Full Engine Reset</button>
+        <div style="display: flex; gap: 10px; flex-direction: column;">
+          <button class="selector-option" id="clearAllHistoryBtn" style="border: 1.5px solid var(--red-color); color: var(--red-color); padding: 14px;">Clear List Logs History</button>
+          <button class="selector-option" id="factoryResetBtn" style="background-color: var(--red-color); border: 1.5px solid var(--red-color); color: white; padding: 14px;">Full Engine Reset</button>
         </div>
       </div>
     </section>
@@ -1388,7 +1340,7 @@
     </button>
   </div>
 
-  <!-- FLOATING NAVIGATION PANEL (BLACK BG / NO TEXT / SVGS ONLY) -->
+  <!-- FLOATING NAVIGATION PANEL (BLACK BG / NO TEXT / SVGS ONLY - Yellow 🟡 Circle Focus Active Indicator) -->
   <nav class="floating-nav">
     <button class="nav-btn active" data-target="tab-home" aria-label="Shopping List">
       <svg viewBox="0 0 24 24">
@@ -1416,167 +1368,12 @@
     </button>
   </nav>
 
-  <!-- DYNAMIC THEME TOGGLE TEMPLATES SOURCE -->
-  <div style="display: none;" id="themeToggleSource">
-    
-    <!-- Style 1 -->
-    <div class="toggle-wrapper" data-style="1">
-      <button class="morph-btn" aria-label="Toggle Theme">
-        <svg viewBox="0 0 24 24">
-          <mask id="moon-mask">
-            <rect x="0" y="0" width="24" height="24" fill="white" />
-            <circle cx="24" cy="0" r="8" fill="black" class="mask-circle" />
-          </mask>
-          <circle cx="12" cy="12" r="5" fill="currentColor" mask="url(#moon-mask)" class="sun-center" />
-          <g class="sun-beams">
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </g>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Style 2 -->
-    <div class="toggle-wrapper" data-style="2">
-      <div class="sky-pill">
-        <div class="sky-clouds"></div>
-        <div class="sky-stars">
-          <span>✦</span><span>★</span><span>✦</span>
-        </div>
-        <div class="sky-knob"></div>
-      </div>
-    </div>
-
-    <!-- Style 3 -->
-    <div class="toggle-wrapper" data-style="3">
-      <div class="hanging-bulb">
-        <div class="bulb-socket"></div>
-        <div class="bulb-glass"></div>
-        <div class="pull-cord"></div>
-      </div>
-    </div>
-
-    <!-- Style 4 -->
-    <div class="toggle-wrapper" data-style="4">
-      <div class="flip-container">
-        <div class="flip-card-inner">
-          <div class="flip-front">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-          </div>
-          <div class="flip-back">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Style 5 -->
-    <div class="toggle-wrapper" data-style="5">
-      <div class="eclipse-wrapper">
-        <div class="eclipse-sun"></div>
-        <div class="eclipse-moon-shadow"></div>
-      </div>
-    </div>
-
-    <!-- Style 6 -->
-    <div class="toggle-wrapper" data-style="6">
-      <button class="eye-btn" aria-label="Toggle Theme">
-        <svg viewBox="0 0 24 24">
-          <g class="eye-open-elements">
-            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-            <circle cx="12" cy="12" r="3" fill="currentColor" />
-          </g>
-          <g class="eye-closed-elements">
-            <path d="M2 10c2.5 4 7.5 4 10 0" />
-            <line x1="3" y1="13" x2="1" y2="16" />
-            <line x1="21" y1="13" x2="23" y2="16" />
-            <line x1="7" y1="14" x2="6" y2="18" />
-            <line x1="17" y1="14" x2="18" y2="18" />
-            <line x1="12" y1="14" x2="12" y2="19" />
-          </g>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Style 7 -->
-    <div class="toggle-wrapper" data-style="7">
-      <div class="shadow-btn">
-        <div class="shadow-core">
-          <div class="shadow-mask"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Style 8 -->
-    <div class="toggle-wrapper" data-style="8">
-      <div class="astro-container">
-        <div class="astro-axis"></div>
-        <div class="astro-pivot"></div>
-        <div class="astro-sun">
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-        </div>
-        <div class="astro-moon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Style 9 -->
-    <div class="toggle-wrapper" data-style="9">
-      <div class="landscape-container">
-        <div class="landscape-sky"></div>
-        <div class="landscape-stars">
-          <span style="position: absolute; color: #fff; font-size: 6px; top: 6px; left: 12px;">★</span>
-          <span style="position: absolute; color: #fff; font-size: 6px; top: 12px; left: 36px;">✦</span>
-          <span style="position: absolute; color: #fff; font-size: 6px; top: 4px; left: 54px;">★</span>
-        </div>
-        <div class="landscape-sun"></div>
-        <div class="landscape-moon"></div>
-        <svg class="landscape-mountains" viewBox="0 0 100 22">
-          <path d="M-10 22 L15 6 L45 18 L75 2 L110 22 Z" />
-        </svg>
-      </div>
-    </div>
-
-    <!-- Style 10 -->
-    <div class="toggle-wrapper" data-style="10">
-      <div class="cyber-toggle">
-        <span class="cyber-lbl day">D</span>
-        <div class="cyber-slot">
-          <div class="cyber-bead"></div>
-        </div>
-        <span class="cyber-lbl night">N</span>
-      </div>
-    </div>
-
-    <!-- Style 11 -->
-    <div class="toggle-wrapper" data-style="11">
-      <button class="hourglass-btn" aria-label="Toggle Theme">
-        <svg viewBox="0 0 24 24">
-          <path d="M5 2h14M5 22h14" />
-          <path d="M19 2v3a7 7 0 0 1-7 7 7 7 0 0 1-7-7V2" />
-          <path d="M5 22v-3a7 7 0 0 1 7-7 7 7 0 0 1 7 7v3" />
-          <polygon points="6,4 18,4 12,11" fill="currentColor" class="hourglass-sand-top" />
-          <polygon points="12,13 7,20 17,20" fill="currentColor" opacity="0.4" class="hourglass-sand-bottom" />
-        </svg>
-      </button>
-    </div>
-
-  </div>
-
   <!-- JAVASCRIPT APPLICATION CORE ENGINE -->
   <script>
     // State Config Space matching user's custom layout preferences [1]
     const appState = {
       theme: localStorage.getItem('gh_theme') || 'light',
       fontSize: localStorage.getItem('gh_fontSize') || 'huge', 
-      activeToggleStyle: parseInt(localStorage.getItem('gh_toggleStyle'), 10) || 9, // Start with Mountain (#9) [1]
       transitionType: localStorage.getItem('gh_transition') || 'ripple', // Start with Ripple Transition [1]
       splashStyle: localStorage.getItem('gh_splash') || '3', // Start with iOS Slide splash (#3) [1]
       activeCategory: 'vegetable',
@@ -1594,9 +1391,7 @@
     const zoomWrapper = document.getElementById('zoomWrapper');
     const transitionSelection = document.getElementById('transitionSelection');
     const splashSelection = document.getElementById('splashSelection');
-    const toggleStyleGrid = document.getElementById('toggleStyleGrid');
     const fontSizeSelector = document.getElementById('fontSizeSelector');
-    const homeToggleHost = document.getElementById('homeToggleHost');
     const globalSplash = document.getElementById('globalSplash');
     const splashZone = document.getElementById('splashZone');
     
@@ -1627,9 +1422,9 @@
     const splashTemplates = {
       '1': `
         <div class="splash-style-minimalist">
-          <div class="splash-logo">AL</div>
+          <div class="splash-logo" style="background-color: var(--pink-brand); border: 1.5px solid var(--card-border);">AL</div>
           <span class="subtext-brand">AnshuList</span>
-          <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">Premium Custom Design</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">Miyama Design Concept</span>
         </div>
       `,
       '2': `
@@ -1640,12 +1435,13 @@
       `,
       '3': `
         <div class="splash-style-ios">
-          <div style="text-align: center; margin-top: 100px;">
-            <h1 style="font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em;">ANSHULIST</h1>
-            <span class="subtext-brand" style="color: var(--accent-color);">Premium Native iOS Style</span>
+          <div style="text-align: center; margin-top: 100px; display: flex; flex-direction: column; align-items: center;">
+            <div class="brand-logo-blob" style="width: 80px; height: 80px; background-color: var(--yellow-brand); margin-bottom: 20px;"></div>
+            <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em;">ANSHULIST</h1>
+            <span class="subtext-brand" style="color: var(--text-muted);">Premium Miyama aesthetic</span>
           </div>
           <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 80px;">
-            <div class="ios-progress-bar">
+            <div class="ios-progress-bar" style="border: 1.5px solid var(--card-border);">
               <div class="ios-progress-fill"></div>
             </div>
             <span style="font-size: 0.75rem; color: var(--text-muted);">Loaded securely via PWA sandbox</span>
@@ -1718,27 +1514,6 @@
       localStorage.setItem('gh_theme', targetTheme);
     }
 
-    // Render interactive theme toggle components [1]
-    function renderActiveToggle() {
-      const sourceWrap = document.querySelector(`#themeToggleSource .toggle-wrapper[data-style="${appState.activeToggleStyle}"]`);
-      if (sourceWrap) {
-        homeToggleHost.innerHTML = sourceWrap.outerHTML;
-        const activeWrapper = homeToggleHost.querySelector('.toggle-wrapper');
-        if (activeWrapper) {
-          activeWrapper.classList.add('active');
-          activeWrapper.addEventListener('click', (e) => executeToggleSequence(e));
-        }
-      }
-
-      document.querySelectorAll('#toggleStyleGrid .selector-option').forEach(opt => {
-        if (parseInt(opt.getAttribute('data-style-id'), 10) === appState.activeToggleStyle) {
-          opt.classList.add('active');
-        } else {
-          opt.classList.remove('active');
-        }
-      });
-    }
-
     // Handle interactive transitions [1]
     function executeToggleSequence(clickEvent) {
       const nextTheme = appState.theme === 'light' ? 'dark' : 'light';
@@ -1781,7 +1556,7 @@
         rip.style.left = `${x}px`;
         rip.style.top = `${y}px`;
         
-        const fillThemeColor = nextTheme === 'dark' ? '#000000' : '#f2f2f7';
+        const fillThemeColor = nextTheme === 'dark' ? '#0E0D0C' : '#F7F3EF';
         rip.style.setProperty('--ripple-bg', fillThemeColor);
 
         const maxHoriz = Math.max(x, window.innerWidth - x);
@@ -1839,7 +1614,7 @@
       checkCompleteShoppingStatus();
     }
 
-    // Calculate dynamic counts and show shopping progress [New Bottom Section]
+    // Calculate dynamic counts and show shopping progress
     function checkCompleteShoppingStatus() {
       const vItems = appState.currentList.vegetable;
       const gItems = appState.currentList.general;
@@ -2038,7 +1813,7 @@
           </div>
         `;
 
-        // Restore list log triggers (UPGRADED: Restores along with active check/tick marks)
+        // Restore list log triggers
         card.querySelector('.reload').addEventListener('click', async () => {
           const confirmReload = await triggerCustomDialog('Restore lists to dynamic view? (Overwrites Active) - Type YES', 'YES');
           if (confirmReload && confirmReload.toUpperCase() === 'YES') {
@@ -2112,15 +1887,13 @@
         });
       });
 
-      // Category Toggle Slider switch
+      // Category Toggle switch
       const segmentBtns = document.querySelectorAll('.segment-btn');
-      const segmentSlider = document.getElementById('segmentSlider');
       segmentBtns.forEach((btn, index) => {
         btn.addEventListener('click', () => {
           segmentBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           appState.activeCategory = btn.getAttribute('data-category');
-          segmentSlider.style.transform = `translateX(${index * 100}%)`;
           groceryInput.focus();
         });
       });
@@ -2144,16 +1917,13 @@
         }
       });
 
-      // Theme toggle selections styles
-      toggleStyleGrid.addEventListener('click', (e) => {
-        const item = e.target.closest('.selector-option');
-        if (item) {
-          const styleId = parseInt(item.getAttribute('data-style-id'), 10);
-          appState.activeToggleStyle = styleId;
-          localStorage.setItem('gh_toggleStyle', styleId);
-          renderActiveToggle();
-        }
-      });
+      // Theme toggle selections styles (Solar Eclipse Directly Configured)
+      const eclipseToggleBtn = document.getElementById('eclipseToggleBtn');
+      if (eclipseToggleBtn) {
+        eclipseToggleBtn.addEventListener('click', (e) => {
+          executeToggleSequence(e);
+        });
+      }
 
       transitionSelection.addEventListener('change', (e) => {
         appState.transitionType = e.target.value;
@@ -2164,6 +1934,16 @@
         appState.splashStyle = e.target.value;
         localStorage.setItem('gh_splash', e.target.value);
       });
+
+      // Font Family selection handler
+      const fontFamilySelector = document.getElementById('fontFamilySelector');
+      if (fontFamilySelector) {
+        fontFamilySelector.addEventListener('change', (e) => {
+          const selectedFont = e.target.value;
+          localStorage.setItem('anshu_fontFamily', selectedFont);
+          document.documentElement.style.setProperty('--font-family-active', selectedFont);
+        });
+      }
 
       // Preferences settings panel triggers
       document.getElementById('clearAllHistoryBtn').addEventListener('click', async () => {
@@ -2193,7 +1973,15 @@
       
       applyFontState();
       applyThemeState(appState.theme);
-      renderActiveToggle();
+
+      // Load and apply persistent customized font family
+      const savedFont = localStorage.getItem('anshu_fontFamily') || "'M PLUS Rounded 1c', 'Quicksand', sans-serif";
+      const fontFamilySelector = document.getElementById('fontFamilySelector');
+      if (fontFamilySelector) {
+        fontFamilySelector.value = savedFont;
+      }
+      document.documentElement.style.setProperty('--font-family-active', savedFont);
+
       renderGroceryLists();
     }
 
